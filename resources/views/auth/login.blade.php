@@ -41,5 +41,10 @@
 @endsection
 
 @section('script')
+<style>
+.login_error{
+  color: tomato;
+}
+</style>
 <script src="{{ asset('js/auth/login.js') }}"></script>
 @endsection
