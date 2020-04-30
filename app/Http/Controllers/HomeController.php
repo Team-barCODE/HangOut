@@ -25,10 +25,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $authUser = Auth::user();
+        $id = $authUser->id;
+
+        switch ($authUser->sex){
+            case 0:
+                $users = User::where('sex', '=', 1)->get();
+                break;
+            case 1:
+                $users = User::where('sex', '=', 0)->get();
+                break;
+            default:
+                // todo
+                $users = User::where('id', '!=', $id)->where('sex', '=', 3)->get();
+        }
 
         $userCount = $users->count();
-        $from_user_id = Auth::id();
+        $from_user_id = $authUser->id;
 
         return view('home', compact('users', 'userCount', 'from_user_id'));
     }
