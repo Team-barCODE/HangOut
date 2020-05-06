@@ -38,6 +38,7 @@ $factory->define(User::class, function (Faker $faker) {
         'self_introduction' => $faker->realText(),
         'img_name' => $faker->randomElement($images),
         // 'age' => $faker->randomElement($age),
+        'birth_date' => $faker->dateTime(),
         'prefecture' => $faker->prefecture,
         'email' => $faker->unique()->email(),
         'password' => bcrypt('111111'),
