@@ -29,7 +29,7 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->name(),
         'sex' => $faker->randomElement($sex),
         'self_introduction' => $faker->realText(),
-        'img_name' => $faker->randomElement($images),
+        'img_name1' => $faker->randomElement($images),
         // 'age' => $faker->randomElement($age),
         'birth_date' => $faker->dateTime(),
         'prefecture' => $faker->prefecture,

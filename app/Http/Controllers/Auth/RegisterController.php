@@ -56,8 +56,12 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'img_name' => ['required','file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:5000'],
-            'self_introduction' => ['string', 'max:255'],
+            'img_name1' => ['required','file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:5000'],
+            'prefecture' => ['required','string', 'max:255'],
+        ],
+        [
+            'img_name1.required' => '自分の写真は必須です。',
+            'prefecture.required' => 'エリアは必須です。',
         ]);
     }
 
@@ -71,7 +75,7 @@ class RegisterController extends Controller
     {
         $imageName = null;
         // 画像があれば保存
-        $image = $data['img_name'];
+        $image = $data['img_name1'];
         if(!is_null($image)) {
             $imageName = FileNameSetServices::fileNameSet($image);
             // dd($imageName);
@@ -82,9 +86,9 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'self_introduction' => $data['self_introduction'],
+            'prefecture' => $data['prefecture'],
             'sex' => $data['sex'],
-            'img_name' => $imageName,
+            'img_name1' => $imageName,
         ]);
     }
 

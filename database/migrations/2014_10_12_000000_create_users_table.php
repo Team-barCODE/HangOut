@@ -22,10 +22,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('self_introduction', 500)->nullable();
             $table->tinyInteger('sex')->default(0);
-            $table->string('img_name')->default('');
+            $table->string('img_name1')->default('');
             $table->string('img_name2')->default('');
             $table->string('img_name3')->default('');
-            $table->timestamp('birth_date');
+            $table->timestamp('birth_date')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
