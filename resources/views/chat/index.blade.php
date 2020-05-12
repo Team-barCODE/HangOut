@@ -14,7 +14,7 @@
       <div class="matchingList">
 				@foreach( $matching_users as $user)
           <div class="matchingPerson">
-          <div class="matchingPerson_img"><img src="/storage/images/{{ $user->img_name}}"></div>
+          <div class="matchingPerson_img"><img src="/storage/images/{{ $user->img_name1}}"></div>
             <div class="matchingPerson_name">{{ $user->name }}</div>
 
             <form method="POST" action="{{ route('chat.show') }}">
