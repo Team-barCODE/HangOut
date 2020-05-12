@@ -14,8 +14,10 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findorFail($id);
-
-        return view('users.show', compact('user'));
+        $data = [
+            "user" => $user,
+        ];
+        return view('users.show', $data);
     }
 
     public function edit($id)
@@ -32,13 +34,13 @@ class UserController extends Controller
 
         $imageName = null;
         // 画像があれば保存
-        $image = $request['img_name'];
+        $image = $request['img_name1'];
         if(!is_null($image)) {
             $imageName = FileNameSetServices::fileNameSet($image);
             // dd($imageName);
             $image->storeAs('public/images/', $imageName);
 
-            $user->img_name = $imageName;
+            $user->img_name1 = $imageName;
         }
 
         $user->name = $request->name;
