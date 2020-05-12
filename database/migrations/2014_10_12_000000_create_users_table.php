@@ -27,6 +27,13 @@ class CreateUsersTable extends Migration
             $table->string('img_name3')->default('');
             $table->timestamp('birth_date')->nullable();
             $table->string('password');
+            $table->tinyInteger('smoke')->default(0);
+            $table->tinyInteger('alcohol')->default(0);
+            $table->float('body_height',4,1)->nullable();
+            $table->tinyInteger('body_figure')->default(1);
+            $table->tinyInteger('education')->nullable();
+            $table->tinyInteger('housemate')->nullable();
+            $table->integer('income')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

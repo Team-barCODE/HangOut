@@ -36,7 +36,16 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->email(),
         'password' => bcrypt('111111'),
         'email_verified_at' => $faker->dateTime(),
+        'body_height' => $faker->randomFloat(1,140.0,200.0),
+        'body_figure' => $faker->numberBetween(0,2),
+        'education' => $faker->numberBetween(0,5),
+        'smoke' => $faker->numberBetween(0,1),
+        'alcohol' => $faker->numberBetween(0,1),
+        'income' => $faker->numberBetween(200,999),
+        'housemate' => $faker->numberBetween(0,1),
         'created_at' => $faker->dateTime(),
         'updated_at' => $faker->dateTime(),
     ];
 });
+
+
