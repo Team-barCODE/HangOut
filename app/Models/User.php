@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,21 +39,21 @@ class User extends Authenticatable
 
     public function toUserId()
     {
-        return $this->hasMany('App\Reaction', 'to_user_id', 'id');
+        return $this->hasMany('App\Models\Reaction', 'to_user_id', 'id');
     }
 
     public function fromUserId()
     {
-        return $this->hasMany('App\Reaction', 'from_user_id', 'id');
+        return $this->hasMany('App\Models\Reaction', 'from_user_id', 'id');
     }
 
     public function chatMessages()
     {
-        return $this->hasMany('App\ChatMessage');
+        return $this->hasMany('App\Models\ChatMessage');
     }
 
     public function chatRoomUsers()
     {
-        return $this->hasMany('App\ChatRoomUsers');
+        return $this->hasMany('App\Models\ChatRoomUsers');
     }
 }

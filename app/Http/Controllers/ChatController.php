@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ChatRoom;
-use App\ChatRoomUser;
-use App\ChatMessage;
-use App\User;
+use App\Models\ChatRoom;
+use App\Models\ChatRoomUser;
+use App\Models\ChatMessage;
+use App\Models\User;
 use App\Events\ChatPusher;
 use Auth;
 
