@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->tinyInteger('smoke')->default(0);
             $table->tinyInteger('alcohol')->default(0);
-            $table->float('body_height',4,1)->nullable();
+            $table->integer('body_height')->nullable();
             $table->tinyInteger('body_figure')->default(1);
             $table->tinyInteger('education')->nullable();
             $table->tinyInteger('housemate')->nullable();
