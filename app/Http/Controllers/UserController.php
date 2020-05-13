@@ -46,12 +46,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->sex = $request->sex;
-        $user->smoke = $request->smoke;
-        $user->alcohol = $request->alcohol;
-        $user->education = $request->education;
-        $user->body_height = $request->body_height;
         $user->self_introduction = $request->self_introduction;
-        $user->income = $request->income;
 
         $user->save();
 
