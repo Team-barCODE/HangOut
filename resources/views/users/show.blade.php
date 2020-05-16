@@ -4,14 +4,6 @@
 
 <div class='usershowPage'>
   <div class='container'>
-    <header class="header">
-      <a href="{{ route('users.index') }}">一覧</a>
-      <p class='header_logo'>
-      <a href="{{ route('home') }}">
-      <img src="/storage/images/techpit-match-icon.png">
-      </a>
-      </p>
-    </header>
     <div class='userInfo'>
       <div class='userInfo_img'>
       <img src="/storage/images/{{$user ->img_name1}}">

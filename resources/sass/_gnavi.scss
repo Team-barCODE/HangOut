@@ -1,3 +1,67 @@
+.m-exhightop{
+  margin-top: 64px;
+}
+
 .header{
- background:royalblue; 
+ -webkit-background-image:linear-gradient(from bottom left, rgb(255,255,255), rgb(0,200,255));
+ background-image:linear-gradient(to top right, rgb(255,255,255), rgb(0,200,255));
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:100;
+//  ハンバーガーメニュー
+ .home_icon{
+   max-height:48px;
+ }
+ .hamburgeranime,
+ .hamburgeranime span {
+   display: inline-block;
+   transition: all .4s;
+   box-sizing: border-box;
+ }
+ .hamburgeranime {
+   position: relative;
+   width: 32px;
+   height: 24px;
+   background-color: transparent;
+   border:0;
+ }
+ .hamburgeranime span {
+   position: absolute;
+   left: 0;
+   width: 100%;
+   height: 4px;
+   background-color: #fafafa;
+   /* border-radius: px; */
+ }
+ .hamburgeranime span.first {
+   top: 0;
+ }
+ .hamburgeranime span.second {
+   top: 10px;
+ }
+ .hamburgeranime span.third {
+   bottom: 0;
+ }
+ .hamburgeranime.active span.first {
+   -webkit-transform: translateY(12px) rotate(-45deg);
+   transform: translateY(12px) rotate(-45deg);
+ }
+ .hamburgeranime.active span.second {
+   opacity: 0;
+ }
+ .hamburgeranime.active span.third {
+   -webkit-transform: translateY(-8px) rotate(45deg);
+   transform: translateY(-8px) rotate(45deg);
+ }
+ .gnavi-contents{
+   .list_none {
+     list-style: none;
+   }
+   display:none;
+   padding:0.5% 2.5%;
+ }
+
+
 }

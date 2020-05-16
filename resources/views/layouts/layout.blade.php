@@ -13,30 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <header class="header">
-        <ul class="list-group-horizontal nav align-items-center">
-            <li class="col-5 mb-2 mt-2 text-center">
-                <a href="/users/show/{{Auth::id()}}">
-                    <i class="fas fa-user fa-2x"></i>
-                </a>
-            </li>
-            <li class="col-2 mb-2 mt-2 text-center">
-                <a class="" href="{{route('home')}}">
-                    <img class="img-fluid" src="/storage/images/techpit-match-icon.png">
-                </a>
-            </li>
-            <li class="col-5 mb-2 mt-2 text-center">
-                <nav>
-                    <button class="hamburgeranime">
-                        <span class="first"></span>
-                        <span class="second"></span>
-                        <span class="third"></span>
-                    </button>
-                </nav>
-            </li>
-        </ul>
-	</header>
+<body class="m-exhightop">
 
     @include('layouts.header')
 

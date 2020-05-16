@@ -46,3 +46,8 @@
   });
 
 
+  $('.hamburgeranime').click(function(){
+    $('.hamburgeranime').toggleClass('active');
+    $('.gnavi-contents').slideToggle();
+  });
+

@@ -2,18 +2,12 @@
 
 @section('content')
 <div class='userListPage'>
-	<nav class="navbar navbar-light w-100 nav-justified px-3"">
-		<a href="/users/show/{{Auth::id()}}"><button type="button" class="btn btn-sm btn-primary">マイページ</button></a>
-		<a href="{{ route('home') }}"><button type="button" class="btn btn-sm btn-primary">スワイプ</button></a>
-		<a href="{{ route('users.index') }}"><button type="button" class="btn btn-sm btn-primary">一覧</button></a>
-		<a href="{{ route('chat.show') }}"><button type="button" class="btn btn-sm btn-primary">チャット</button></a>
-	</nav>
 	<nav class="navbar navbar-light w-100 justify-content-md-center px-3" style="background-color: #fd5068;">
 		<a href="/users/2"><button type="button" class="btn btn-sm btn-outline-warning">イマイチ！一覧</button></a>
 		<a href="/users/"><button type="button" class="btn btn-sm btn-outline-warning mx-2">メンバー一覧</button></a>
 		<a href="/users/1"><button type="button" class="btn btn-sm btn-outline-warning">ライク！一覧</button></a>
 	</nav>
-	<nav class="navbar navbar-light w-100 nav-justified px-3"">
+	<nav class="navbar navbar-light w-100 nav-justified px-3">
 	<button type="button" class="btn btn-outline-primary px-3">条件で探す</button>
 		<form class="form-inline">
 			<input class="form-control mr-sm-2" type="search" placeholder="テキスト検索..." aria-label="テキスト検索...">
