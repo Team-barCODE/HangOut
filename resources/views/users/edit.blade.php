@@ -39,12 +39,16 @@
 			<div class="form-group">
 				<div><label>性別</label></div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="sex" value="0" type="radio" id="inlineRadio1" @if($user->sex === 0) checked @endif>
-					<label class="form-check-label" for="inlineRadio1">男</label>
+					<input class="form-check-input" name="sex" value="0" type="radio" id="inlineRadio0" @if($user->sex === 0) checked @endif>
+					<label class="form-check-label" for="inlineRadio0">男</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="sex" value="1" type="radio" id="inlineRadio2" @if($user->sex === 1) checked @endif>
-					<label class="form-check-label" for="inlineRadio2">女</label>
+					<input class="form-check-input" name="sex" value="1" type="radio" id="inlineRadio1" @if($user->sex === 1) checked @endif>
+					<label class="form-check-label" for="inlineRadio1">女</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="sex" value="2" type="radio" id="inlineRadio2" @if($user->sex === 2) checked @endif>
+					<label class="form-check-label" for="inlineRadio2">LGBT</label>
 				</div>
 			</div>
 

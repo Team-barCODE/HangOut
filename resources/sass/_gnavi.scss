@@ -1,10 +1,14 @@
 .m-exhightop{
   margin-top: 64px;
 }
+@media screen and (min-width:768px){
+  .m-exhightop{
+    margin-top: 120px;
+  }
+}
 
 .header{
- -webkit-background-image:linear-gradient(from bottom left, rgb(255,255,255), rgb(0,200,255));
- background-image:linear-gradient(to top right, rgb(255,255,255), rgb(0,200,255));
+ background-color:#fd5068;
  position:fixed;
  top:0;
  left:0;
@@ -33,7 +37,6 @@
    width: 100%;
    height: 4px;
    background-color: #fafafa;
-   /* border-radius: px; */
  }
  .hamburgeranime span.first {
    top: 0;
@@ -56,12 +59,25 @@
    transform: translateY(-8px) rotate(45deg);
  }
  .gnavi-contents{
-   .list_none {
-     list-style: none;
-   }
-   display:none;
+   display:block;
    padding:0.5% 2.5%;
+  .list_none {
+    list-style: none;
+    a.btn{
+      color:#fd5068;
+    }
+  }
  }
-
-
+ @media screen and (max-width:767px){
+   .gnavi-contents{
+     display:none;
+   }
+ }
+ @media screen and (min-width:768px){
+  .hamburgeranime,
+  .hamburgeranime span {
+    display: none;
+  }
+  
+ }
 }
