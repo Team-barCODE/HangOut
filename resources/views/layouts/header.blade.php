@@ -18,19 +18,22 @@
                     <img class="home_icon" src="/storage/images/techpit-match-icon.png">
                 </a>
         </li>
-        @if((Auth::id() !== null))
 
-        <li class="col-5 mb-2 mt-2 text-center">
-            <nav>
-                <button class="hamburgeranime">
-                    <span class="first"></span>
-                    <span class="second"></span>
-                    <span class="third"></span>
-                </button>
-            </nav>
-        </li>
+        @if((Auth::id() !== null))
+            <li class="col-5 mb-2 mt-2 text-center">
+                <nav>
+                    <button class="hamburgeranime">
+                        <span class="first"></span>
+                        <span class="second"></span>
+                        <span class="third"></span>
+                    </button>
+                </nav>
+            </li>
         @endif
+
     </ul>
+
+    @if((Auth::id() !== null))
     <nav class="gnavi-contents m-0">
         <ul class="row align-items-center justify-content-around p-0 m-0">
             <li class="list_none mt-2 mb-2 col-md-2">
@@ -53,4 +56,6 @@
             </li>
         </ul>
     </nav>
+    @endif
+
 </header>
