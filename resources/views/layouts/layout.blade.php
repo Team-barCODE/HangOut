@@ -13,7 +13,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="m-exhightop">
+
     @include('layouts.header')
 
     @yield('content')
@@ -21,6 +22,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+
+
     @yield('script')
 </body>
 </html>
