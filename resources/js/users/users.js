@@ -50,4 +50,13 @@
     $('.hamburgeranime').toggleClass('active');
     $('.gnavi-contents').slideToggle();
   });
+  $(window).resize(function(){
+    var bodyWidth = $('body').width();
+    if(bodyWidth < 768){
+      $('.gnavi-contents').hide();
+    }else{
+      $('.gnavi-contents').show();
+    }
+
+  });
 
