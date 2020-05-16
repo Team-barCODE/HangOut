@@ -38,6 +38,7 @@
         </ul>
 	</header>
 
+    @include('layouts.header')
 
     @yield('content')
 
