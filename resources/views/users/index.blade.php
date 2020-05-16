@@ -32,6 +32,12 @@
 		@elseif($me->sex == 2)
 		<h4>自分は：LGBT</h4>
 		@endif
+
+		@if($userCount == 0)
+		<h4>
+			メンバーはいません。
+		</h4>
+		@endif
 		<div class="row">
 			@foreach($users as $user)
 				<div class="col-6 col-md-3 text-center mb-2">
