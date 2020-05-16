@@ -16987,6 +16987,11 @@ body {
   width: 100px;
   height: 100px;
   background: #f85a6f;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: solid 1px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
   display: flex;
   cursor: pointer;
   align-items: center;
@@ -17640,5 +17645,67 @@ body {
 .chatPage .messageInputForm_input {
   width: 100%;
   border: none;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.header ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header ul .hamburgeranime,
+.header ul .hamburgeranime span {
+  display: inline-block;
+  transition: all 0.4s;
+  box-sizing: border-box;
+}
+
+.header ul .hamburgeranime {
+  position: relative;
+  width: 44px;
+  height: 38px;
+  background-color: transparent;
+  border: 0;
+}
+
+.header ul .hamburgeranime span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #666666;
+  /* border-radius: px; */
+}
+
+.header ul .hamburgeranime span.first {
+  top: 0;
+}
+
+.header ul .hamburgeranime span.second {
+  top: 18px;
+}
+
+.header ul .hamburgeranime span.third {
+  bottom: 0;
+}
+
+.header ul .hamburgeranime.active span.first {
+  transform: translateY(18px) rotate(-45deg);
+}
+
+.header ul .hamburgeranime.active span.second {
+  opacity: 0;
+}
+
+.header ul .hamburgeranime.active span.third {
+  transform: translateY(-16px) rotate(45deg);
 }
 

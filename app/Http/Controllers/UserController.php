@@ -8,6 +8,7 @@ use Auth;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\ProfileRequest;
 use App\Services\FileNameSetServices;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -23,8 +24,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findorFail($id);
+        $age = Carbon::createFromDate($user->birth_date);
+        $birth_date = Carbon::parse($user->birth_date);
 
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user','age','birth_date'));
     }
 
     public function update(ProfileRequest $request, $id)
@@ -32,20 +35,48 @@ class UserController extends Controller
 
         $user = User::findorFail($id);
 
-        $imageName = null;
+        $imageName1 = null;
         // 画像があれば保存
-        $image = $request['img_name1'];
-        if(!is_null($image)) {
-            $imageName = FileNameSetServices::fileNameSet($image);
+        $image1 = $request['img_name1'];
+        if(!is_null($image1)) {
+            $imageName1 = FileNameSetServices::fileNameSet($image1);
             // dd($imageName);
-            $image->storeAs('public/images/', $imageName);
+            $image1->storeAs('public/images/', $imageName1);
 
-            $user->img_name1 = $imageName;
+            $user->img_name1 = $imageName1;
+        }
+
+        $imageName2 = null;
+        // 画像があれば保存
+        $image2 = $request['img_name2'];
+        if(!is_null($image2)) {
+            $imageName2 = FileNameSetServices::fileNameSet($image2);
+            // dd($imageName);
+            $image2->storeAs('public/images/', $imageName2);
+
+            $user->img_name2 = $imageName2;
+        }
+
+        $imageName3 = null;
+        // 画像があれば保存
+        $image3 = $request['img_name3'];
+        if(!is_null($image3)) {
+            $imageName3 = FileNameSetServices::fileNameSet($image3);
+            // dd($imageName);
+            $image3->storeAs('public/images/', $imageName3);
+
+            $user->img_name3 = $imageName3;
         }
 
         $user->name = $request->name;
         $user->email = $request->email;
         $user->sex = $request->sex;
+        $user->body_height = $request->body_height;
+        $user->smoke = $request->smoke;
+        $user->alcohol = $request->alcohol;
+        $user->income = $request->income;
+        $user->education = $request->education;
+        $user->housemate = $request->housemate;
         $user->self_introduction = $request->self_introduction;
 
         $user->save();
