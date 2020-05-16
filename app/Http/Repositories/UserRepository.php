@@ -15,22 +15,49 @@ class UserRepository
         return User::all();
 	}
 
-	public static function getWomen()
+	public static function getWomen(int $authId)
     {
-        return User::where('sex', '=', Status::WOMAN)->get();
+		// ライクユーザーとディスライクユーザーを抽出して、それ以外のユーザーを取得
+		$likeUserIds = self::searchLike($authId);
+		$disLikeUserIds = self::searchDisLike($authId);
+		$exclusionUsers = array_merge($likeUserIds, $disLikeUserIds);
+        return User::where('sex', '=', Status::WOMAN)->whereNotIn('id', $exclusionUsers)->get();
 	}
 
-	public static function getMen()
+	public static function getMen(int $authId)
     {
-        return User::where('sex', '=', Status::MAN)->get();
+		// ライクユーザーとディスライクユーザーを抽出して、それ以外のユーザーを取得
+		$likeUserIds = self::searchLike($authId);
+		$disLikeUserIds = self::searchDisLike($authId);
+		$exclusionUsers = array_merge($likeUserIds, $disLikeUserIds);
+        return User::where('sex', '=', Status::MAN)->whereNotIn('id', $exclusionUsers)->get();
 	}
 
-	public static function getLGBT(int $id)
+	public static function getLGBT(int $authId)
     {
-		return User::where('id', '!=', $id)->where('sex', '=', Status::LGBT)->get();
+		// ライクユーザーとディスライクユーザーを抽出して、それ以外のユーザーを取得
+		$likeUserIds = self::searchLike($authId);
+		$disLikeUserIds = self::searchDisLike($authId);
+		$exclusionUsers = array_merge($likeUserIds, $disLikeUserIds);
+		return User::where('id', '!=', $authId)->where('sex', '=', Status::LGBT)->whereNotIn('id', $exclusionUsers)->get();
 	}
 
 	public static function getLike(int $authId)
+    {
+		$userIds = self::searchLike($authId);
+		$users = User::find($userIds);
+        return $users;
+	}
+
+	public static function getDisLike(int $authId)
+    {
+		$userIds = self::searchDisLike($authId);
+		$users = User::find($userIds);
+        return $users;
+
+	}
+
+	public static function searchLike(int $authId)
     {
 		$query = Reaction::query();
 		$likeUsers = $query->select('to_user_id')->where('from_user_id', '=', $authId)->where('status', '=', Status::LIKE)->get();
@@ -39,12 +66,10 @@ class UserRepository
 		foreach ($likeUsers as $user) {
 			$userIds[] += $user->to_user_id;
 		}
-		// dd($userIds);
-		$users = User::find($userIds);
-        return $users;
+        return $userIds;
 	}
 
-	public static function getDisLike(int $authId)
+	public static function searchDisLike(int $authId)
     {
 		$query = Reaction::query();
 		$likeUsers = $query->select('to_user_id')->where('from_user_id', '=', $authId)->where('status', '=', Status::DISLIKE)->get();
@@ -53,9 +78,6 @@ class UserRepository
 		foreach ($likeUsers as $user) {
 			$userIds[] += $user->to_user_id;
 		}
-		// dd($userIds);
-		$users = User::find($userIds);
-        return $users;
-
+        return $userIds;
 	}
 }

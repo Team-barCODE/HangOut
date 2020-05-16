@@ -36,7 +36,6 @@ class UserController extends Controller
     public function index(int $status = 0)
     {
         // dd($this->service->getNum());
-        $authUser = Auth::user();
         $users = $this->service->getList($status);
 
         // 表示テスト用

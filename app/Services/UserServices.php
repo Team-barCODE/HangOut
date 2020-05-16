@@ -30,10 +30,10 @@ class UserServices
                 //   一覧
                 switch ($authUser->sex){
                     case Status::MAN:
-                        $users = UserRepository::getWomen();
+                        $users = UserRepository::getWomen($authUserId);
                         break;
                     case Status::WOMAN:
-                        $users = UserRepository::getMen();
+                        $users = UserRepository::getMen($authUserId);
                         break;
                     case Status::LGBT:
                         // todo
