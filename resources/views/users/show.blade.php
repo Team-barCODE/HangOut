@@ -5,6 +5,7 @@
 <div class='usershowPage'>
   <div class='container'>
     <header class="header">
+      <a href="{{ route('users.index') }}">一覧</a>
       <p class='header_logo'>
       <a href="{{ route('home') }}">
       <img src="/storage/images/techpit-match-icon.png">
