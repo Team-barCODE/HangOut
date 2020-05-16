@@ -2,8 +2,13 @@
     .image-circle {
         width: 20vh;
         height: 20vh;
+        min-width:128px;
+        min-height:128px;
+        max-width:295px;
+        max-height:295px;
         object-fit:cover;
         border-radius:50%;
+        box-sizing: border-box;
         border: 3px solid #ccc;
         position: relative;
         z-index: 99;

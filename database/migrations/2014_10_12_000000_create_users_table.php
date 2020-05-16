@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('prefecture')->default('');
             $table->string('city')->default('');
@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->tinyInteger('smoke')->default(0);
             $table->tinyInteger('alcohol')->default(0);
-            $table->float('body_height',4,1)->nullable();
+            $table->integer('body_height')->nullable();
             $table->tinyInteger('body_figure')->default(1);
             $table->tinyInteger('education')->nullable();
             $table->tinyInteger('housemate')->nullable();
