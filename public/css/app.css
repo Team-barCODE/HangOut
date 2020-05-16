@@ -17642,3 +17642,30 @@ body {
   border: none;
 }
 
+.userListPage .image-circle {
+  width: 20vh;
+  height: 20vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ccc;
+  position: relative;
+  z-index: 99;
+}
+
+.userListPage .list_title {
+  position: relative;
+  padding: 0.25em 0;
+}
+
+.userListPage .list_title:after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(to right, #ffba73, #ffb2b2);
+}
+
+.userListPage .under {
+  margin-bottom: -16px;
+}
+
