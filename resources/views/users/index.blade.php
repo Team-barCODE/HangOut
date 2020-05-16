@@ -6,7 +6,7 @@
 		<a href="/users/show/{{Auth::id()}}"><button type="button" class="btn btn-sm btn-primary">マイページ</button></a>
 		<a href="{{ route('home') }}"><button type="button" class="btn btn-sm btn-primary">スワイプ</button></a>
 		<a href="{{ route('users.index') }}"><button type="button" class="btn btn-sm btn-primary">一覧</button></a>
-		<a href="{{ route('chat.show') }}"><button type="button" class="btn btn-sm btn-primary">チャット</button></a>
+		<a href="{{ route('matching') }}"><button type="button" class="btn btn-sm btn-primary">チャット</button></a>
 	</nav>
 	<nav class="navbar navbar-light w-100 justify-content-md-center px-3" style="background-color: #fd5068;">
 		<a href="/users/2"><button type="button" class="btn btn-sm btn-outline-warning">イマイチ！一覧</button></a>
