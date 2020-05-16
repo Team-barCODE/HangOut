@@ -8,9 +8,49 @@ use Auth;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\ProfileRequest;
 use App\Services\FileNameSetServices;
+use App\Services\UserServices;
+use App\Repositories\UserRepository;
 
 class UserController extends Controller
 {
+    protected $repository;
+    protected $service;
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(UserServices $service,UserRepository $repository)
+    {
+        $this->middleware('auth');
+        $this->service = $service;
+        $this->repository = $repository;
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index(int $status = 0)
+    {
+        // dd($this->service->getNum());
+        $users = $this->service->getList($status);
+
+        // 表示テスト用
+        $authUser = Auth::user();
+        $userCount = $users->count();
+        $from_user_id = $authUser->id;
+        $data = [
+            "me" => $authUser,
+            "users" => $users,
+            "userCount" => $userCount,
+            "from_user_id" => $from_user_id,
+        ];
+        // dd($users);
+        return view('users.index', $data);
+    }
+
     public function show($id)
     {
         $user = User::findorFail($id);
