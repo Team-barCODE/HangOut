@@ -47,7 +47,7 @@
 					<label class="form-check-label" for="inlineRadio1">女</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="sex" value="2" type="radio" id="inlineRadio2" @if($user->sex === 1) checked @endif>
+					<input class="form-check-input" name="sex" value="2" type="radio" id="inlineRadio2" @if($user->sex === 2) checked @endif>
 					<label class="form-check-label" for="inlineRadio2">LGBT</label>
 				</div>
 			</div>
