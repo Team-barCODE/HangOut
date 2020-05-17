@@ -58,6 +58,8 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'img_name1' => ['required','file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:5000'],
             'prefecture' => ['required','string', 'max:255'],
+            'sex' => ['required','int'],
+            'birth_date' => ['required','string', 'max:255'],
         ],
         [
             'img_name1.required' => '自分の写真は必須です。',
@@ -89,6 +91,7 @@ class RegisterController extends Controller
             'prefecture' => $data['prefecture'],
             'sex' => $data['sex'],
             'img_name1' => $imageName,
+            'birth_date' => $data['birth_date'],
         ]);
     }
 
