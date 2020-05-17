@@ -31,7 +31,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'self_introduction' => $faker->realText(),
         'img_name1' => $faker->randomElement($images),
         // 'age' => $faker->randomElement($age),
-        'birth_date' => $faker->dateTime(),
+        'birth_date' => $faker->numberBetween(20,80),
         'prefecture' => $faker->prefecture,
         'email' => $faker->unique()->email(),
         'password' => bcrypt('111111'),
