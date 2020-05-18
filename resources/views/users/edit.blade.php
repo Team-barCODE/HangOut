@@ -55,7 +55,7 @@
 			<div class="form-group">
 				<div><label>年齢</label></div>
 				<div class="form-check form-check-inline">
-					{{$age->age}}歳 ({{$birth_date->year}}年{{$birth_date->month}}月{{$birth_date->day}}日 生まれ)
+					{{$user->birth_date}}歳
 				</div>
 			</div>
 
@@ -100,6 +100,7 @@
 			<div class="form-group">
 				<div><label>身長</label></div>
 				<select name="body_height" id="" class="form-check form-check-inline">
+					<option value="">選択しない</option>
 					@for($i = 130 ; $i <= 220 ; $i++ )
 						<option value="{{$i}}" @if($user->body_height === $i) selected @endif>{{$i}}cm</option>
 					@endfor
