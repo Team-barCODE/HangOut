@@ -99,7 +99,7 @@
 
 			<div class="form-group">
 				<div><label>身長</label></div>
-				<select name="body_height" id="" class="form-check form-check-inline">
+				<select name="body_height" id="" class="form-control">
 					<option value="">選択しない</option>
 					@for($i = 130 ; $i <= 220 ; $i++ )
 						<option value="{{$i}}" @if($user->body_height === $i) selected @endif>{{$i}}cm</option>
@@ -108,8 +108,24 @@
 			</div>
 
 			<div class="form-group">
+				<div><label>体型</label></div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="body_figure" value="0" type="radio" id="inlineRadio7" @if($user->body_figure === 0) checked @endif>
+					<label class="form-check-label" for="inlineRadio7">痩せ型</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="body_figure" value="1" type="radio" id="inlineRadio8" @if($user->body_figure === 1) checked @endif>
+					<label class="form-check-label" for="inlineRadio8">普通</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="body_figure" value="2" type="radio" id="inlineRadio9" @if($user->body_figure === 2) checked @endif>
+					<label class="form-check-label" for="inlineRadio9">ふくよか・ガッチリ</label>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<div><label>年収</label></div>
-				<select name="income" id="" class="form-check form-check-inline">
+				<select name="income" id="" class="form-control">
 					@php
 						$income = [null ,100 ,300 ,500 ,700 ,900 ,1250 ,1750 ,2500 ,3000];
 						$income_line = ['選択しない', '0〜200万円', '200〜400万円', '400〜600万円', '600〜800万円', '800〜1,000万円', '1,000〜1,500万円', '1,500〜2,000万円', '2,000〜3,000万円', '3,000万円〜',];
@@ -123,12 +139,12 @@
 			<div class="form-group">
 				<div><label>同居人の有無</label></div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="housemate" value="0" type="radio" id="inlineRadio7" @if($user->housemate === 0) checked @endif>
-					<label class="form-check-label" for="inlineRadio7">無し</label>
+					<input class="form-check-input" name="housemate" value="0" type="radio" id="inlineRadio10" @if($user->housemate === 0) checked @endif>
+					<label class="form-check-label" for="inlineRadio10">無し</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="housemate" value="1" type="radio" id="inlineRadio8" @if($user->housemate === 1) checked @endif>
-					<label class="form-check-label" for="inlineRadio8">有り(実家など)</label>
+					<input class="form-check-input" name="housemate" value="1" type="radio" id="inlineRadio11" @if($user->housemate === 1) checked @endif>
+					<label class="form-check-label" for="inlineRadio11">有り(実家など)</label>
 				</div>
 			</div>
 
