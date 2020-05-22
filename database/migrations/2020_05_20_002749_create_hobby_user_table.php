@@ -15,13 +15,13 @@ class CreateHobbyUserTable extends Migration
     {
         Schema::create('hobby_user', function (Blueprint $table) {
             // $table->bigIncrements('id');
-            $table->integer('genre_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->integer('hobby_id')->unsigned();
             
             //外部キー制約
-            $table->foreign('genre_id')->references('id')->on('hobbies')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unique(['genre_id', 'user_id'],'uq_roles');
+            $table->foreign('hobby_id')->references('id')->on('hobbies')->onDelete('cascade');
+            $table->unique(['user_id', 'hobby_id'],'uq_roles');
 
         });
     }

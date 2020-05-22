@@ -80,6 +80,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data['prefecture']);
         $imageName = null;
         // 画像があれば保存
         $image = $data['img_name1'];
@@ -96,7 +97,7 @@ class RegisterController extends Controller
             'prefecture' => $data['prefecture'],
             'sex' => $data['sex'],
             'img_name1' => $imageName,
-            'birth_date' => Carbon::createFromDate($data['birth_date'])->age,
+            'birth_date' => $data['birth_date'],
         ]);
     }
 

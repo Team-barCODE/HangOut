@@ -39,9 +39,9 @@
 
     .userAction {
       display: flex;
-      justify-content: space-between;
-      width: 250px;
-      margin: 20vh auto 0;
+      justify-content: space-around;
+      // width: 250px;
+      // margin: 20vh auto 0;
       color:#c3c7d0;
       &_common {
         & > a {
