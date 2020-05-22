@@ -8,7 +8,6 @@ use Auth;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\ProfileRequest;
 use App\Services\FileNameSetServices;
-use Carbon\Carbon;
 use App\Services\UserServices;
 use App\Repositories\UserRepository;
 
@@ -64,10 +63,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findorFail($id);
-        $age = Carbon::createFromDate($user->birth_date);
-        $birth_date = Carbon::parse($user->birth_date);
 
-        return view('users.edit', compact('user','age','birth_date'));
+        return view('users.edit', compact('user'));
     }
 
     public function update(ProfileRequest $request, $id)

@@ -32,3 +32,8 @@
 </div>
 
 @endsection
+@section('script')
+  @if( url()->previous() === url('') . '/register' )
+    <script>window.alert('新規登録からのみアラート\n※最終的にモーダル出してプロフ入力に誘う')</script>
+  @endif
+@endsection

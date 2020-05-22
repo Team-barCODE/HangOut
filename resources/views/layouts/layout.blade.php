@@ -12,6 +12,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @if(url()->current() === url('') . '/register' )
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/vader/jquery-ui.min.css">
+    @endif
 </head>
 <body class="m-exhightop">
 
@@ -22,7 +25,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
-
 
     @yield('script')
 </body>
