@@ -162,11 +162,11 @@ class UserController extends Controller
                 $user->personalityId()->detach(); //ユーザの登録済みのスキルを全て削除
             }
     
-            if (is_array($request->myjob)) {
+            if ($request->myjob === null) {
+                $user->jobId()->detach(); //ユーザの登録済みのスキルを全て削除
+            }else{
                 $user->jobId()->detach(); //ユーザの登録済みのスキルを全て削除
                 $user->jobId()->attach($request->myjob); //改めて登録
-            }elseif($request->myjob === null){
-                $user->jobId()->detach(); //ユーザの登録済みのスキルを全て削除
             }
     
             return redirect('users/show/' . Auth::id());

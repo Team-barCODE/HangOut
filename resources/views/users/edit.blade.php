@@ -226,7 +226,7 @@
 
 			<div class="form-group">
 				<div><label>職種</label></div>
-				<select name="myjob[]" id="" class="form-control">
+				<select name="myjob" id="" class="form-control">
 					<option value="">選択しない</option>
 					@if(count($myjob) !== 0)
 						@foreach($alljobs as $job)
