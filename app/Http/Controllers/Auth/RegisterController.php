@@ -96,7 +96,7 @@ class RegisterController extends Controller
             'prefecture' => $data['prefecture'],
             'sex' => $data['sex'],
             'img_name1' => $imageName,
-            'birth_date' => Carbon::createFromDate($data['birth_date'])->age,
+            'birth_date' => $data['birth_date'],
         ]);
     }
 

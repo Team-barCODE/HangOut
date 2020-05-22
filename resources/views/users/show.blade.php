@@ -13,6 +13,7 @@
       <div class='userInfo_selfIntroduction'>{{ $user->self_introduction }}</div>
     </div>
 
+    @if(Auth::id() === $user->id)
       <div class='userAction'>
         <div class="userAction_edit userAction_common">
           <a href="/users/edit/{{$user->id}}"><i class="fas fa-edit fa-2x"></i></a>
@@ -27,6 +28,7 @@
           </form>
         </div>
       </div>
+    @endif
 
   </div>
 </div>

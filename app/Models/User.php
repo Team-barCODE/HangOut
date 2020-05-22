@@ -37,6 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // reactionのリレーション
     public function toUserId()
     {
         return $this->hasMany('App\Models\Reaction', 'to_user_id', 'id');
@@ -47,6 +48,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Reaction', 'from_user_id', 'id');
     }
 
+    // リアルタイムチャットのリレーション
     public function chatMessages()
     {
         return $this->hasMany('App\Models\ChatMessage');
@@ -56,4 +58,23 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\ChatRoomUsers');
     }
+
+    // 趣味用
+    public function genreId()
+    {
+        return $this->belongsToMany('App\Models\Hobby');
+    }
+
+    // 性格
+    public function personalityId()
+    {
+        return $this->belongsToMany('App\Models\Personality');
+    }
+
+    // 職種
+    public function jobId()
+    {
+        return $this->belongsToMany('App\Models\Job');
+    }
+
 }

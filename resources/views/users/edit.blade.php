@@ -7,11 +7,6 @@
 		<form class="form mt-5" method="POST" action="/users/update/{{ $user->id }}" enctype="multipart/form-data">
 			@csrf
 
-			@error('email')
-				<span class="errorMessage">
-				{{ $message }}
-				</span>
-			@enderror
 
 			<div class="row">
 				@php
@@ -25,37 +20,52 @@
 					</label>
 				@endfor
 			</div>
+
 				
 			<div class="form-group">
 				<label>名前</label>
 				<input type="text" name="name" class="form-control" value="{{ $user->name }}">
 			</div>
+			@error('name')
+				<span class="errorMessage">
+					{{ $message }}
+				</span>
+			@enderror
+
 
 			<div class="form-group">
 				<label>メールアドレス</label>
 				<input type="email" name="email" class="form-control" value="{{ $user->email }}">
 			</div>
+			@error('email')
+				<span class="errorMessage">
+				{{ $message }}
+				</span>
+			@enderror
+
 
 			<div class="form-group">
 				<div><label>性別</label></div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="sex" value="0" type="radio" id="inlineRadio0" @if($user->sex === 0) checked @endif>
-					<label class="form-check-label" for="inlineRadio0">男</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="sex" value="1" type="radio" id="inlineRadio1" @if($user->sex === 1) checked @endif>
-					<label class="form-check-label" for="inlineRadio1">女</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="sex" value="2" type="radio" id="inlineRadio2" @if($user->sex === 2) checked @endif>
-					<label class="form-check-label" for="inlineRadio2">LGBT</label>
-				</div>
+				@php
+				switch($user->sex){
+					case 0:
+						$sex = '男性';
+						break;
+					case 1:
+						$sex = '女性';
+						break;
+					case 3:
+						$sex = 'LGBT';
+						break;
+				}
+				@endphp
+				<p>{{$sex}}</p>
 			</div>
 
 			<div class="form-group">
 				<div><label>年齢</label></div>
 				<div class="form-check form-check-inline">
-					{{$user->birth_date}}歳
+					{{$age->age}}歳
 				</div>
 			</div>
 
@@ -86,9 +96,14 @@
 
 			<div class="form-group">
 				<div><label>最終学歴</label></div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="education" value="" type="radio" id="inlineRadioednull" @if($user->education === null) checked @endif>
+					<label class="form-check-label" for="inlineRadioednull">選択しない</label>
+				</div>
 				@php
 					$education = ['中卒','高卒','高専卒','専門卒','短大卒','大卒','院卒'];
 				@endphp
+
 				@for($i = 0 ; $i <= count($education)-1 ; $i++)
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" name="education" value="{{$i}}" type="radio" id="inlineRadioed{{$i}}" @if($user->education === $i) checked @endif>
@@ -122,7 +137,99 @@
 					<label class="form-check-label" for="inlineRadio9">ふくよか・ガッチリ</label>
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<div><label>趣味</label></div>
+				@if(count($myhobbies) !== 0)
+					@foreach($hobbies as $hobby)
+						@foreach($myhobbies as $myhobby)
+							@if($myhobby->hobby_id === $hobby->id)
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" name="hobbies[]" value="{{$hobby->id}}" type="checkbox" id="inlinecheck{{$hobby->genre}}" checked>
+									<label class="form-check-label" for="inlinecheck{{$hobby->genre}}">{{$hobby->genre}}</label>
+								</div>
+								@break
+							@elseif($myhobby->hobby_id !== $hobby->id && $loop->last !== true)
+								@continue
+							@else
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" name="hobbies[]" value="{{$hobby->id}}" type="checkbox" id="inlinecheck{{$hobby->genre}}">
+									<label class="form-check-label" for="inlinecheck{{$hobby->genre}}">{{$hobby->genre}}</label>
+								</div>
+							@endif
+						@endforeach
+					@endforeach
+				@else
+					@foreach($hobbies as $hobby)
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" name="hobbies[]" value="{{$hobby->id}}" type="checkbox" id="inlinecheck{{$hobby->genre}}">
+							<label class="form-check-label" for="inlinecheck{{$hobby->genre}}">{{$hobby->genre}}</label>
+						</div>
+					@endforeach
+				@endif
+			</div>
 
+
+
+			<div class="form-group">
+				<div><label>性格</label></div>
+				@if(count($mypersonalities) !== 0)
+					@foreach($personalities as $personality)
+						@foreach($mypersonalities as $mypersonality)
+							@if($mypersonality->personality_id === $personality->id)
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" name="personalities[]" value="{{$personality->id}}" type="checkbox" id="inlinecheck0{{$personality->personality}}" checked>
+									<label class="form-check-label" for="inlinecheck0{{$personality->personality}}">{{$personality->personality}}</label>
+								</div>
+								@break
+							@elseif($mypersonality->personality_id !== $personality->id && $loop->last !== true)
+								@continue
+							@else
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" name="personalities[]" value="{{$personality->id}}" type="checkbox" id="inlinecheck0{{$personality->personality}}">
+									<label class="form-check-label" for="inlinecheck0{{$personality->personality}}">{{$personality->personality}}</label>
+								</div>
+							@endif
+						@endforeach
+					@endforeach
+				@else
+					@foreach($personalities as $personality)
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" name="personalities[]" value="{{$personality->id}}" type="checkbox" id="inlinecheck0{{$personality->personality}}">
+							<label class="form-check-label" for="inlinecheck0{{$personality->personality}}">{{$personality->personality}}</label>
+						</div>
+					@endforeach
+				@endif
+			</div>
+
+
+			<div class="form-group">
+				<div><label>職種</label></div>
+				<select name="myjob[]" id="" class="form-control">
+					<option value="">選択しない</option>
+					@if(count($myjob) !== 0)
+						@foreach($alljobs as $job)
+							@foreach($myjob as $jobtype)
+								@if($jobtype->job_id === $job->id)
+									<option value="{{$job->id}}" selected>{{$job->job}}</option>
+									@break
+								@elseif($jobtype->job_id !== $job->id && $loop->last !== true)
+									@continue
+								@else
+									<option value="{{$job->id}}">{{$job->job}}</option>
+								@endif
+							@endforeach
+						@endforeach
+					@else
+						@foreach($alljobs as $job)
+							<option value="{{$job->id}}">{{$job->job}}</option>
+						@endforeach
+					@endif
+				</select>
+			</div>
+				
+				
+				
 			<div class="form-group">
 				<div><label>年収</label></div>
 				<select name="income" id="" class="form-control">
