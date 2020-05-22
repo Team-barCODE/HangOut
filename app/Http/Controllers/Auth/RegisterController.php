@@ -80,6 +80,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data['prefecture']);
         $imageName = null;
         // 画像があれば保存
         $image = $data['img_name1'];

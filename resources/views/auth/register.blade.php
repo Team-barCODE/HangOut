@@ -84,7 +84,7 @@
       <div class="form-group @error('prefecture')has-error @enderror">
         <label>エリア</label>
           <select class="form-control" name="prefecture">
-            <option value="" selected>都道府県</option>
+            <option value="">都道府県</option>
             <option value="北海道" {{ old('prefecture') == '北海道' ? 'selected' : '' }}>北海道</option>
             <option value="青森県" {{ old('prefecture') == '青森県' ? 'selected' : '' }}>青森県</option>
             <option value="岩手県" {{ old('prefecture') == '岩手県' ? 'selected' : '' }}>岩手県</option>
