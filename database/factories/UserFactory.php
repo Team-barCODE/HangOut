@@ -24,6 +24,8 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'man1.jpg', 'man2.jpg', 'man3.jpg', 'man4.jpg', 'man5.jpg',
         'woman1.png', 'woman2.jpeg', 'woman3.jpeg', 'woman4.jpeg', 'woman5.jpg',
     ];
+    $income = [null ,100 ,300 ,500 ,700 ,900 ,1250 ,1750 ,2500 ,3000];
+
 
     return [
         'name' => $faker->name(),
@@ -41,7 +43,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'education' => $faker->numberBetween(0,5),
         'smoke' => $faker->numberBetween(0,1),
         'alcohol' => $faker->numberBetween(0,1),
-        'income' => $faker->numberBetween(200,999),
+        'income' => $faker->randomElement($income),
         'housemate' => $faker->numberBetween(0,1),
         'created_at' => $faker->dateTime(),
         'updated_at' => $faker->dateTime(),
