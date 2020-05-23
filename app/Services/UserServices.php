@@ -31,6 +31,7 @@ class UserServices
                 switch ($authUser->sex){
                     case Status::MAN:
                         $users = UserRepository::getWomen($authUserId);
+                        // dd($users);
                         break;
                     case Status::WOMAN:
                         $users = UserRepository::getMen($authUserId);

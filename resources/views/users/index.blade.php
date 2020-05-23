@@ -8,7 +8,7 @@
 		<a href="/users/1"><button type="button" class="btn btn-sm btn-outline-warning">ライク！一覧</button></a>
 	</nav>
 	<nav class="navbar navbar-light w-100 nav-justified px-3">
-	<button type="button" class="btn btn-outline-primary px-3">条件で探す</button>
+	<button type="button" class="btn btn-outline-primary px-3" data-toggle="modal" data-target="#searchModal">条件で探す</button>
 		<form class="form-inline">
 			<input class="form-control mr-sm-2" type="search" placeholder="テキスト検索..." aria-label="テキスト検索...">
 			<button type="submit" class="btn btn-outline-success my-2 my-sm-0">検索</button>
@@ -32,54 +32,122 @@
 			メンバーはいません。
 		</h4>
 		@endif
-		<div class="row">
-			@foreach($users as $user)
-				<div class="col-6 col-md-3 text-center mb-2">
-					<a class="" href="/users/show/{{$user->id}}">
-						<img class="card-img-top image-circle under" alt="カードの画像" src="/storage/images/{{ $user->img_name1 }}">
-					</a>
-					<div class="card card-body">
-					<h5 class="card-title">{{ $user->name }}</h5>
-					<p class="badge badge-warning py-1">{{ $user->prefecture }}</p>
-					@if(isset($user->sex) && $user->sex == 0)
-						<p class="card-text">性別：男</p>
-					@elseif(isset($user->sex) && $user->sex == 1)
-						<p class="card-text">性別：女</p>
-					@elseif(isset($user->sex) && $user->sex == 2)
-						<p class="card-text">性別：LGBT</p>
-					@endif
-
-					@if(isset($user->self_introduction) && $user->self_introduction != "")
-						<p class="card-text">{!! nl2br(e(Str::limit($user->self_introduction, 60))) !!}</p>
-					@else
-						<p class="card-text">ユーザー詳細はありません</p>
-					@endif
-					<a class="card-link" href="/users/show/{{$user->id}}">
-						続きを読む
-					</a>
-
-					@foreach($user->toUserId as $like)
-						@if(isset($like->status) && $like->status == "1")
-						<span style="color:tomato;">好き</span>
-						@elseif(isset($like->status) && $like->status == "2")
-						<span style="">嫌い</span>
-						@endif
-					@endforeach
-					<a href="#" class="btn btn-primary">ボタン</a>
-					<div class="d-flex justify-content-around">
-						<div class="p-2">
-							<button type="button" class="btn btn-sm btn-secondary text-nowrap rounded-pill">嫌い</button>
-						</div>
-						<div class="p-2">
-							<button type="button" class="btn btn-sm btn-danger text-nowrap rounded-pill">好き</button>
-						</div>
-					</div>
-					</div>
-				</div>
-			@endforeach
-		</div>
+		<h3>{{$status}}</h3>
+		<section id="scroll_area"
+			data-infinite-scroll='{
+				"path": ".pagination a[rel=next]",
+				"append": ".result_users"
+			}'
+		>
+			@include('users.listItem')
+		</section>
+		<div class="d-none">{{ $users->links() }}</div>
+		<h4 class="text-center">メンバーは以上です</h4>
 		<br>
 	</div>
 </div>
 
+<!-- モーダルの設定 -->
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">モーダルのタイトル</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>モーダルのコンテンツ文。</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        <button type="button" class="btn btn-primary">変更を保存</button>
+      </div><!-- /.modal-footer -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@endsection
+
+@section('script')
+<script src="{{ asset('js/infinite-scroll.pkgd.min.js') }}"></script>
+<script>
+jQuery(document).ready(function() {
+
+	var $container =
+	$('#scroll_area').infiniteScroll({
+		path : ".pagination a[rel=next]",
+		append : ".result_users",
+		dataType: "html",
+		checkLastPage: true,
+		history: false,
+		responseType: 'document',
+	});
+
+	// ライクをクリック
+	$(document).on('click', '.like', function() {
+		const toUser = $(this);
+		const toId = toUser.attr('data-reaction');
+		const panel = $(toUser).parents('.panel');
+		console.log(toId)
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},//Headersを書き忘れるとエラーになる
+			url: '/api/like',//ご自身のweb.phpのURLに合わせる
+			type: 'POST',//リクエストタイプ
+			data: {
+				'to_user_id': toId,
+				'from_user_id': {{ Auth::id() }},
+				'reaction': 'like'
+			},//Laravelに渡すデータ
+		})
+		// Ajaxリクエスト成功時の処理
+		.done(function(data) {
+			// Laravel内で処理された結果がdataに入って返ってくる
+			// console.log(toUser);
+			panel.removeClass("bg-secondary");
+			panel.addClass("bg-danger");
+		})
+		// Ajaxリクエスト失敗時の処理
+		.fail(function(data) {
+			alert('Ajaxリクエスト失敗');
+			console.log(data.responseJSON);
+		});
+	});
+
+	// ディスライクをクリック
+	$(document).on('click', '.disLike', function() {
+		const toUser = $(this);
+		const toId = toUser.attr('data-reaction');
+		const panel = $(toUser).parents('.panel');
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},//Headersを書き忘れるとエラーになる
+			url: '/api/like',//ご自身のweb.phpのURLに合わせる
+			type: 'POST',//リクエストタイプ
+			data: {
+				'to_user_id': toId,
+				'from_user_id': {{ Auth::id() }},
+				'reaction': 'disLike'
+			},//Laravelに渡すデータ
+		})
+		// Ajaxリクエスト成功時の処理
+		.done(function(data) {
+			// Laravel内で処理された結果がdataに入って返ってくる
+			// console.log("成功");
+			panel.removeClass("bg-danger");
+			panel.addClass("bg-secondary");
+		})
+		// Ajaxリクエスト失敗時の処理
+		.fail(function(data) {
+			alert('Ajaxリクエスト失敗');
+			console.log(data.responseJSON);
+		});
+	});
+
+
+});
+</script>
 @endsection

@@ -39,3 +39,5 @@ Route::group(['prefix' => 'chat', 'middleware' => 'auth'], function () {
     Route::post('show', 'ChatController@show')->name('chat.show');
     Route::post('chat', 'ChatController@chat')->name('chat.chat');
 });
+
+Route::post('/api/like', 'ReactionController@create');
