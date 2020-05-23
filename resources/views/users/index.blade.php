@@ -88,6 +88,7 @@ jQuery(document).ready(function() {
 	$(document).on('click', '.like', function() {
 		const toUser = $(this);
 		const toId = toUser.attr('data-reaction');
+		const panel = $(toUser).parents('.panel');
 		console.log(toId)
 		$.ajax({
 			headers: {
@@ -105,7 +106,8 @@ jQuery(document).ready(function() {
 		.done(function(data) {
 			// Laravel内で処理された結果がdataに入って返ってくる
 			// console.log(toUser);
-			$(toUser).parents('.panel').addClass("bg-danger");
+			panel.removeClass("bg-secondary");
+			panel.addClass("bg-danger");
 		})
 		// Ajaxリクエスト失敗時の処理
 		.fail(function(data) {
@@ -118,6 +120,7 @@ jQuery(document).ready(function() {
 	$(document).on('click', '.disLike', function() {
 		const toUser = $(this);
 		const toId = toUser.attr('data-reaction');
+		const panel = $(toUser).parents('.panel');
 		$.ajax({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -134,7 +137,8 @@ jQuery(document).ready(function() {
 		.done(function(data) {
 			// Laravel内で処理された結果がdataに入って返ってくる
 			// console.log("成功");
-			$(toUser).parents('.panel').addClass("bg-secondary");
+			panel.removeClass("bg-danger");
+			panel.addClass("bg-secondary");
 		})
 		// Ajaxリクエスト失敗時の処理
 		.fail(function(data) {
