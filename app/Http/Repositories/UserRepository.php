@@ -6,9 +6,14 @@ use App\Models\User;
 use App\Models\Reaction;
 use Auth;
 use App\Constants\Status;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
+use Log;
 
 class UserRepository
 {
+	const PAGE_COUNT = 4;
 
 	public static function getAll()
     {
@@ -21,7 +26,7 @@ class UserRepository
 		$likeUserIds = self::searchLike($authId);
 		$disLikeUserIds = self::searchDisLike($authId);
 		$exclusionUsers = array_merge($likeUserIds, $disLikeUserIds);
-        return User::where('sex', '=', Status::WOMAN)->whereNotIn('id', $exclusionUsers)->get();
+        return User::where('sex', '=', Status::WOMAN)->whereNotIn('id', $exclusionUsers)->paginate(self::PAGE_COUNT);
 	}
 
 	public static function getMen(int $authId)
@@ -30,7 +35,7 @@ class UserRepository
 		$likeUserIds = self::searchLike($authId);
 		$disLikeUserIds = self::searchDisLike($authId);
 		$exclusionUsers = array_merge($likeUserIds, $disLikeUserIds);
-        return User::where('sex', '=', Status::MAN)->whereNotIn('id', $exclusionUsers)->get();
+        return User::where('sex', '=', Status::MAN)->whereNotIn('id', $exclusionUsers)->paginate(self::PAGE_COUNT);
 	}
 
 	public static function getLGBT(int $authId)
@@ -39,21 +44,22 @@ class UserRepository
 		$likeUserIds = self::searchLike($authId);
 		$disLikeUserIds = self::searchDisLike($authId);
 		$exclusionUsers = array_merge($likeUserIds, $disLikeUserIds);
-		return User::where('id', '!=', $authId)->where('sex', '=', Status::LGBT)->whereNotIn('id', $exclusionUsers)->get();
+		return User::where('id', '!=', $authId)->where('sex', '=', Status::LGBT)->whereNotIn('id', $exclusionUsers)->paginate(self::PAGE_COUNT);
 	}
 
 	public static function getLike(int $authId)
     {
-		$userIds = self::searchLike($authId);
-		$users = User::find($userIds);
-        return $users;
+		$query = Reaction::query();
+		$likeUsers = $query->select('to_user_id')->where('from_user_id', '=', $authId)->where('status', '=', Status::LIKE)->paginate(self::PAGE_COUNT);
+		// dd($likeUsers);
+		return $likeUsers;
 	}
 
 	public static function getDisLike(int $authId)
     {
-		$userIds = self::searchDisLike($authId);
-		$users = User::find($userIds);
-        return $users;
+		$query = Reaction::query();
+		$likeUsers = $query->select('to_user_id')->where('from_user_id', '=', $authId)->where('status', '=', Status::DISLIKE)->paginate(self::PAGE_COUNT);
+		return $likeUsers;
 
 	}
 

@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reaction extends Model
 {
+    /**
+     * モデルと関連しているテーブル
+     *
+     * @var string
+     */
+    protected $table = 'reactions';
+
     public $incrementing = false;  // インクリメントIDを無効化
     public $timestamps = false; // update_at, created_at を無効化
 

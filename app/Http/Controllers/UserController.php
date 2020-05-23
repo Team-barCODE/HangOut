@@ -44,6 +44,7 @@ class UserController extends Controller
         $from_user_id = $authUser->id;
         $data = [
             "me" => $authUser,
+            "status" => $status,
             "users" => $users,
             "userCount" => $userCount,
             "from_user_id" => $from_user_id,
