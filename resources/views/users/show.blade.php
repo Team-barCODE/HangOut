@@ -11,7 +11,7 @@
       </div>
       <table class="table mt-2 mb-0 table-bordered table-striped">
         <tr>
-          <th class="text-nowrap">年齢</th>
+          <th class="text-nowrap w-25">年齢</th>
           <td>{{ $age->age }}歳</td>
         </tr>
         <tr>
@@ -102,7 +102,7 @@
               @foreach($personalities as $personality)
                 @foreach($mypersonalities as $mypersonality)
                   @if($mypersonality->personality_id === $personality->id)
-                    <span class="d-inline-block">{{$personality->personality}}　</span>
+                    <span class="d-inline-block btn btn-danger disabled m-1">{{$personality->personality}}</span>
                     @break
                   @elseif($mypersonality->personality_id !== $personality->id && $loop->last !== true)
                     @continue

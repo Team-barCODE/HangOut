@@ -64,11 +64,11 @@ class UserController extends Controller
     {
         $user = User::findorFail($id);
         $age = Carbon::createFromDate($user->birth_date);
-        $mypersonalities = PersonalityUser::with('user')->get();
+        $mypersonalities = PersonalityUser::with('user')->where('user_id',$id)->get();
         $personalities = Personality::orderBy('id', 'asc')->get();
-        $myhobbies = HobbyUser::with('user')->get();
+        $myhobbies = HobbyUser::with('user')->where('user_id',$id)->get();
         $hobbies = Hobby::orderBy('id', 'desc')->get();
-        $myjob = JobUser::with('user')->get();
+        $myjob = JobUser::with('user')->where('user_id',$id)->get();
         $alljobs = Job::orderBy('id', 'asc')->get();
         $data = [
             "user" => $user,
@@ -91,13 +91,11 @@ class UserController extends Controller
         {
             $age = Carbon::createFromDate($user->birth_date);
 
-            $myhobbies = HobbyUser::with('user')->get();
+            $myhobbies = HobbyUser::with('user')->where('user_id',$id)->get();
             $hobbies = Hobby::orderBy('id', 'desc')->get();
-
-            $mypersonalities = PersonalityUser::with('user')->get();
+            $mypersonalities = PersonalityUser::with('user')->where('user_id',$id)->get();
             $personalities = Personality::orderBy('id', 'asc')->get();
-
-            $myjob = JobUser::with('user')->get();
+            $myjob = JobUser::with('user')->where('user_id',$id)->get();
             $alljobs = Job::orderBy('id', 'asc')->get();
 
             return view('users.edit', compact('user','age','hobbies','myhobbies','personalities','mypersonalities','myjob','alljobs'));
