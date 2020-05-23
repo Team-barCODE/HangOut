@@ -88,6 +88,7 @@ body {
   .errorMessage {
     color: #fd5068;
   }
+
 }
 
 .linkToLogin {
@@ -96,4 +97,17 @@ body {
   & > a {
     color:#fd5068;
   }
+}
+.ui-datepicker-title{
+  display:flex;
+  align-items:center;
+  justify-content: space-around;
+  .ui-datepicker-year, .ui-datepicker-month{
+    height:36px;
+    background-color: #fafafa;
+  }
+}
+.ui-datepicker .ui-datepicker-prev,.ui-datepicker .ui-datepicker-next{
+  top:50% !important;
+  transform: translateY(-50%);
 }

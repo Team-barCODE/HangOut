@@ -14,7 +14,8 @@ class CreatePersonalitiesTable extends Migration
     public function up()
     {
         Schema::create('personalities', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->string('personality')->unique();
             $table->timestamps();
         });
     }

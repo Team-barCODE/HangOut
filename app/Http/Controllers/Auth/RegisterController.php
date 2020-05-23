@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use App\Services\FileNameSetServices;
+use Carbon\Carbon;
+
 
 class RegisterController extends Controller
 {
@@ -52,12 +54,17 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $now = Carbon::now();
+        $adult = $now->subYears(20);
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'img_name1' => ['required','file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:5000'],
             'prefecture' => ['required','string', 'max:255'],
+            'sex' => ['required','int'],
+            'birth_date' => ['required','date','before_or_equal:'.$adult],
         ],
         [
             'img_name1.required' => '自分の写真は必須です。',
@@ -73,6 +80,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data['prefecture']);
         $imageName = null;
         // 画像があれば保存
         $image = $data['img_name1'];
@@ -89,6 +97,7 @@ class RegisterController extends Controller
             'prefecture' => $data['prefecture'],
             'sex' => $data['sex'],
             'img_name1' => $imageName,
+            'birth_date' => $data['birth_date'],
         ]);
     }
 
