@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\User;
 use App\Models\Hobby;
 use App\Models\HobbyUser;
@@ -54,15 +56,28 @@ class UserController extends Controller
             "userCount" => $userCount,
             "from_user_id" => $from_user_id,
         ];
-        // dd($users);
         return view('users.index', $data);
     }
 
     public function show($id)
     {
         $user = User::findorFail($id);
+        $age = Carbon::createFromDate($user->birth_date);
+        $mypersonalities = PersonalityUser::with('user')->get();
+        $personalities = Personality::orderBy('id', 'asc')->get();
+        $myhobbies = HobbyUser::with('user')->get();
+        $hobbies = Hobby::orderBy('id', 'desc')->get();
+        $myjob = JobUser::with('user')->get();
+        $alljobs = Job::orderBy('id', 'asc')->get();
         $data = [
             "user" => $user,
+            "age" => $age,
+            "mypersonalities" => $mypersonalities,
+            "personalities" => $personalities,
+            "myhobbies" => $myhobbies,
+            "hobbies" => $hobbies,
+            "myjob" => $myjob,
+            "alljobs" => $alljobs,
         ];
         return view('users.show', $data);
     }
@@ -104,9 +119,10 @@ class UserController extends Controller
             $image1 = $request['img_name1'];
             if(!is_null($image1)) {
                 $imageName1 = FileNameSetServices::fileNameSet($image1);
-                // dd($imageName);
                 $image1->storeAs('public/images/', $imageName1);
-    
+
+                $oldfile1 = $user->img_name1;
+                Storage::delete('public/images/'.$oldfile1);
                 $user->img_name1 = $imageName1;
             }
     
@@ -115,8 +131,9 @@ class UserController extends Controller
             $image2 = $request['img_name2'];
             if(!is_null($image2)) {
                 $imageName2 = FileNameSetServices::fileNameSet($image2);
-                // dd($imageName);
                 $image2->storeAs('public/images/', $imageName2);
+                $oldfile2 = $user->img_name2;
+                Storage::delete('public/images/'.$oldfile2);
     
                 $user->img_name2 = $imageName2;
             }
@@ -126,26 +143,27 @@ class UserController extends Controller
             $image3 = $request['img_name3'];
             if(!is_null($image3)) {
                 $imageName3 = FileNameSetServices::fileNameSet($image3);
-                // dd($imageName);
                 $image3->storeAs('public/images/', $imageName3);
+                $oldfile3 = $user->img_name3;
+                Storage::delete('public/images/'.$oldfile3);
     
                 $user->img_name3 = $imageName3;
             }
+
+
     
             $user->name = $request->name;
             $user->email = $request->email;
             // $user->sex = $request->sex;
             $user->body_height = $request->body_height;
             $user->body_figure = $request->body_figure;
+            $user->prefecture = $request->prefecture;
             $user->smoke = $request->smoke;
             $user->alcohol = $request->alcohol;
             $user->income = $request->income;
             $user->education = $request->education;
             $user->housemate = $request->housemate;
             $user->self_introduction = $request->self_introduction;
-
-
-    
             $user->save();
             
             if (is_array($request->hobbies)) {

@@ -2,7 +2,7 @@
     <ul class="list-group-horizontal nav align-items-center justify-content-around">
         @if((Auth::id() !== null))
 
-            <li class="col-5 mb-2 mt-2 text-center">
+            <li class="col-5 mb-2 mt-2 text-left">
                 <a href="/users/show/{{Auth::id()}}" class="text-white">
                     <i class="fas fa-user fa-2x"></i>
                 </a>
@@ -20,7 +20,7 @@
         </li>
 
         @if((Auth::id() !== null))
-            <li class="col-5 mb-2 mt-2 text-center">
+            <li class="col-5 mb-2 mt-2 text-right">
                 <nav>
                     <button class="hamburgeranime">
                         <span class="first"></span>
