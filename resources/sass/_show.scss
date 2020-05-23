@@ -36,6 +36,21 @@
         margin-top: 30px;
       }
     }
+    .thumbnail_area{
+      justify-content: space-around;
+      align-items: center;
+      max-width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      .thumbnail_img{
+        width:80px;
+        height:80px;
+        border-radius: 50%;
+        background-position:center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    }
 
     .userAction {
       display: flex;
@@ -63,3 +78,8 @@
       }
     }
   }
+@media screen and (max-width:414px){
+  .usershowPage .thumbnail_area{
+    max-width: 100%;
+  }
+}

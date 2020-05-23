@@ -6,9 +6,22 @@
   <div class='container pt-4'>
     <div class='userInfo card'>
       <div class='userInfo_name card-header mt-0'>{{ $user->name }}</div>
-      <div class='userInfo_img'>
+      <div class='userInfo_img' id="big_img">
         <img src="/storage/images/{{$user ->img_name1}}">
       </div>
+      @if($user->img_name2 !== '' || $user->img_name2 !== '')
+        <div class="row thumbnail_area">
+          <div class='thumbnail_img' style="background-image:url('/storage/images/{{$user ->img_name1}}')">
+            <img src="/storage/images/{{$user ->img_name1}}">
+          </div>
+          @if($user->img_name2 !== '')
+            <div class='thumbnail_img' style="background-image:url('/storage/images/{{$user ->img_name2}}')"></div>
+          @endif
+          @if($user->img_name3 !== '')
+            <div class='thumbnail_img' style="background-image:url('/storage/images/{{$user ->img_name3}}')"></div>
+          @endif
+        </div>
+        @endif
       <table class="table mt-2 mb-0 table-bordered table-striped">
         <tr>
           <th class="text-nowrap">年齢</th>
