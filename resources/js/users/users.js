@@ -58,4 +58,6 @@
       $('.gnavi-contents').show();
     }
   });
+  $('').on('click',function()){
 
+  }
