@@ -14,6 +14,7 @@ class PersonalityUser extends Model
      * @var string
      */
     protected $table = 'personality_user';
+    public $timestamps = false;
 
     public function personality()
     {
