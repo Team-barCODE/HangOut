@@ -15,6 +15,7 @@ class JobUser extends Model
      * @var string
      */
     protected $table = 'job_user';
+    public $timestamps = false;
 
     public function job()
     {

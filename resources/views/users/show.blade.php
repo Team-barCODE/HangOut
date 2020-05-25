@@ -11,6 +11,25 @@
       </div>
       <table class="table mt-2 mb-0 table-bordered table-striped">
         <tr>
+          <th class="text-nowrap w-25">性別</th>
+          <td>
+            @php
+              switch($user->sex){
+                case 0:
+                  $figure = '男性';
+                  break;
+                case 1:
+                  $figure = '女性';
+                  break;
+                case 2:
+                  $figure = 'LGBT';
+                  break;
+              }
+              echo $figure;
+            @endphp
+          </td>
+        </tr>
+        <tr>
           <th class="text-nowrap w-25">年齢</th>
           <td>{{ $age->age }}歳</td>
         </tr>
@@ -54,7 +73,7 @@
         @if($user->alcohol !== null)
           <tr>
             <th class="text-nowrap">お酒</th>
-            <td>{{ $user->alcohol == 0 ? '飲む' : '飲まない' }}</td>
+            <td>{{ $user->alcohol == 0 ? '飲まない' : '飲む' }}</td>
           </tr>
         @endif
         @if($user->education !== null)
@@ -83,7 +102,7 @@
               @foreach($hobbies as $hobby)
                 @foreach($myhobbies as $myhobby)
                   @if($myhobby->hobby_id === $hobby->id)
-                      <span class="d-inline-block">{{$hobby->genre}}　</span>
+                      <span class="d-inline-block btn btn-danger disabled m-1 font-weight-bold">{{$hobby->genre}}</span>
                     @break
                   @elseif($myhobby->hobby_id !== $hobby->id && $loop->last !== true)
                     @continue
@@ -102,7 +121,7 @@
               @foreach($personalities as $personality)
                 @foreach($mypersonalities as $mypersonality)
                   @if($mypersonality->personality_id === $personality->id)
-                    <span class="d-inline-block btn btn-danger disabled m-1">{{$personality->personality}}</span>
+                    <span class="d-inline-block btn btn-danger disabled m-1 font-weight-bold">{{$personality->personality}}</span>
                     @break
                   @elseif($mypersonality->personality_id !== $personality->id && $loop->last !== true)
                     @continue

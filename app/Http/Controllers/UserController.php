@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
 use App\Models\User;
 use App\Models\Hobby;
 use App\Models\HobbyUser;
@@ -63,24 +62,32 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findorFail($id);
-        $age = Carbon::createFromDate($user->birth_date);
-        $mypersonalities = PersonalityUser::with('user')->where('user_id',$id)->get();
-        $personalities = Personality::orderBy('id', 'asc')->get();
-        $myhobbies = HobbyUser::with('user')->where('user_id',$id)->get();
-        $hobbies = Hobby::orderBy('id', 'desc')->get();
-        $myjob = JobUser::with('user')->where('user_id',$id)->get();
-        $alljobs = Job::orderBy('id', 'asc')->get();
-        $data = [
-            "user" => $user,
-            "age" => $age,
-            "mypersonalities" => $mypersonalities,
-            "personalities" => $personalities,
-            "myhobbies" => $myhobbies,
-            "hobbies" => $hobbies,
-            "myjob" => $myjob,
-            "alljobs" => $alljobs,
-        ];
-        return view('users.show', $data);
+        if(Auth::user()->sex !== $user->sex || Auth::id() === $user->id)
+        {
+            $age = Carbon::createFromDate($user->birth_date);
+            $mypersonalities = PersonalityUser::with('user')->where('user_id',$id)->get();
+            $personalities = Personality::orderBy('id', 'asc')->get();
+            $myhobbies = HobbyUser::with('user')->where('user_id',$id)->get();
+            $hobbies = Hobby::orderBy('id', 'desc')->get();
+            $myjob = JobUser::with('user')->where('user_id',$id)->get();
+            $alljobs = Job::orderBy('id', 'asc')->get();
+            $data = [
+                "user" => $user,
+                "age" => $age,
+                "mypersonalities" => $mypersonalities,
+                "personalities" => $personalities,
+                "myhobbies" => $myhobbies,
+                "hobbies" => $hobbies,
+                "myjob" => $myjob,
+                "alljobs" => $alljobs,
+            ];
+            return view('users.show', $data);
+
+        }
+        else
+        {
+            return redirect('users/show/' . Auth::id());
+        }
     }
 
     public function edit($id)
@@ -119,7 +126,6 @@ class UserController extends Controller
             if(!is_null($image1)) {
                 $imageName1 = FileNameSetServices::fileNameSet($image1);
                 $image1->storeAs('public/images/', $imageName1);
-
                 $oldfile1 = $user->img_name1;
                 Storage::delete('public/images/'.$oldfile1);
                 $user->img_name1 = $imageName1;
@@ -133,7 +139,6 @@ class UserController extends Controller
                 $image2->storeAs('public/images/', $imageName2);
                 $oldfile2 = $user->img_name2;
                 Storage::delete('public/images/'.$oldfile2);
-    
                 $user->img_name2 = $imageName2;
             }
     
@@ -144,12 +149,9 @@ class UserController extends Controller
                 $imageName3 = FileNameSetServices::fileNameSet($image3);
                 $image3->storeAs('public/images/', $imageName3);
                 $oldfile3 = $user->img_name3;
-                Storage::delete('public/images/'.$oldfile3);
-    
+                Storage::delete('public/images/'.$oldfile3);    
                 $user->img_name3 = $imageName3;
             }
-
-
     
             $user->name = $request->name;
             $user->email = $request->email;
