@@ -47756,8 +47756,7 @@ $(window).resize(function () {
   } else {
     $('.gnavi-contents').show();
   }
-}); // $('').on('click',function(){
-// }
+});
 
 /***/ }),
 
