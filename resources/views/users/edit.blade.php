@@ -13,9 +13,9 @@
 					$arr = [$user->img_name1, $user->img_name2, $user->img_name3];
 				@endphp
 				@for($i = 0 ; $i < count($arr) ; $i++)
-					<label for="file_photo{{ $i + 1 }}" class="rounded-circle userProfileImg file_photo{{ $i + 1 }}" @if( $arr[$i] != '') style="background-image:url('/storage/images/{{ $arr[$i] }}');background-color:transparent" @endif>
+					<label for="file_photo{{ $i + 1 }}" class="btn btn-primary rounded-circle userProfileImg file_photo{{ $i + 1 }}" @if( $arr[$i] != '') style="background-image:url('/storage/images/{{ $arr[$i] }}');background-color:transparent" @endif>
 						<div class="userProfileImg_description">画像をアップロード</div>						
-							<i class="fas fa-camera fa-3x" @if( $arr[$i] != '' ) style="color:transparent" @endif></i>
+						<i class="fas fa-camera fa-3x" @if( $arr[$i] != '' ) style="color:transparent" @endif></i>
 						<input type="file" id="file_photo{{ $i + 1 }}" name="img_name{{ $i + 1 }}">
 					</label>
 				@endfor

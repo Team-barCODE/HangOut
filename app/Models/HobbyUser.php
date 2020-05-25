@@ -14,6 +14,7 @@ class HobbyUser extends Model
      * @var string
      */
     protected $table = 'hobby_user';
+    public $timestamps = false;
 
     public function hobby()
     {
