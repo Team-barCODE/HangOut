@@ -47710,7 +47710,7 @@ $('#file_photo1').on('change', function (e) {
       'background-image': '',
       'background-color': 'transparent'
     });
-    $('.fa-camera').css('color', 'transparent');
+    $('.signupPage .file_photo1 .fa-camera').css('color', 'transparent');
     $('.file_photo1').css('background-image', 'url(' + e.target.result + ')');
   };
 
@@ -47724,7 +47724,7 @@ $('#file_photo2').on('change', function (e) {
       'background-image': '',
       'background-color': 'transparent'
     });
-    $('.fa-camera').css('color', 'transparent');
+    $('.signupPage .file_photo2 .fa-camera').css('color', 'transparent');
     $('.file_photo2').css('background-image', 'url(' + e.target.result + ')');
   };
 
@@ -47738,15 +47738,15 @@ $('#file_photo3').on('change', function (e) {
       'background-image': '',
       'background-color': 'transparent'
     });
-    $('.fa-camera').css('color', 'transparent');
+    $('.signupPage .file_photo3 .fa-camera').css('color', 'transparent');
     $('.file_photo3').css('background-image', 'url(' + e.target.result + ')');
   };
 
   reader.readAsDataURL(e.target.files[0]);
 });
 $('.hamburgeranime').click(function () {
-  $('.hamburgeranime').toggleClass('active');
-  $('.gnavi-contents').slideToggle();
+  $('.hamburgeranime').stop().toggleClass('active');
+  $('.gnavi-contents').stop().slideToggle();
 });
 $(window).resize(function () {
   var bodyWidth = $('body').width();
