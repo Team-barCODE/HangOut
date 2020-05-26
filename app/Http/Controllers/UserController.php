@@ -54,7 +54,7 @@ class UserController extends Controller
             "status" => $status,
             "users" => $users,
             "userCount" => $userCount,
-            "from_user_id" => $from_user_id,
+            "auth_id" => $from_user_id,
         ];
         return view('users.index', $data);
     }
@@ -130,7 +130,7 @@ class UserController extends Controller
                 Storage::delete('public/images/'.$oldfile1);
                 $user->img_name1 = $imageName1;
             }
-    
+
             $imageName2 = null;
             // 画像があれば保存
             $image2 = $request['img_name2'];
@@ -141,7 +141,7 @@ class UserController extends Controller
                 Storage::delete('public/images/'.$oldfile2);
                 $user->img_name2 = $imageName2;
             }
-    
+
             $imageName3 = null;
             // 画像があれば保存
             $image3 = $request['img_name3'];
@@ -149,10 +149,10 @@ class UserController extends Controller
                 $imageName3 = FileNameSetServices::fileNameSet($image3);
                 $image3->storeAs('public/images/', $imageName3);
                 $oldfile3 = $user->img_name3;
-                Storage::delete('public/images/'.$oldfile3);    
+                Storage::delete('public/images/'.$oldfile3);
                 $user->img_name3 = $imageName3;
             }
-    
+
             $user->name = $request->name;
             $user->email = $request->email;
             // $user->sex = $request->sex;
@@ -166,28 +166,28 @@ class UserController extends Controller
             $user->housemate = $request->housemate;
             $user->self_introduction = $request->self_introduction;
             $user->save();
-            
+
             if (is_array($request->hobbies)) {
                 $user->genreId()->detach(); //ユーザの登録済みのスキルを全て削除
                 $user->genreId()->attach($request->hobbies); //改めて登録
             }elseif($request->hobbies === null){
                 $user->genreId()->detach(); //ユーザの登録済みのスキルを全て削除
             }
-    
+
             if (is_array($request->personalities)) {
                 $user->personalityId()->detach(); //ユーザの登録済みのスキルを全て削除
                 $user->personalityId()->attach($request->personalities); //改めて登録
             }elseif($request->personalities === null){
                 $user->personalityId()->detach(); //ユーザの登録済みのスキルを全て削除
             }
-    
+
             if ($request->myjob === null) {
                 $user->jobId()->detach(); //ユーザの登録済みのスキルを全て削除
             }else{
                 $user->jobId()->detach(); //ユーザの登録済みのスキルを全て削除
                 $user->jobId()->attach($request->myjob); //改めて登録
             }
-    
+
             return redirect('users/show/' . Auth::id());
         }
     }

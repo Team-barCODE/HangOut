@@ -50,7 +50,7 @@ class UserRepository
 	public static function getLike(int $authId)
     {
 		$query = Reaction::query();
-		$likeUsers = $query->select('to_user_id')->where('from_user_id', '=', $authId)->where('status', '=', Status::LIKE)->paginate(self::PAGE_COUNT);
+		$likeUsers = $query->select()->where('from_user_id', '=', $authId)->where('status', '=', Status::LIKE)->paginate(self::PAGE_COUNT);
 		// dd($likeUsers);
 		return $likeUsers;
 	}
@@ -58,7 +58,16 @@ class UserRepository
 	public static function getDisLike(int $authId)
     {
 		$query = Reaction::query();
-		$likeUsers = $query->select('to_user_id')->where('from_user_id', '=', $authId)->where('status', '=', Status::DISLIKE)->paginate(self::PAGE_COUNT);
+		$likeUsers = $query->select()->where('from_user_id', '=', $authId)->where('status', '=', Status::DISLIKE)->paginate(self::PAGE_COUNT);
+		return $likeUsers;
+
+	}
+
+	public static function getBeLiked(int $authId)
+    {
+		$query = Reaction::query();
+		$likeUsers = $query->select()->where('to_user_id', '=', $authId)->where('status', '=', Status::LIKE)->paginate(self::PAGE_COUNT);
+		// dd($likeUsers);
 		return $likeUsers;
 
 	}

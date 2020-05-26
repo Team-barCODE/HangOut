@@ -26,6 +26,11 @@ class UserServices
                 $users = UserRepository::getDisLike($authUserId);
                 break;
 
+            case 3:
+                //   「ライクされている」一覧
+                $users = UserRepository::getBeLiked($authUserId);
+                break;
+
             default:
                 //   一覧
                 switch ($authUser->sex){
