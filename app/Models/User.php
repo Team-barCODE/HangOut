@@ -63,17 +63,35 @@ class User extends Authenticatable
     // 趣味用
     public function genreId()
     {
-        return $this->belongsToMany('App\Models\Hobby');
+        return $this->hasMany('App\Models\HobbyUser');
     }
 
     // 性格
     public function personalityId()
     {
-        return $this->belongsToMany('App\Models\Personality');
+        return $this->hasMany('App\Models\PersonalityUser');
     }
 
     // 職種
     public function jobId()
+    {
+        return $this->hasMany('App\Models\JobUser');
+    }
+
+    // 趣味用
+    public function genreId2()
+    {
+        return $this->belongsToMany('App\Models\Hobby');
+    }
+
+    // 性格
+    public function personalityId2()
+    {
+        return $this->belongsToMany('App\Models\Personality');
+    }
+
+    // 職種
+    public function jobId2()
     {
         return $this->belongsToMany('App\Models\Job');
     }

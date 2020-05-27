@@ -95,12 +95,12 @@
             <td>{{ $user->housemate == 0 ? '無し' : '有り' }}</td>
           </tr>
         @endif
-        @if(count($myhobbies) !== 0)
+        @if(count($user->genreId) !== 0)
           <tr>
             <th class="text-nowrap">趣味</th>
             <td>
               @foreach($hobbies as $hobby)
-                @foreach($myhobbies as $myhobby)
+                @foreach($user->genreId as $myhobby)
                   @if($myhobby->hobby_id === $hobby->id)
                       <span class="d-inline-block btn btn-danger disabled m-1 font-weight-bold">{{$hobby->genre}}</span>
                     @break
@@ -114,12 +114,12 @@
             </td>
           </tr>
         @endif
-        @if(count($mypersonalities) !== 0)
+        @if(count($user->personalityId) !== 0)
           <tr>
             <th class="text-nowrap">性格</th>
             <td>
               @foreach($personalities as $personality)
-                @foreach($mypersonalities as $mypersonality)
+                @foreach($user->personalityId as $mypersonality)
                   @if($mypersonality->personality_id === $personality->id)
                     <span class="d-inline-block btn btn-danger disabled m-1 font-weight-bold">{{$personality->personality}}</span>
                     @break
@@ -133,12 +133,12 @@
             </td>
           </tr>
         @endif
-        @if(count($myjob) !== 0)
+        @if(count($user->jobId) !== 0)
           <tr>
             <th class="text-nowrap">職種</th>
             <td>
               @foreach($alljobs as $job)
-                @foreach($myjob as $jobtype)
+                @foreach($user->jobId as $jobtype)
                   @if($jobtype->job_id === $job->id)
                     {{$job->job}}
                     @break

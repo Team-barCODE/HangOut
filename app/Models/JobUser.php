@@ -1,6 +1,6 @@
 <?php
 
-namespace App\models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,6 +26,6 @@ class JobUser extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
-    
-    
+
+
 }
