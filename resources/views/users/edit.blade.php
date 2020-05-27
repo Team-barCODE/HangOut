@@ -161,9 +161,9 @@
 			
 			<div class="form-group">
 				<div><label>趣味</label></div>
-				@if(count($myhobbies) !== 0)
+				@if($user->HobbyId->isEmpty() !== true)
 					@foreach($hobbies as $hobby)
-						@foreach($myhobbies as $myhobby)
+						@foreach($user->HobbyId as $myhobby)
 							@if($myhobby->hobby_id === $hobby->id)
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" name="hobbies[]" value="{{$hobby->id}}" type="checkbox" id="inlinecheck{{$hobby->genre}}" checked>
@@ -194,9 +194,9 @@
 
 			<div class="form-group">
 				<div><label>性格</label></div>
-				@if(count($mypersonalities) !== 0)
+				@if($user->personalityId->isEmpty() !== true)
 					@foreach($personalities as $personality)
-						@foreach($mypersonalities as $mypersonality)
+						@foreach($user->personalityId as $mypersonality)
 							@if($mypersonality->personality_id === $personality->id)
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" name="personalities[]" value="{{$personality->id}}" type="checkbox" id="inlinecheck0{{$personality->personality}}" checked>
@@ -228,9 +228,9 @@
 				<div><label>職種</label></div>
 				<select name="myjob" id="" class="form-control">
 					<option value="">選択しない</option>
-					@if(count($myjob) !== 0)
+					@if($user->jobId->isEmpty() !== true)
 						@foreach($alljobs as $job)
-							@foreach($myjob as $jobtype)
+							@foreach($user->jobId as $jobtype)
 								@if($jobtype->job_id === $job->id)
 									<option value="{{$job->id}}" selected>{{$job->job}}</option>
 									@break
