@@ -6,7 +6,7 @@
     <div class='userIcon'>
       <i class="fas fa-user fa-3x"></i>
     </div>
-    <h2 class="title">ログイン</h2>
+    <h2 class="title">管理画面ログイン</h2>
     <form class="form" method="POST" action="{{ route('login') }}">
     @csrf
       <div class="form-group @error('email')has-error @enderror">

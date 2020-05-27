@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
@@ -13,10 +14,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -25,24 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $authUser = Auth::user();
-        $id = $authUser->id;
-
-        switch ($authUser->sex){
-            case 0:
-                $users = User::where('sex', '=', 1)->get();
-                break;
-            case 1:
-                $users = User::where('sex', '=', 0)->get();
-                break;
-            default:
-                // todo
-                $users = User::where('id', '!=', $id)->where('sex', '=', 3)->get();
-        }
-
-        $userCount = $users->count();
-        $from_user_id = $authUser->id;
-
-        return view('home', compact('users', 'userCount', 'from_user_id'));
+        return view('admin.home');   // 管理者用のテンプレート
     }
 }
