@@ -60,20 +60,38 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\ChatRoomUsers');
     }
 
-    // 趣味用
-    public function genreId()
+    // 自分の趣味用表示
+    public function hobbyId()
+    {
+        return $this->hasMany('App\Models\HobbyUser');
+    }
+
+    // 自分の性格表示
+    public function personalityId()
+    {
+        return $this->hasMany('App\Models\PersonalityUser');
+    }
+
+    // 自分の職種表示
+    public function jobId()
+    {
+        return $this->hasMany('App\Models\JobUser');
+    }
+
+    // 趣味更新用
+    public function updateHobby()
     {
         return $this->belongsToMany('App\Models\Hobby');
     }
 
-    // 性格
-    public function personalityId()
+    // 性格更新用
+    public function updatePersonality()
     {
         return $this->belongsToMany('App\Models\Personality');
     }
 
-    // 職種
-    public function jobId()
+    // 職種更新用
+    public function updateJob()
     {
         return $this->belongsToMany('App\Models\Job');
     }

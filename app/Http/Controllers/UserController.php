@@ -65,24 +65,17 @@ class UserController extends Controller
         if(Auth::user()->sex !== $user->sex || Auth::id() === $user->id)
         {
             $age = Carbon::createFromDate($user->birth_date);
-            $mypersonalities = PersonalityUser::with('user')->where('user_id',$id)->get();
             $personalities = Personality::orderBy('id', 'asc')->get();
-            $myhobbies = HobbyUser::with('user')->where('user_id',$id)->get();
             $hobbies = Hobby::orderBy('id', 'desc')->get();
-            $myjob = JobUser::with('user')->where('user_id',$id)->get();
             $alljobs = Job::orderBy('id', 'asc')->get();
             $data = [
                 "user" => $user,
                 "age" => $age,
-                "mypersonalities" => $mypersonalities,
                 "personalities" => $personalities,
-                "myhobbies" => $myhobbies,
                 "hobbies" => $hobbies,
-                "myjob" => $myjob,
                 "alljobs" => $alljobs,
             ];
             return view('users.show', $data);
-
         }
         else
         {
@@ -98,14 +91,18 @@ class UserController extends Controller
         {
             $age = Carbon::createFromDate($user->birth_date);
 
-            $myhobbies = HobbyUser::with('user')->where('user_id',$id)->get();
             $hobbies = Hobby::orderBy('id', 'desc')->get();
-            $mypersonalities = PersonalityUser::with('user')->where('user_id',$id)->get();
             $personalities = Personality::orderBy('id', 'asc')->get();
-            $myjob = JobUser::with('user')->where('user_id',$id)->get();
             $alljobs = Job::orderBy('id', 'asc')->get();
+            $data = [
+                "user" => $user,
+                'hobbies' => $hobbies,
+                'personalities' => $personalities,
+                'alljobs' => $alljobs,
+                'age' => $age,
+            ];
 
-            return view('users.edit', compact('user','age','hobbies','myhobbies','personalities','mypersonalities','myjob','alljobs'));
+            return view('users.edit', $data);
         }
         else
         {
@@ -155,7 +152,6 @@ class UserController extends Controller
     
             $user->name = $request->name;
             $user->email = $request->email;
-            // $user->sex = $request->sex;
             $user->body_height = $request->body_height;
             $user->body_figure = $request->body_figure;
             $user->prefecture = $request->prefecture;
@@ -168,24 +164,24 @@ class UserController extends Controller
             $user->save();
             
             if (is_array($request->hobbies)) {
-                $user->genreId()->detach(); //ユーザの登録済みのスキルを全て削除
-                $user->genreId()->attach($request->hobbies); //改めて登録
+                $user->updateHobby()->detach(); //ユーザの登録済みのスキルを全て削除
+                $user->updateHobby()->attach($request->hobbies); //改めて登録
             }elseif($request->hobbies === null){
-                $user->genreId()->detach(); //ユーザの登録済みのスキルを全て削除
+                $user->updateHobby()->detach(); //ユーザの登録済みのスキルを全て削除
             }
     
             if (is_array($request->personalities)) {
-                $user->personalityId()->detach(); //ユーザの登録済みのスキルを全て削除
-                $user->personalityId()->attach($request->personalities); //改めて登録
+                $user->updatePersonality()->detach(); //ユーザの登録済みのスキルを全て削除
+                $user->updatePersonality()->attach($request->personalities); //改めて登録
             }elseif($request->personalities === null){
-                $user->personalityId()->detach(); //ユーザの登録済みのスキルを全て削除
+                $user->updatePersonality()->detach(); //ユーザの登録済みのスキルを全て削除
             }
     
             if ($request->myjob === null) {
-                $user->jobId()->detach(); //ユーザの登録済みのスキルを全て削除
+                $user->updateJob()->detach(); //ユーザの登録済みのスキルを全て削除
             }else{
-                $user->jobId()->detach(); //ユーザの登録済みのスキルを全て削除
-                $user->jobId()->attach($request->myjob); //改めて登録
+                $user->updateJob()->detach(); //ユーザの登録済みのスキルを全て削除
+                $user->updateJob()->attach($request->myjob); //改めて登録
             }
     
             return redirect('users/show/' . Auth::id());

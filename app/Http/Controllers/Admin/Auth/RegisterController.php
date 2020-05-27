@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Facades\Image;
-use App\Services\FileNameSetServices;
-use Carbon\Carbon;
+// use App\Providers\RouteServiceProvider;
 
 
 class RegisterController extends Controller
@@ -34,16 +32,18 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/admin/home';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+
+    public function showRegisterForm()
     {
-        $this->middleware('guest');
+        return view('admin.auth.register');  // 管理者用テンプレート
     }
 
     /**
@@ -54,21 +54,10 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $now = Carbon::now();
-        $adult = $now->subYears(20);
-
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'], 
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'img_name1' => ['required','file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:5000'],
-            'prefecture' => ['required','string', 'max:255'],
-            'sex' => ['required','int'],
-            'birth_date' => ['required','date','before_or_equal:'.$adult],
-        ],
-        [
-            'img_name1.required' => '自分の写真は必須です。',
-            'prefecture.required' => 'エリアは必須です。',
         ]);
     }
 
@@ -80,29 +69,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // dd($data['prefecture']);
-        $imageName = null;
-        // 画像があれば保存
-        $image = $data['img_name1'];
-        if(!is_null($image)) {
-            $imageName = FileNameSetServices::fileNameSet($image);
-            // dd($imageName);
-            $image->storeAs('public/images/', $imageName);
-        }
-
-        return User::create([
+        return Admin::create([  // Adminに変更
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'prefecture' => $data['prefecture'],
-            'sex' => $data['sex'],
-            'img_name1' => $imageName,
-            'birth_date' => $data['birth_date'],
         ]);
     }
-
-    public function redirectPath()
+    protected function guard()
     {
-        return 'users/show/' . Auth::id();
+        return \Auth::guard('admin'); //管理者認証のguardを指定
     }
+
+
+    
+    // public function __construct()
+    // {
+    //     $this->middleware('guest');
+    // }
+
+
+
 }
