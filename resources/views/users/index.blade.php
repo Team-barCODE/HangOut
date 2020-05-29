@@ -8,11 +8,13 @@
 		<a href="/users/1"><button type="button" class="btn btn-sm btn-outline-warning">ライク！一覧</button></a>
 	</nav>
 	<nav class="navbar navbar-light w-100 nav-justified px-3">
-	<button type="button" class="btn btn-outline-primary px-3" data-toggle="modal" data-target="#searchModal">条件で探す</button>
-		<form class="form-inline">
+		<button type="button" class="btn btn-outline-primary px-3" data-toggle="modal" data-target="#searchModal">条件で探す</button>
+		<a href="{{ route('matching') }}"><button type="button" class="btn btn-outline-primary px-3">チャットへ</button></a>
+		<a href="/users/3"><button type="button" class="btn btn-outline-primary px-3">ライクされた人</button></a>
+		<!-- <form class="form-inline">
 			<input class="form-control mr-sm-2" type="search" placeholder="テキスト検索..." aria-label="テキスト検索...">
 			<button type="submit" class="btn btn-outline-success my-2 my-sm-0">検索</button>
-		</form>
+		</form> -->
 	</nav>
 
 	<div class='container'>

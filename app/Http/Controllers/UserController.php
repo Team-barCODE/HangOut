@@ -54,7 +54,7 @@ class UserController extends Controller
             "status" => $status,
             "users" => $users,
             "userCount" => $userCount,
-            "from_user_id" => $from_user_id,
+            "auth_id" => $from_user_id,
         ];
         return view('users.index', $data);
     }
@@ -75,6 +75,13 @@ class UserController extends Controller
                 "hobbies" => $hobbies,
                 "alljobs" => $alljobs,
             ];
+            // dump($user->genreId);
+            // dump($myhobbies);
+            // dump($hobbies);
+            // dump($user->jobId);
+            // dump($myjob);
+            // dump($alljobs);
+            // exit;
             return view('users.show', $data);
         }
         else
@@ -127,7 +134,7 @@ class UserController extends Controller
                 Storage::delete('public/images/'.$oldfile1);
                 $user->img_name1 = $imageName1;
             }
-    
+
             $imageName2 = null;
             // 画像があれば保存
             $image2 = $request['img_name2'];
@@ -138,7 +145,7 @@ class UserController extends Controller
                 Storage::delete('public/images/'.$oldfile2);
                 $user->img_name2 = $imageName2;
             }
-    
+
             $imageName3 = null;
             // 画像があれば保存
             $image3 = $request['img_name3'];
@@ -146,10 +153,10 @@ class UserController extends Controller
                 $imageName3 = FileNameSetServices::fileNameSet($image3);
                 $image3->storeAs('public/images/', $imageName3);
                 $oldfile3 = $user->img_name3;
-                Storage::delete('public/images/'.$oldfile3);    
+                Storage::delete('public/images/'.$oldfile3);
                 $user->img_name3 = $imageName3;
             }
-    
+
             $user->name = $request->name;
             $user->email = $request->email;
             $user->body_height = $request->body_height;
@@ -162,28 +169,28 @@ class UserController extends Controller
             $user->housemate = $request->housemate;
             $user->self_introduction = $request->self_introduction;
             $user->save();
-            
+
             if (is_array($request->hobbies)) {
                 $user->updateHobby()->detach(); //ユーザの登録済みのスキルを全て削除
                 $user->updateHobby()->attach($request->hobbies); //改めて登録
             }elseif($request->hobbies === null){
                 $user->updateHobby()->detach(); //ユーザの登録済みのスキルを全て削除
             }
-    
+
             if (is_array($request->personalities)) {
                 $user->updatePersonality()->detach(); //ユーザの登録済みのスキルを全て削除
                 $user->updatePersonality()->attach($request->personalities); //改めて登録
             }elseif($request->personalities === null){
                 $user->updatePersonality()->detach(); //ユーザの登録済みのスキルを全て削除
             }
-    
+
             if ($request->myjob === null) {
                 $user->updateJob()->detach(); //ユーザの登録済みのスキルを全て削除
             }else{
                 $user->updateJob()->detach(); //ユーザの登録済みのスキルを全て削除
                 $user->updateJob()->attach($request->myjob); //改めて登録
             }
-    
+
             return redirect('users/show/' . Auth::id());
         }
     }
