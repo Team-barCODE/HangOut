@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
 
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'self_introduction', 'sex', 'img_name',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -36,24 +36,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function toUserId()
-    {
-        return $this->hasMany('App\Reaction', 'to_user_id', 'id');
-    }
-
-    public function fromUserId()
-    {
-        return $this->hasMany('App\Reaction', 'from_user_id', 'id');
-    }
-
-    public function chatMessages()
-    {
-        return $this->hasMany('App\ChatMessage');
-    }
-
-    public function chatRoomUsers()
-    {
-        return $this->hasMany('App\ChatRoomUsers');
-    }
 }

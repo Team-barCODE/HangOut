@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
+use App\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -17,12 +17,35 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(App\Models\User::class, function (Faker $faker) {
+
+    $sex = [0, 1, 2];
+    $images = [
+        'man1.jpg', 'man2.jpg', 'man3.jpg', 'man4.jpg', 'man5.jpg',
+        'woman1.png', 'woman2.jpeg', 'woman3.jpeg', 'woman4.jpeg', 'woman5.jpg',
+    ];
+    $income = [null ,100 ,300 ,500 ,700 ,900 ,1250 ,1750 ,2500 ,3000];
+
+
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'name' => $faker->name(),
+        'sex' => $faker->randomElement($sex),
+        'self_introduction' => $faker->realText(),
+        'img_name1' => $faker->randomElement($images),
+        // 'age' => $faker->randomElement($age),
+        'birth_date' => $faker->dateTime(),
+        'prefecture' => $faker->prefecture,
+        'email' => $faker->unique()->email(),
+        'password' => bcrypt('111111'),
+        'email_verified_at' => $faker->dateTime(),
+        'body_height' => $faker->numberBetween(140,200),
+        'body_figure' => $faker->numberBetween(0,2),
+        'education' => $faker->numberBetween(0,5),
+        'smoke' => $faker->numberBetween(0,1),
+        'alcohol' => $faker->numberBetween(0,1),
+        'income' => $faker->randomElement($income),
+        'housemate' => $faker->numberBetween(0,1),
+        'created_at' => $faker->dateTime(),
+        'updated_at' => $faker->dateTime(),
     ];
 });

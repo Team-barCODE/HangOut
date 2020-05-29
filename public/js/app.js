@@ -46870,8 +46870,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: '8f3cd308e9a1f72e5d83',
-  cluster: 'ap3',
+  key: "e9d0896b81076ddbe668",
+  cluster: "ap3",
   encrypted: true
 });
 
@@ -47689,20 +47689,72 @@ function checkUserNum() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).on("change", "#file_photo", function (e) {
-  var reader;
+// // なぜか動かん
+// for(var i = 1 ; i <= 3 ; i++){
+//   console.log(i);
+//   $("#file_photo" + i ).on('change',function(e){
+//     console.log(i);
+//     var reader = new FileReader();
+//     reader.onload = function(e) {
+//         $(this).parents('.userProfileImg').css('background-image','');
+//         $(this).parents('.userProfileImg').css('background-image','url(' + e.target.result +')');
+//     }
+//     reader.readAsDataURL(e.target.files[0]);
+//   });
+// }
+$('#file_photo1').on('change', function (e) {
+  var reader = new FileReader();
 
-  if (e.target.files.length) {
-    reader = new FileReader();
+  reader.onload = function (e) {
+    $('.file_photo1').css({
+      'background-image': '',
+      'background-color': 'transparent'
+    });
+    $('.signupPage .file_photo1 .fa-camera').css('color', 'transparent');
+    $('.file_photo1').css('background-image', 'url(' + e.target.result + ')');
+  };
 
-    reader.onload = function (e) {
-      var userThumbnail;
-      userThumbnail = document.getElementById('thumbnail');
-      $("#userImgPreview").addClass("is-active");
-      userThumbnail.setAttribute('src', e.target.result);
-    };
+  reader.readAsDataURL(e.target.files[0]);
+});
+$('#file_photo2').on('change', function (e) {
+  var reader = new FileReader();
 
-    return reader.readAsDataURL(e.target.files[0]);
+  reader.onload = function (e) {
+    $('.file_photo2').css({
+      'background-image': '',
+      'background-color': 'transparent'
+    });
+    $('.signupPage .file_photo2 .fa-camera').css('color', 'transparent');
+    $('.file_photo2').css('background-image', 'url(' + e.target.result + ')');
+  };
+
+  reader.readAsDataURL(e.target.files[0]);
+});
+$('#file_photo3').on('change', function (e) {
+  var reader = new FileReader();
+
+  reader.onload = function (e) {
+    $('.file_photo3').css({
+      'background-image': '',
+      'background-color': 'transparent'
+    });
+    $('.signupPage .file_photo3 .fa-camera').css('color', 'transparent');
+    $('.file_photo3').css('background-image', 'url(' + e.target.result + ')');
+  };
+
+  reader.readAsDataURL(e.target.files[0]);
+});
+$('.hamburgeranime').click(function () {
+  $('.hamburgeranime').stop().toggleClass('active');
+  $('.gnavi-contents').stop().slideToggle();
+});
+$(window).resize(function () {
+  var bodyWidth = $('body').width();
+
+  if (bodyWidth < 768) {
+    $('.gnavi-contents').hide();
+  } else {
+    $('.gnavi-contents').show();
   }
 });
 
@@ -47726,8 +47778,8 @@ $(document).on("change", "#file_photo", function (e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/test/techpit-match/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/test/techpit-match/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/test/HangOut/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/test/HangOut/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

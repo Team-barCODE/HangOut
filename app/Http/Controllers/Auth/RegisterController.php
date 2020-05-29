@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
 use Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use App\Services\FileNameSetServices;
+use Carbon\Carbon;
+
 
 class RegisterController extends Controller
 {
@@ -52,12 +54,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $now = Carbon::now();
+        $adult = $now->subYears(20);
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'img_name' => ['required','file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:5000'],
-            'self_introduction' => ['string', 'max:255'],
+            'img_name1' => ['required','file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:5000'],
+            'prefecture' => ['required','string', 'max:255'],
+            'sex' => ['required','int'],
+            'birth_date' => ['required','date','before_or_equal:'.$adult],
+        ],
+        [
+            'img_name1.required' => '自分の写真は必須です。',
+            'prefecture.required' => 'エリアは必須です。',
         ]);
     }
 
@@ -65,13 +76,14 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
+        // dd($data['prefecture']);
         $imageName = null;
         // 画像があれば保存
-        $image = $data['img_name'];
+        $image = $data['img_name1'];
         if(!is_null($image)) {
             $imageName = FileNameSetServices::fileNameSet($image);
             // dd($imageName);
@@ -82,9 +94,10 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'self_introduction' => $data['self_introduction'],
+            'prefecture' => $data['prefecture'],
             'sex' => $data['sex'],
-            'img_name' => $imageName,
+            'img_name1' => $imageName,
+            'birth_date' => $data['birth_date'],
         ]);
     }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Reaction;
-use App\User;
+use App\Models\Reaction;
+use App\Models\User;
 use Auth;
 use App\Constants\Status;
 
@@ -26,6 +26,6 @@ class MatchingController extends Controller
 
         $match_users_count = count($matching_users);
 
-        return view('users.index', compact('matching_users', 'match_users_count'));
+        return view('chat.index', compact('matching_users', 'match_users_count'));
     }
 }
