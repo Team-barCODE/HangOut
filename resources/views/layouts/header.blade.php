@@ -15,7 +15,7 @@
             @else
                 <a class="" href="{{url('/')}}">
             @endif
-                    <img class="home_icon" src="/storage/images/techpit-match-icon.png">
+                    <img class="home_icon" src="/storage/images/sample_logo.png">
                 </a>
         </li>
 
