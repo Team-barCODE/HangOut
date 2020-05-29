@@ -43,32 +43,14 @@
 		>
 			@include('users.listItem')
 		</section>
-		<div class="d-none">{{ $users->links() }}</div>
+		<div class="d-none">{{ $users->appends(['keyword'=>$keyword,'before_age'=>$before_age,'after_age'=>$after_age,'prefecture'=>$prefecture,'before_body_height'=>$before_body_height,'after_body_height'=>$after_body_height,'body_figure'=>$body_figure,'smoke'=>$smoke,'alcohol'=>$alcohol,'education'=>$education,'housemate'=>$housemate,'hobbies'=>$hobbies,'personalities'=>$personalities,'jobs'=>$jobs,'before_income'=>$before_income,'after_income'=>$after_income])->links() }}</div>
 		<h4 class="text-center">メンバーは以上です</h4>
 		<br>
 	</div>
 </div>
 
-<!-- モーダルの設定 -->
-<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="searchModalLabel">モーダルのタイトル</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>モーダルのコンテンツ文。</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-        <button type="button" class="btn btn-primary">変更を保存</button>
-      </div><!-- /.modal-footer -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+@include('users.searchModal')
+
 @endsection
 
 @section('script')

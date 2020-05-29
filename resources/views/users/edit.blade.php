@@ -14,14 +14,14 @@
 				@endphp
 				@for($i = 0 ; $i < count($arr) ; $i++)
 					<label for="file_photo{{ $i + 1 }}" class="btn btn-primary rounded-circle userProfileImg file_photo{{ $i + 1 }}" @if( $arr[$i] != '') style="background-image:url('/storage/images/{{ $arr[$i] }}');background-color:transparent" @endif>
-						<div class="userProfileImg_description">画像をアップロード</div>						
+						<div class="userProfileImg_description">画像をアップロード</div>
 						<i class="fas fa-camera fa-3x" @if( $arr[$i] != '' ) style="color:transparent" @endif></i>
 						<input type="file" id="file_photo{{ $i + 1 }}" name="img_name{{ $i + 1 }}">
 					</label>
 				@endfor
 			</div>
 
-				
+
 			<div class="form-group">
 				<label>名前</label>
 				<input type="text" name="name" class="form-control" value="{{ $user->name }}">
@@ -80,14 +80,13 @@
 						@for($i = 0 ;$i < count($pref) ; $i++)
 							<option value="{{$pref[$i]}}" @if($user->prefecture === $pref[$i]) selected @endif>{{$pref[$i]}}</option>
 						@endfor
-          </select>
-          @error('prefecture')
-            <span class="errorMessage">
-              {{ $message }}
-            </span>
-          @enderror
+				</select>
+				@error('prefecture')
+					<span class="errorMessage">
+					{{ $message }}
+					</span>
+				@enderror
 
-				
 			</div>
 
 			<div class="form-group">
@@ -158,7 +157,7 @@
 					<label class="form-check-label" for="inlineRadio9">ふくよか・ガッチリ</label>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<div><label>趣味</label></div>
 				@if($user->HobbyId->isEmpty() !== true)
@@ -248,9 +247,9 @@
 					@endif
 				</select>
 			</div>
-				
-				
-				
+
+
+
 			<div class="form-group">
 				<div><label>年収</label></div>
 				<select name="income" id="" class="form-control">
