@@ -123,6 +123,7 @@ class UserController extends Controller
                 $query->where('sex', '=', Status::LGBT);
         }
 
+
         // Viewにわたす変数初期化（ページングに必要）
         $before_age = null;
         $after_age = null;
@@ -143,6 +144,14 @@ class UserController extends Controller
 
 
         //filledメソッドを使用（値が存在、かつ空ではないか）
+        // キーワード検索
+        if($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            foreach ($keyword as $value) {
+                $query->where('name','like','%'.$value.'%')->orWhere('self_introduction','like','%'.$value.'%');
+            }
+        }
+        
         // 年齢
         if($request->filled('before_age' , 'after_age')) {
             $before_age = $request->before_age;
@@ -276,14 +285,6 @@ class UserController extends Controller
         }elseif($request->filled('after_income')){
             $after_income = $request->after_income;
             $query->where('income', '<=', $after_income);
-        }
-
-        // キーワード検索
-        if($request->filled('keyword')) {
-            $keyword = $request->keyword;
-            foreach ($keyword as $value) {
-                $query->where('name','like','%'.$value.'%')->orWhere('self_introduction','like','%'.$value.'%');
-            }
         }
 
         $users = $query->paginate(self::PAGE_COUNT);

@@ -6,10 +6,10 @@
 @section('content')
 <div class="signupPage">
   <div class='container'>
-    
+
     <form class="form mt-5" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
       @csrf
-      
+
       <h2 class="title text-center" style="color:#fd5068">新規登録</h2>
       <label for="file_photo1" class="rounded-circle userProfileImg file_photo1">
         <div class="userProfileImg_description">画像をアップロード</div>
@@ -66,7 +66,7 @@
           <label class="form-check-label" for="inlineRadio2">女</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" name="sex" value="1" type="radio" id="inlineRadio3" {{ old('sex') == '2' ? 'checked' : '' }}>
+          <input class="form-check-input" name="sex" value="2" type="radio" id="inlineRadio3" {{ old('sex') == '2' ? 'checked' : '' }}>
           <label class="form-check-label" for="inlineRadio3">LGBT</label>
         </div>
       </div>
