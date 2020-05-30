@@ -250,7 +250,7 @@
                             $income = [null ,100 ,200 ,400 ,600 ,800 ,1000 ,1500 ,2000 ,3000];
                             $income_line = ['選択しない', '100万円', '200万円', '400万円', '600万円', '800万円', '1,000万円', '1,500万円', '2,000万円', '3,000万円〜',];
                         @endphp
-                        @for($i = 0 ; $i <= count($income)-1 ; $i++ )
+                        @for($i = 0 ; $i < count($income) ; $i++ )
                             <option value="{{$income[$i]}}">{{$income_line[$i]}}</option>
                         @endfor
                     </select>
@@ -266,7 +266,7 @@
                             $income = [null ,100 ,200 ,400 ,600 ,800 ,1000 ,1500 ,2000 ,3000];
                             $income_line = ['選択しない', '100万円', '200万円', '400万円', '600万円', '800万円', '1,000万円', '1,500万円', '2,000万円', '3,000万円〜',];
                         @endphp
-                        @for($i = 0 ; $i <= count($income)-1 ; $i++ )
+                        @for($i = 0 ; $i < count($income) ; $i++ )
                             <option value="{{$income[$i]}}">{{$income_line[$i]}}</option>
                         @endfor
                     </select>
