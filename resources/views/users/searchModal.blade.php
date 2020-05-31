@@ -11,7 +11,18 @@
       <div class="modal-body">
         <form class="form" method="GET" action="/users/search">
 
-            <div><label>テキスト検索※複数キーワードはスペースをあけてください</label></div>
+            <div><label>※絞り込み検索は<span style="color:tomato">ライク</span>と<span style="color:tomato">イマイチ</span>を含みます</label></div>
+            <div><label>テキスト検索　※複数キーワードはスペースをあけてください</label></div>
+            <div class="form-group">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="search" value="0" type="radio" id="nameRadio1" checked="checked">
+					<label class="form-check-label" for="nameRadio1">名前で検索</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="search" value="1" type="radio" id="nameRadio2">
+					<label class="form-check-label" for="nameRadio2">自己紹介文で検索</label>
+				</div>
+			</div>
             <div class="container form-group">
                 <div class="row">
                     <div><input name="keyword" class="form-control  mr-sm-2" type="search" placeholder="検索..." aria-label="検索..."></div>
@@ -199,7 +210,7 @@
 
             <div class="form-group">
                 <div><label>趣味</label></div>
-				@foreach($hobbies2 as $hobby)
+				@foreach($hobbiesMaster as $hobby)
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" name="hobbies[]" value="{{$hobby->id}}" type="checkbox" id="inlinecheck{{$hobby->genre}}">
                         <label class="form-check-label" for="inlinecheck{{$hobby->genre}}">{{$hobby->genre}}</label>
@@ -214,7 +225,7 @@
 
             <div class="form-group">
                 <div><label>性格</label></div>
-				@foreach($personalities2 as $personality)
+				@foreach($personalitiesMaster as $personality)
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" name="personalities[]" value="{{$personality->id}}" type="checkbox" id="inlinecheck0{{$personality->personality}}">
                         <label class="form-check-label" for="inlinecheck0{{$personality->personality}}">{{$personality->personality}}</label>
@@ -229,7 +240,7 @@
 
             <div class="form-group">
                 <div><label>職種</label></div>
-				@foreach($alljobs2 as $job)
+				@foreach($jobsMaster as $job)
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" name="jobs[]" value="{{$job->id}}" type="checkbox" id="jobs{{$job->job}}">
                         <label class="form-check-label" for="jobs{{$job->job}}">{{$job->job}}</label>

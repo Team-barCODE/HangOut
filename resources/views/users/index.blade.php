@@ -43,7 +43,7 @@
 		>
 			@include('users.listItem')
 		</section>
-		<div class="d-none">{{ $users->appends(['keyword'=>$keyword,'before_age'=>$before_age,'after_age'=>$after_age,'prefecture'=>$prefecture,'before_body_height'=>$before_body_height,'after_body_height'=>$after_body_height,'body_figure'=>$body_figure,'smoke'=>$smoke,'alcohol'=>$alcohol,'education'=>$education,'housemate'=>$housemate,'hobbies'=>$hobbies,'personalities'=>$personalities,'jobs'=>$jobs,'before_income'=>$before_income,'after_income'=>$after_income])->links() }}</div>
+		<div class="d-none">{{ $users->appends(['search'=>$search,'keyword'=>$keyword,'before_age'=>$before_age,'after_age'=>$after_age,'prefecture'=>$prefecture,'before_body_height'=>$before_body_height,'after_body_height'=>$after_body_height,'body_figure'=>$body_figure,'smoke'=>$smoke,'alcohol'=>$alcohol,'education'=>$education,'housemate'=>$housemate,'hobbies'=>$hobbies,'personalities'=>$personalities,'jobs'=>$jobs,'before_income'=>$before_income,'after_income'=>$after_income])->links() }}</div>
 		<h4 class="text-center">メンバーは以上です</h4>
 		<br>
 	</div>
