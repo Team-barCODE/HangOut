@@ -54,7 +54,7 @@
 					case 1:
 						$sex = '女性';
 						break;
-					case 3:
+					case 2:
 						$sex = 'LGBT';
 						break;
 				}

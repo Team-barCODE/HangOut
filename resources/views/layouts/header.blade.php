@@ -10,13 +10,9 @@
         @endif
 
         <li class="col-2 mb-2 mt-2 text-center">
-            @if((Auth::id() !== null))
-                <a class="" href="{{route('home')}}">
-            @else
-                <a class="" href="{{url('/')}}">
-            @endif
-                    <img class="home_icon" src="/storage/images/sample_logo.png">
-                </a>
+            <a class="" href="{{url('/')}}">
+                <img class="home_icon" src="/storage/images/sample_logo.png">
+            </a>
         </li>
 
         @if((Auth::id() !== null))
@@ -39,9 +35,9 @@
             <li class="list_none mt-2 mb-2 col-md-2">
                 <a class="btn btn-sm bg-white d-block font-weight-bold" href="/users/show/{{Auth::id()}}">マイページ</a>
             </li>
-            <li class="list_none mt-2 mb-2 col-md-2">
+            <!-- <li class="list_none mt-2 mb-2 col-md-2">
                 <a class="btn btn-sm bg-white d-block font-weight-bold"  href="{{ route('home') }}">スワイプ</a>
-            </li>
+            </li> -->
             <li class="list_none mt-2 mb-2 col-md-2">
                 <a class="btn btn-sm bg-white d-block font-weight-bold" href="{{ route('users.index') }}">一覧</a>
             </li>

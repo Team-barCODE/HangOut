@@ -13,4 +13,7 @@ class Status
   const LIKE = 1;
   const DISLIKE = 2;
 
+  const SEARCH_NAME = 0;
+  const SEARCH_INTRODUCTION = 1;
+
 }
