@@ -1,7 +1,6 @@
 <header class="header">
     <ul class="list-group-horizontal nav align-items-center justify-content-around">
         @if((Auth::id() !== null))
-
             <li class="col-5 mb-2 mt-2 text-left">
                 <a href="/users/show/{{Auth::id()}}" class="text-white">
                     <i class="fas fa-user fa-2x"></i>
@@ -10,7 +9,7 @@
         @endif
 
         <li class="col-2 mb-2 mt-2 text-center">
-            <a class="" href="{{url('/')}}">
+            <a class="" href="/users">
                 <img class="home_icon" src="/storage/images/sample_logo.png">
             </a>
         </li>
