@@ -8,11 +8,13 @@
 		<a href="/users/1"><button type="button" class="btn btn-sm btn-outline-warning">ライク！一覧</button></a>
 	</nav>
 	<nav class="navbar navbar-light w-100 nav-justified px-3">
-	<button type="button" class="btn btn-outline-primary px-3" data-toggle="modal" data-target="#searchModal">条件で探す</button>
-		<form class="form-inline">
+		<button type="button" class="btn btn-outline-primary px-3" data-toggle="modal" data-target="#searchModal">条件で探す</button>
+		<a href="{{ route('matching') }}"><button type="button" class="btn btn-outline-primary px-3">チャットへ</button></a>
+		<a href="/users/3"><button type="button" class="btn btn-outline-primary px-3">ライクされた人</button></a>
+		<!-- <form class="form-inline">
 			<input class="form-control mr-sm-2" type="search" placeholder="テキスト検索..." aria-label="テキスト検索...">
 			<button type="submit" class="btn btn-outline-success my-2 my-sm-0">検索</button>
-		</form>
+		</form> -->
 	</nav>
 
 	<div class='container'>
@@ -41,32 +43,14 @@
 		>
 			@include('users.listItem')
 		</section>
-		<div class="d-none">{{ $users->links() }}</div>
+		<div class="d-none">{{ $users->appends(['keyword'=>$keyword,'before_age'=>$before_age,'after_age'=>$after_age,'prefecture'=>$prefecture,'before_body_height'=>$before_body_height,'after_body_height'=>$after_body_height,'body_figure'=>$body_figure,'smoke'=>$smoke,'alcohol'=>$alcohol,'education'=>$education,'housemate'=>$housemate,'hobbies'=>$hobbies,'personalities'=>$personalities,'jobs'=>$jobs,'before_income'=>$before_income,'after_income'=>$after_income])->links() }}</div>
 		<h4 class="text-center">メンバーは以上です</h4>
 		<br>
 	</div>
 </div>
 
-<!-- モーダルの設定 -->
-<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="searchModalLabel">モーダルのタイトル</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>モーダルのコンテンツ文。</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-        <button type="button" class="btn btn-primary">変更を保存</button>
-      </div><!-- /.modal-footer -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+@include('users.searchModal')
+
 @endsection
 
 @section('script')
