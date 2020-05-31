@@ -37,7 +37,7 @@ class HomeController extends Controller
                 break;
             default:
                 // todo
-                $users = User::where('id', '!=', $id)->where('sex', '=', 3)->get();
+                $users = User::where('id', '!=', $id)->where('sex', '=', 2)->get();
         }
 
         $userCount = $users->count();
