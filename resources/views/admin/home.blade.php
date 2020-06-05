@@ -1,30 +1,25 @@
-@extends('layouts.layout')
+@extends('adminlte::page')
+
+@section('title', '管理画面')
+@section('dashboard_url', route('admin.home'))
+@section('logout_url', route('admin.logout'))
+
+@section('content_header')
+    <h1>Dashboard</h1>
+@stop
 
 @section('content')
 
-<div class="topPage">
-  <div id="tinderslide">
-    <ul>
-        @foreach($users as $user)
-        <li data-user_id="{{ $user->id }}">
-          <div class="userName">{{ $user->name }}</div>
-          <img src="/storage/images/{{ $user->img_name1}}">
-          <div class="like"></div>
-          <div class="dislike"></div>
-        </li>
-        @endforeach
-    </ul>
-    <div class="noUser">近くにお相手がいません。</div>
-  </div>
-  <div class="actions" id="actionBtnArea">
-      <a href="#" class="dislike"><i class="fas fa-times fa-2x"></i></a>
-      <a href="#" class="like"><i class="fas fa-heart fa-2x"></i></a>
-  </div>
-</div>
+    @foreach($users as $user)
+        {{$user['id']}}
+    @endforeach
 
-<script>
-  var usersNum = {{ $userCount }};
-  var from_user_id = {{ $from_user_id }};
-</script>
+@stop
 
-@endsection
+@section('css')
+    <link rel="stylesheet" href="admin-lte/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop

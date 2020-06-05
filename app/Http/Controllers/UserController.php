@@ -74,12 +74,33 @@ class UserController extends Controller
             $personalities = Personality::orderBy('id', 'asc')->get();
             $hobbies = Hobby::orderBy('id', 'desc')->get();
             $alljobs = Job::orderBy('id', 'asc')->get();
+            $authUser = Auth::user();
+            $from_user_id = $authUser->id;
             $data = [
                 "user" => $user,
                 "age" => $age,
                 "personalities" => $personalities,
                 "hobbies" => $hobbies,
                 "alljobs" => $alljobs,
+                "from_user_id" => $from_user_id,
+            ];
+            return view('users.show', $data);
+        }
+        elseif(Auth::user()->sex === 2 && $user->sex === 2)
+        {
+            $age = Carbon::createFromDate($user->birth_date);
+            $personalities = Personality::orderBy('id', 'asc')->get();
+            $hobbies = Hobby::orderBy('id', 'desc')->get();
+            $alljobs = Job::orderBy('id', 'asc')->get();
+            $authUser = Auth::user();
+            $from_user_id = $authUser->id;
+            $data = [
+                "user" => $user,
+                "age" => $age,
+                "personalities" => $personalities,
+                "hobbies" => $hobbies,
+                "alljobs" => $alljobs,
+                "from_user_id" => $from_user_id,
             ];
             return view('users.show', $data);
         }
@@ -193,4 +214,33 @@ class UserController extends Controller
             return redirect('users/show/' . Auth::id());
         }
     }
+
+
+    public function eraseThumbnail(Request $request,$id)
+    {
+        $user = User::findorFail($id);
+
+        switch($request->this_column)
+        {
+            case 2:
+                $old_image = $user->img_name2;
+                Storage::delete('public/images/'.$old_image);
+                $user->img_name2 = '';
+                $user->save();
+                break;
+
+            case 3:
+                $old_image = $user->img_name3;
+                Storage::delete('public/images/'.$old_image);
+                $user->img_name3 = '';
+                $user->save();
+    
+                break;
+
+            default:
+                return false;
+                break;
+        }
+    }
+
 }

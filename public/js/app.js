@@ -46870,7 +46870,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "e9d0896b81076ddbe668",
+  key: "63fd6524f0cae0ec855a",
   cluster: "ap3",
   encrypted: true
 });
@@ -47689,19 +47689,6 @@ function checkUserNum() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// // なぜか動かん
-// for(var i = 1 ; i <= 3 ; i++){
-//   console.log(i);
-//   $("#file_photo" + i ).on('change',function(e){
-//     console.log(i);
-//     var reader = new FileReader();
-//     reader.onload = function(e) {
-//         $(this).parents('.userProfileImg').css('background-image','');
-//         $(this).parents('.userProfileImg').css('background-image','url(' + e.target.result +')');
-//     }
-//     reader.readAsDataURL(e.target.files[0]);
-//   });
-// }
 $('#file_photo1').on('change', function (e) {
   var reader = new FileReader();
 
@@ -47755,6 +47742,27 @@ $(window).resize(function () {
     $('.gnavi-contents').hide();
   } else {
     $('.gnavi-contents').show();
+    $('.gnavi-contents').css('height', 'auto');
+    $('.hamburgeranime').stop().removeClass('active');
+  }
+});
+$('.userProfileImg_mini').on('click', function () {
+  var bg = $(this).css('background-image');
+  bg = bg.replace('url(', '').replace(')', '').replace(/\"/gi, "");
+  $('.thumbnail').css('background-image', 'url(' + bg + ')');
+});
+$('.report_area').hide();
+$('.reportbtn').on('click', function () {
+  $('.btn .fas').stop().toggleClass('active');
+  $('.report_area').stop().slideToggle();
+});
+$('input[name="report"]').on('change', function () {
+  var report_val = $(this).val();
+
+  if (report_val >= 1 && report_val <= 4) {
+    $('.report_submit').removeClass('disabled');
+  } else {
+    $('.report_submit').addClass('disabled');
   }
 });
 
@@ -47778,8 +47786,8 @@ $(window).resize(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/test/HangOut/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/test/HangOut/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/HangOut/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/HangOut/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
