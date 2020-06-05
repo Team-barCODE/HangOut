@@ -27,10 +27,10 @@ class CreateUsersTable extends Migration
             $table->string('img_name3')->default('');
             $table->datetime('birth_date')->nullable();
             $table->string('password');
-            $table->tinyInteger('smoke')->default(0);
-            $table->tinyInteger('alcohol')->default(0);
+            $table->tinyInteger('smoke')->nullable();
+            $table->tinyInteger('alcohol')->nullable();
             $table->integer('body_height')->nullable();
-            $table->tinyInteger('body_figure')->default(1);
+            $table->tinyInteger('body_figure')->nullable();
             $table->tinyInteger('education')->nullable();
             $table->tinyInteger('housemate')->nullable();
             $table->integer('income')->nullable();
