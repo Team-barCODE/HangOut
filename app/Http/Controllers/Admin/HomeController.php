@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Report;
 use Auth;
 
 class HomeController extends Controller
@@ -26,6 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');   // 管理者用のテンプレート
+        $users = User::orderBy('id', 'asc')->get()->toArray();
+        $data = [
+            'users' => $users,
+        ];
+
+
+        return view('admin.home', $data);   // 管理者用のテンプレート
     }
 }

@@ -21,9 +21,11 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
     Route::get('update/{id}', function () {
         return redirect('/');
     });
-
-
+    
 });
+// Ajaxでサムネ削除
+Route::post('/api/users/update/{id}', 'UserController@eraseThumbnail')->name('users.eraseThumbnail');
+Route::post('/api/report', 'ReportController@report');
 
 
 Route::get('/', function () {

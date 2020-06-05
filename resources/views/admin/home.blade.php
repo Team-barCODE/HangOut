@@ -2,14 +2,18 @@
 
 @section('title', '管理画面')
 @section('dashboard_url', route('admin.home'))
-@section('dashboard_url', route('admin.logout'))
+@section('logout_url', route('admin.logout'))
 
 @section('content_header')
     <h1>Dashboard</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+
+    @foreach($users as $user)
+        {{$user['id']}}
+    @endforeach
+
 @stop
 
 @section('css')

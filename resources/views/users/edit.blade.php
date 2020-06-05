@@ -20,6 +20,18 @@
 					</label>
 				@endfor
 			</div>
+			<div class="row mb-4 justify-content-around">
+			@for($i = 0 ; $i < count($arr) ; $i++)
+				@if($i !== 0  && $arr[$i] !== '')
+					<div class="col-2 text-center p-1 eraser{{$i + 1}}" data-thumbNum="{{$i + 1}}">
+						<i class="fas fa-trash-alt text-muted" style="font-size:2rem"></i>
+					</div>
+				@else
+					<div class="col-2 text-center p-1"></div>
+				@endif
+			@endfor
+			</div>
+			
 
 
 			<div class="form-group">
@@ -124,7 +136,7 @@
 					$education = ['中卒','高卒','高専卒','専門卒','短大卒','大卒','院卒'];
 				@endphp
 
-				@for($i = 0 ; $i <= count($education)-1 ; $i++)
+				@for($i = 0 ; $i < count($education) ; $i++)
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" name="education" value="{{$i}}" type="radio" id="inlineRadioed{{$i}}" @if($user->education === $i) checked @endif>
 						<label class="form-check-label" for="inlineRadioed{{$i}}">{{$education[$i]}}</label>
@@ -257,7 +269,7 @@
 						$income = [null ,100 ,300 ,500 ,700 ,900 ,1250 ,1750 ,2500 ,3000];
 						$income_line = ['選択しない', '0〜200万円', '200〜400万円', '400〜600万円', '600〜800万円', '800〜1,000万円', '1,000〜1,500万円', '1,500〜2,000万円', '2,000〜3,000万円', '3,000万円〜',];
 					@endphp
-					@for($i = 0 ; $i <= count($income)-1 ; $i++ )
+					@for($i = 0 ; $i < count($income) ; $i++ )
 						<option value="{{$income[$i]}}" @if($user->income === $income[$i]) selected @endif>{{$income_line[$i]}}</option>
 					@endfor
 				</select>
@@ -286,4 +298,74 @@
 		</form>
 	</div>
 </div>
+@endsection
+@section('script')
+<script>
+	// ゴミ箱2をクリック
+	$(document).on('click', '.eraser2', function() {
+		const this_thumbnail = $(this);
+		const selected_thumbnail = this_thumbnail.attr('data-thumbNum');
+		if(selected_thumbnail == 2){
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},//Headersを書き忘れるとエラーになる
+				url: '/api/users/update/{{Auth::user()->id}}',//ご自身のweb.phpのURLに合わせる
+				type: 'POST',//リクエストタイプ
+				dataType:'html',//
+				data: {
+					img_name2 : '',
+					this_column :2
+				},//Laravelに渡すデータ
+			})
+			// Ajaxリクエスト成功時の処理
+			.done(function(data) {
+				// Laravel内で処理された結果がdataに入って返ってくる
+				$('.file_photo' + selected_thumbnail ).css({'background-image':'','background-color':'#fd5068'});
+				$('.signupPage .file_photo' + selected_thumbnail + ' .fa-camera' ).css('color','#fff');
+				this_thumbnail.removeClass('eraser3').css('visibility','hidden');
+			})
+			// Ajaxリクエスト失敗時の処理
+			.fail(function(data) {
+				alert('Ajaxリクエスト失敗');
+			});
+		}else{
+			alert('Ajaxリクエスト失敗');
+		}
+	});
+
+	// ゴミ箱3をクリック
+	$(document).on('click', '.eraser3', function() {
+		const this_thumbnail = $(this);
+		const selected_thumbnail = this_thumbnail.attr('data-thumbNum');
+		if(selected_thumbnail == 3){
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},//Headersを書き忘れるとエラーになる
+				url: '/api/users/update/{{Auth::user()->id}}',//ご自身のweb.phpのURLに合わせる
+				type: 'POST',//リクエストタイプ
+				dataType:'html',//
+				data: {
+					img_name3 : '',
+					this_column :3
+				},//Laravelに渡すデータ
+			})
+			// Ajaxリクエスト成功時の処理
+			.done(function(data) {
+				// Laravel内で処理された結果がdataに入って返ってくる
+				$('.file_photo' + selected_thumbnail ).css({'background-image':'','background-color':'#fd5068'});
+				$('.signupPage .file_photo' + selected_thumbnail + ' .fa-camera' ).css('color','#fff');
+				this_thumbnail.removeClass('eraser3').css('visibility','hidden');
+			})
+			// Ajaxリクエスト失敗時の処理
+			.fail(function(data) {
+				alert('Ajaxリクエスト失敗');
+			});
+		}else{
+			alert('Ajaxリクエスト失敗');
+		}
+	});
+
+</script>
 @endsection

@@ -9,7 +9,7 @@
             </li>
         @endif
 
-        <li class="col-2 mb-2 mt-2 text-center">
+        <li class="col-2 mb-2 mt-2 text-center p-0">
             @if((Auth::id() !== null))
                 <a class="" href="{{route('home')}}">
             @else

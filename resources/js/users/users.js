@@ -1,18 +1,3 @@
-// // なぜか動かん
-// for(var i = 1 ; i <= 3 ; i++){
-//   console.log(i);
-
-//   $("#file_photo" + i ).on('change',function(e){
-//     console.log(i);
-
-//     var reader = new FileReader();
-//     reader.onload = function(e) {
-//         $(this).parents('.userProfileImg').css('background-image','');
-//         $(this).parents('.userProfileImg').css('background-image','url(' + e.target.result +')');
-//     }
-//     reader.readAsDataURL(e.target.files[0]);
-//   });
-// }
   $('#file_photo1').on('change',function(e){
     var reader = new FileReader();
     reader.onload = function(e) {
@@ -56,8 +41,25 @@
       $('.gnavi-contents').hide();
     }else{
       $('.gnavi-contents').show();
+      $('.gnavi-contents').css('height','auto');
+      $('.hamburgeranime').stop().removeClass('active');
     }
   });
-  // $('').on('click',function(){
-
-  // }
+  $('.userProfileImg_mini').on('click',function(){
+    var bg = $(this).css('background-image');
+    bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
+    $('.thumbnail').css('background-image','url(' + bg + ')');
+  });
+  $('.report_area').hide();
+  $('.reportbtn').on('click',function(){
+    $('.btn .fas').stop().toggleClass('active');
+    $('.report_area').stop().slideToggle();
+  });
+  $('input[name="report"]').on('change',function(){
+    var report_val = $(this).val();
+    if(report_val >= 1 && report_val <= 4){
+      $('.report_submit').removeClass('disabled');
+    }else{
+      $('.report_submit').addClass('disabled');
+    }
+  });

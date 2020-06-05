@@ -96,4 +96,16 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Job');
     }
 
+    // 通報用
+    public function reportToUser()
+    {
+        return $this->hasMany('App\Models\Report', 'to_user_id', 'id');
+    }
+
+    public function reportFromUser()
+    {
+        return $this->hasMany('App\Models\Report', 'from_user_id', 'id');
+    }
+    
+
 }
