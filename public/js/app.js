@@ -46823,8 +46823,147 @@ __webpack_require__(/*! ./jquery.transform2d */ "./resources/js/jquery.transform
 
 __webpack_require__(/*! ./jTinder */ "./resources/js/jTinder.js");
 
-__webpack_require__(/*! ./chat */ "./resources/js/chat.js"); // require('./auth/register.js');
-// require('./auth/login.js');
+__webpack_require__(/*! ./chat */ "./resources/js/chat.js");
+
+__webpack_require__(/*! ./nav */ "./resources/js/nav.js");
+
+__webpack_require__(/*! ./auth/register.js */ "./resources/js/auth/register.js"); // require('./auth/login.js');
+
+/***/ }),
+
+/***/ "./resources/js/auth/register.js":
+/*!***************************************!*\
+  !*** ./resources/js/auth/register.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+$(function () {
+  var _$$datepicker;
+
+  //バリデーション
+  //必須項目チェック
+  $(".required").blur(function () {
+    if ($(this).val() == "") {
+      $(this).siblings('span.error_required').text("※入力必須項目です");
+      $(this).addClass("errored");
+    } else {
+      $(this).siblings('span.error_required').text("");
+      $(this).removeClass("errored");
+    }
+  }); // ファイルチェック
+  // $('#file_photo1').change(function() {
+  // 	let file = $(this).prop('files')[0];
+  // 	let fileSize = getFiseSize(file.size);
+  // 	$('#file_status').html('ファイル名:' + file.name + ' / サイズ:' + fileSize + ' / 種類:' + file.type);
+  // 	if(fileSize > 8388608){ //8MB
+  //         $("#fileError_size").text("※8M以下のファイルにしてください");
+  //      	return false;
+  //     }else{
+  //         $("#fileError_size").text("");
+  //     }
+  //     if (!file.type.match(/.(jpg|jpeg|gif|ping)$/i)){
+  //         $("#fileError_type").text("※jpg,jpeg,gif,ping形式のファイルにしてください");
+  //      	return false;
+  //     }else{
+  //         $("#fileError_type").text("");
+  //     }
+  // });
+  //名前入力チェック
+
+  $("#name").blur(function () {
+    if (!$(this).val().match(/^.{1,40}$/)) {
+      $(this).siblings('span.error_name').text("※40文字以下にしてください");
+      $(this).addClass("errored");
+    } else {
+      $(this).siblings('span.error_name').text("");
+      $(this).removeClass("errored");
+    }
+  }); //メールアドレス入力チェック
+
+  $("#mail").blur(function () {
+    if (!$(this).val().match(/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/)) {
+      $(this).siblings('span.error_mail').text("※メール形式で入力してください");
+      $(this).addClass("errored");
+    } else {
+      $(this).siblings('span.error_mail').text("");
+      $(this).removeClass("errored");
+    }
+  }); //パスワードチェック
+
+  $("#password").blur(function () {
+    if (!$(this).val().match(/^.{6,20}$/)) {
+      $(this).siblings('span.error_password').text("※6文字以上20文字以下にしてください");
+      $(this).addClass("errored");
+    } else if (!$(this).val().match(/^[a-zA-Z0-9!-/:-@¥[-`{-~]*$/)) {
+      $(this).siblings('span.error_password').text("※半角英数記号のみ入力してください");
+      $(this).addClass("errored");
+    } else {
+      $(this).siblings('span.error_password').text("");
+      $(this).removeClass("errored");
+    }
+  }); //パスワード確認チェック
+
+  $("#password_confirmation").blur(function () {
+    if (!$(this).val().match(/^.{6,20}$/)) {
+      $(this).siblings('span.error_password_confirmation').text("※6文字以上20文字以下にしてください");
+      $(this).addClass("errored");
+    } else if (!$(this).val().match(/^[a-zA-Z0-9!-/:-@¥[-`{-~]*$/)) {
+      $(this).siblings('span.error_password_confirmation').text("※半角英数記号のみ入力してください");
+      $(this).addClass("errored");
+    } else {
+      $(this).siblings('span.error_password_confirmation').text("");
+      $(this).removeClass("errored");
+    }
+  }); // 日付チェック
+  // $("#datepicker").on('change', function(){
+  //     if(!$(this).val().match(/^\d{1,4}(\/|-)\d{1,2}\1\d{1,2}$/)){
+  //         $(this).siblings('span.error_datepicker').text("※日付形式にしてください");
+  //         $(this).addClass("errored");
+  //     } else {
+  //         $(this).siblings('span.error_datepicker').text("");
+  //         $(this).removeClass("errored");
+  //     }
+  // });
+  //エリアチェック（漢字のみ
+
+  $("#prefecture").change(function () {
+    if (!$(this).val().match(/^[亜-黑]+$/)) {
+      $(this).siblings('span.error_prefecture').text("※正しい形式で入力してください");
+      $(this).addClass("errored");
+    } else {
+      $(this).siblings('span.error_prefecture').text("");
+      $(this).removeClass("errored");
+    }
+  }); //送信時の必須項目入力チェック
+
+  $("#submit_register").on('click', function () {
+    if ($("#file_photo1").val() == "") {
+      $("#fileError_required").text('※入力必須項目です');
+    }
+
+    $(".required").each(function () {
+      if ($(this).val() == "") {
+        $(this).siblings('span.error_required').text("※入力必須項目です");
+        $(this).addClass("errored");
+      }
+    });
+
+    if ($(".errored").length) {
+      return false;
+    }
+  });
+  $("#datepicker").datepicker((_$$datepicker = {
+    showMonthAfterYear: true,
+    yearSuffix: '年',
+    monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+    dayNamesMin: ['日', '月', '火', '水', '木', '金', '土'],
+    dateFormat: 'yy-mm-dd',
+    showAnim: 'fadeIn'
+  }, _defineProperty(_$$datepicker, "showMonthAfterYear", true), _defineProperty(_$$datepicker, "changeYear", true), _defineProperty(_$$datepicker, "changeMonth", true), _defineProperty(_$$datepicker, "yearRange", "-100:-20"), _defineProperty(_$$datepicker, "maxDate", '-240m'), _defineProperty(_$$datepicker, "hideIfNoPrevNext", true), _defineProperty(_$$datepicker, "defaultDate", "2000-01-01"), _$$datepicker));
+});
 
 /***/ }),
 
@@ -47682,6 +47821,29 @@ function checkUserNum() {
 
 /***/ }),
 
+/***/ "./resources/js/nav.js":
+/*!*****************************!*\
+  !*** ./resources/js/nav.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$('.hamburgeranime').click(function () {
+  $('.hamburgeranime').stop().toggleClass('active');
+  $('.gnavi-contents').stop().slideToggle();
+});
+$(window).resize(function () {
+  var bodyWidth = $('body').width();
+
+  if (bodyWidth < 768) {
+    $('.gnavi-contents').hide();
+  } else {
+    $('.gnavi-contents').show();
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/users/users.js":
 /*!*************************************!*\
   !*** ./resources/js/users/users.js ***!
@@ -47689,20 +47851,8 @@ function checkUserNum() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// // なぜか動かん
-// for(var i = 1 ; i <= 3 ; i++){
-//   console.log(i);
-//   $("#file_photo" + i ).on('change',function(e){
-//     console.log(i);
-//     var reader = new FileReader();
-//     reader.onload = function(e) {
-//         $(this).parents('.userProfileImg').css('background-image','');
-//         $(this).parents('.userProfileImg').css('background-image','url(' + e.target.result +')');
-//     }
-//     reader.readAsDataURL(e.target.files[0]);
-//   });
-// }
 $('#file_photo1').on('change', function (e) {
+  console.log("test");
   var reader = new FileReader();
 
   reader.onload = function (e) {
@@ -47712,9 +47862,32 @@ $('#file_photo1').on('change', function (e) {
     });
     $('.signupPage .file_photo1 .fa-camera').css('color', 'transparent');
     $('.file_photo1').css('background-image', 'url(' + e.target.result + ')');
+    console.log("Onroead");
   };
 
+  console.log("test2");
   reader.readAsDataURL(e.target.files[0]);
+  console.log(e.target.files[0]);
+  console.log(e.target.files[0].size);
+  console.log(e.target.files[0].type);
+  console.log("test3");
+  $("#fileError_required").text('');
+  var photo1size = e.target.files[0].size;
+  var photo1type = e.target.files[0].type;
+
+  if (photo1size > 5242880) {
+    reader.abort();
+    $('#fileError_size').text("※５Mバイト以下のファイルにしてください");
+    $('#file_photo1').addClass("errored");
+  } else if (photo1type != 'image/jpeg' && photo1type != 'image/jpg' && photo1type != 'image/gif' && photo1type != 'image/png') {
+    reader.abort();
+    $('#fileError_type').text("※jpeg,jpg,gif,png形式のファイルにしてください");
+    $('#file_photo1').addClass("errored");
+  } else {
+    $('#fileError_size').text("");
+    $('#fileError_type').text("");
+    $('#file_photo1').removeClass("errored");
+  }
 });
 $('#file_photo2').on('change', function (e) {
   var reader = new FileReader();
@@ -47743,19 +47916,6 @@ $('#file_photo3').on('change', function (e) {
   };
 
   reader.readAsDataURL(e.target.files[0]);
-});
-$('.hamburgeranime').click(function () {
-  $('.hamburgeranime').stop().toggleClass('active');
-  $('.gnavi-contents').stop().slideToggle();
-});
-$(window).resize(function () {
-  var bodyWidth = $('body').width();
-
-  if (bodyWidth < 768) {
-    $('.gnavi-contents').hide();
-  } else {
-    $('.gnavi-contents').show();
-  }
 });
 
 /***/ }),

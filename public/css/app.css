@@ -17091,6 +17091,10 @@ body {
   transform: translateY(-50%);
 }
 
+.jsError {
+  color: tomato;
+}
+
 .signinPage {
   margin-top: 10vh;
 }
