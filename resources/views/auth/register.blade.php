@@ -7,54 +7,74 @@
 <div class="signupPage">
   <div class='container'>
 
-    <form class="form mt-5" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+    <form class="form_register mt-5" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
       @csrf
 
       <h2 class="title text-center" style="color:#fd5068">新規登録</h2>
       <label for="file_photo1" class="rounded-circle userProfileImg file_photo1">
         <div class="userProfileImg_description">画像をアップロード</div>
         <i class="fas fa-camera fa-3x"></i>
-        <input type="file" id="file_photo1" name="img_name1">
+        <input type="file" class="" id="file_photo1" name="img_name1">
       </label>
+      <div class="text-center">
+		<span id="file_name" class="jsError"></span>
+		<span id="fileError_required" class="jsError"></span>
+		<span id="fileError_size" class="jsError"></span>
+		<span id="fileError_type" class="jsError"></span>
+      </div>
       @error('img_name1')
         <div class="text-center">
           <span class="errorMessage">
             {{ $message }}
           </span>
         </div>
-      @enderror
+	  @enderror
+
       <div class="form-group @error('name')has-error @enderror">
         <label>名前</label>
-        <input type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="名前を入力してください">
+		<input id="name" type="text" name="name" class="form-control required" value="{{ old('name') }}" placeholder="名前を入力してください" required>
+		<span class="error_required jsError"></span>
+		<span class="error_name jsError"></span>
+
         @error('name')
             <span class="errorMessage">
               {{ $message }}
             </span>
         @enderror
-      </div>
+	  </div>
+
       <div class="form-group @error('email')has-error @enderror">
         <label>メールアドレス</label>
-        <input type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="メールアドレスを入力してください">
+		<input id="mail" type="email" name="email" class="form-control required" value="{{ old('email') }}" placeholder="メールアドレスを入力してください">
+		<span class="error_required jsError"></span>
+		<span class="error_mail jsError"></span>
         @error('email')
             <span class="errorMessage">
               {{ $message }}
             </span>
         @enderror
-      </div>
+	  </div>
+
       <div class="form-group @error('password')has-error @enderror">
         <label>パスワード</label>
         <em>6文字以上入力してください</em>
-        <input type="password" name="password" class="form-control" placeholder="パスワードを入力してください">
+		<input id="password" type="password" name="password" class="form-control required" placeholder="パスワードを入力してください" required>
+		<span class="error_required jsError"></span>
+		<span class="error_password jsError"></span>
         @error('password')
             <span class="errorMessage">
               {{ $message }}
             </span>
         @enderror
-      </div>
+	  </div>
+
       <div class="form-group">
         <label>確認用パスワード</label>
-        <input type="password" name="password_confirmation" class="form-control" placeholder="パスワードを再度入力してください">
-      </div>
+		<input id="password_confirmation" type="password" name="password_confirmation" class="form-control required" placeholder="パスワードを再度入力してください" required>
+		<span class="error_required jsError"></span>
+		<span class="error_password_confirmation jsError"></span>
+	  </div>
+
       <div class="form-group">
         <div><label>性別</label></div>
         <div class="form-check form-check-inline">
@@ -69,21 +89,25 @@
           <input class="form-check-input" name="sex" value="2" type="radio" id="inlineRadio3" {{ old('sex') == '2' ? 'checked' : '' }}>
           <label class="form-check-label" for="inlineRadio3">LGBT</label>
         </div>
-      </div>
+	  </div>
+
       <div class="form-group @error('birth_date')has-error @enderror"">
         <div><label class="form-check-label" for="datepicker">生年月日</label></div>
-        <div class="form-check form-check-inline">
-          <input class="form-control" name="birth_date" value="{{ old('birth_date') }}" type="text" id="datepicker" autocomplete="off" placeholder="yyyy-mm-dd">
+        <div class="form-check">
+			<input id="datepicker" class="form-control" name="birth_date" value="{{ old('birth_date') }}" type="text" autocomplete="off" placeholder="yyyy-mm-dd" required>
+			<!-- <span class="error_required jsError"></span>
+			<span class="error_datepicker jsError"></span> -->
         </div>
         @error('birth_date')
           <span class="errorMessage d-block">
             {{ $message }}
           </span>
         @enderror
-      </div>
+	  </div>
+
       <div class="form-group @error('prefecture')has-error @enderror">
         <label>エリア</label>
-          <select class="form-control" name="prefecture">
+          <select id="prefecture" class="form-control required" name="prefecture" required>
             <option value="">都道府県</option>
             <option value="北海道" {{ old('prefecture') == '北海道' ? 'selected' : '' }}>北海道</option>
             <option value="青森県" {{ old('prefecture') == '青森県' ? 'selected' : '' }}>青森県</option>
@@ -132,7 +156,9 @@
             <option value="宮崎県" {{ old('prefecture') == '宮崎県' ? 'selected' : '' }}>宮崎県</option>
             <option value="鹿児島県" {{ old('prefecture') == '鹿児島県' ? 'selected' : '' }}>鹿児島県</option>
             <option value="沖縄県" {{ old('prefecture') == '沖縄県' ? 'selected' : '' }}>沖縄県</option>
-          </select>
+		  </select>
+		  	<span class="error_required jsError"></span>
+			<span class="error_prefecture jsError"></span>
           @error('prefecture')
             <span class="errorMessage">
               {{ $message }}
@@ -142,7 +168,7 @@
       </div>
 
       <div class="text-center">
-        <button type="submit" class="btn submitBtn">はじめる</button>
+        <button id="submit_register" type="submit" class="btn submitBtn">はじめる</button>
         <div class="linkToLogin">
           <a href="{{ route('login') }}">ログインはこちら</a>
         </div>
@@ -154,5 +180,4 @@
 
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="{{ asset('js/auth/register.js') }}"></script>
 @endsection
