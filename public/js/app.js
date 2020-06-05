@@ -46838,11 +46838,7 @@ __webpack_require__(/*! ./auth/register.js */ "./resources/js/auth/register.js")
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 $(function () {
-  var _$$datepicker;
-
   //バリデーション
   //必須項目チェック
   $(".required").blur(function () {
@@ -46955,14 +46951,6 @@ $(function () {
       return false;
     }
   });
-  $("#datepicker").datepicker((_$$datepicker = {
-    showMonthAfterYear: true,
-    yearSuffix: '年',
-    monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
-    dayNamesMin: ['日', '月', '火', '水', '木', '金', '土'],
-    dateFormat: 'yy-mm-dd',
-    showAnim: 'fadeIn'
-  }, _defineProperty(_$$datepicker, "showMonthAfterYear", true), _defineProperty(_$$datepicker, "changeYear", true), _defineProperty(_$$datepicker, "changeMonth", true), _defineProperty(_$$datepicker, "yearRange", "-100:-20"), _defineProperty(_$$datepicker, "maxDate", '-240m'), _defineProperty(_$$datepicker, "hideIfNoPrevNext", true), _defineProperty(_$$datepicker, "defaultDate", "2000-01-01"), _$$datepicker));
 });
 
 /***/ }),
@@ -47009,7 +46997,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "e9d0896b81076ddbe668",
+  key: "63fd6524f0cae0ec855a",
   cluster: "ap3",
   encrypted: true
 });
@@ -47917,6 +47905,40 @@ $('#file_photo3').on('change', function (e) {
 
   reader.readAsDataURL(e.target.files[0]);
 });
+$('.hamburgeranime').click(function () {
+  $('.hamburgeranime').stop().toggleClass('active');
+  $('.gnavi-contents').stop().slideToggle();
+});
+$(window).resize(function () {
+  var bodyWidth = $('body').width();
+
+  if (bodyWidth < 768) {
+    $('.gnavi-contents').hide();
+  } else {
+    $('.gnavi-contents').show();
+    $('.gnavi-contents').css('height', 'auto');
+    $('.hamburgeranime').stop().removeClass('active');
+  }
+});
+$('.userProfileImg_mini').on('click', function () {
+  var bg = $(this).css('background-image');
+  bg = bg.replace('url(', '').replace(')', '').replace(/\"/gi, "");
+  $('.thumbnail').css('background-image', 'url(' + bg + ')');
+});
+$('.report_area').hide();
+$('.reportbtn').on('click', function () {
+  $('.btn .fas').stop().toggleClass('active');
+  $('.report_area').stop().slideToggle();
+});
+$('input[name="report"]').on('change', function () {
+  var report_val = $(this).val();
+
+  if (report_val >= 1 && report_val <= 4) {
+    $('.report_submit').removeClass('disabled');
+  } else {
+    $('.report_submit').addClass('disabled');
+  }
+});
 
 /***/ }),
 
@@ -47938,8 +47960,8 @@ $('#file_photo3').on('change', function (e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/test/HangOut/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/test/HangOut/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/HangOut/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/HangOut/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

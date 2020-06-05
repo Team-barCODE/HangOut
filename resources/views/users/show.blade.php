@@ -37,7 +37,10 @@
 
     <div class='userInfo card'>
       <div class='userInfo_name card-header mt-0'>{{ $user->name }}</div>
-      @if($user->reportToUser->isEmpty() === true)
+
+      @if($user->reportFromUser->isEmpty() === true)
+      
+      
         <div class='thumbnail' style="background-image:url('/storage/images/{{$user ->img_name1}}')">
         </div>
         @if($user->img_name2 !== '' || $user->img_name3 !== '')
@@ -350,6 +353,7 @@
             </div>
           </div>
         @endif
+
       @elseif($user->reportFromUser->isEmpty() === false)
         <p class="pl-3 pr-3 mt-3">通報されたので見ることは出来ません。</p>
       @endif
