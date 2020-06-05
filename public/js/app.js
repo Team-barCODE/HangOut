@@ -47689,19 +47689,6 @@ function checkUserNum() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// // なぜか動かん
-// for(var i = 1 ; i <= 3 ; i++){
-//   console.log(i);
-//   $("#file_photo" + i ).on('change',function(e){
-//     console.log(i);
-//     var reader = new FileReader();
-//     reader.onload = function(e) {
-//         $(this).parents('.userProfileImg').css('background-image','');
-//         $(this).parents('.userProfileImg').css('background-image','url(' + e.target.result +')');
-//     }
-//     reader.readAsDataURL(e.target.files[0]);
-//   });
-// }
 $('#file_photo1').on('change', function (e) {
   var reader = new FileReader();
 
@@ -47712,7 +47699,6 @@ $('#file_photo1').on('change', function (e) {
     });
     $('.signupPage .file_photo1 .fa-camera').css('color', 'transparent');
     $('.file_photo1').css('background-image', 'url(' + e.target.result + ')');
-    console.log(e.target.result);
   };
 
   reader.readAsDataURL(e.target.files[0]);

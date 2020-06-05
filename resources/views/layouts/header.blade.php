@@ -1,7 +1,6 @@
 <header class="header">
     <ul class="list-group-horizontal nav align-items-center justify-content-around">
         @if((Auth::id() !== null))
-
             <li class="col-5 mb-2 mt-2 text-left">
                 <a href="/users/show/{{Auth::id()}}" class="text-white">
                     <i class="fas fa-user fa-2x"></i>
@@ -9,14 +8,10 @@
             </li>
         @endif
 
-        <li class="col-2 mb-2 mt-2 text-center p-0">
-            @if((Auth::id() !== null))
-                <a class="" href="{{route('home')}}">
-            @else
-                <a class="" href="{{url('/')}}">
-            @endif
-                    <img class="home_icon" src="/storage/images/sample_logo.png">
-                </a>
+        <li class="col-2 mb-2 mt-2 text-center">
+            <a class="" href="/users">
+                <img class="home_icon" src="/storage/images/sample_logo.png">
+            </a>
         </li>
 
         @if((Auth::id() !== null))
@@ -39,9 +34,9 @@
             <li class="list_none mt-2 mb-2 col-md-2">
                 <a class="btn btn-sm bg-white d-block font-weight-bold" href="/users/show/{{Auth::id()}}">マイページ</a>
             </li>
-            <li class="list_none mt-2 mb-2 col-md-2">
+            <!-- <li class="list_none mt-2 mb-2 col-md-2">
                 <a class="btn btn-sm bg-white d-block font-weight-bold"  href="{{ route('home') }}">スワイプ</a>
-            </li>
+            </li> -->
             <li class="list_none mt-2 mb-2 col-md-2">
                 <a class="btn btn-sm bg-white d-block font-weight-bold" href="{{ route('users.index') }}">一覧</a>
             </li>

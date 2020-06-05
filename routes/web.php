@@ -12,7 +12,7 @@
 */
 
 Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
-    Route::get('search/', 'UserController@search')->middleware('keyword')->name('users.search');
+    Route::get('search/', 'UserController@search')->name('users.search');
     Route::get('/', 'UserController@index')->name('users.index');
     Route::get('/{status}', 'UserController@index')->name('users.list');
     Route::get('show/{id}', 'UserController@show')->name('users.show');

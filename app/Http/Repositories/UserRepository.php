@@ -95,4 +95,9 @@ class UserRepository
 		}
         return $userIds;
 	}
+
+	public static function search($query)
+    {
+        return $query->paginate(self::PAGE_COUNT);
+	}
 }
