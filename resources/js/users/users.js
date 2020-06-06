@@ -1,36 +1,30 @@
 
-$('#file_photo1').on('change',function(e){
-  console.log("test");
-  var reader = new FileReader();
-  reader.onload = function(e) {
-      $('.file_photo1').css({'background-image':'','background-color':'transparent'});
-      $('.signupPage .file_photo1 .fa-camera').css('color','transparent');
-      $('.file_photo1').css('background-image','url(' + e.target.result +')');
-      console.log("Onroead");
-  }
-  console.log("test2");
-  reader.readAsDataURL(e.target.files[0]);
-  console.log(e.target.files[0]);
-  console.log(e.target.files[0].size);
-  console.log(e.target.files[0].type);
-  console.log("test3");
-  $("#fileError_required").text('');
-  const photo1size = e.target.files[0].size;
-  const photo1type = e.target.files[0].type;
-  if(photo1size > 5242880){
-		reader.abort();
-		$('#fileError_size').text("※５Mバイト以下のファイルにしてください");
-		$('#file_photo1').addClass("errored");
-  } else if(photo1type != 'image/jpeg' && photo1type != 'image/jpg' && photo1type != 'image/gif' && photo1type != 'image/png' ) {
-		reader.abort();
-		$('#fileError_type').text("※jpeg,jpg,gif,png形式のファイルにしてください");
-		$('#file_photo1').addClass("errored");
-  } else {
-		$('#fileError_size').text("");
-		$('#fileError_type').text("");
-		$('#file_photo1').removeClass("errored");
-  }
-});
+  $('#file_photo1').on('change',function(e){
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        $('.file_photo1').css({'background-image':'','background-color':'transparent'});
+        $('.signupPage .file_photo1 .fa-camera').css('color','transparent');
+        $('.file_photo1').css('background-image','url(' + e.target.result +')');
+        console.log("Onroead");
+    }
+    reader.readAsDataURL(e.target.files[0]);
+    $("#fileError_required").text('');
+    const photo1size = e.target.files[0].size;
+    const photo1type = e.target.files[0].type;
+    if(photo1size > 5242880){
+      reader.abort();
+      $('#fileError_size').text("※５Mバイト以下のファイルにしてください");
+      $('#file_photo1').addClass("errored");
+    } else if(photo1type != 'image/jpeg' && photo1type != 'image/jpg' && photo1type != 'image/gif' && photo1type != 'image/png' ) {
+      reader.abort();
+      $('#fileError_type').text("※jpeg,jpg,gif,png形式のファイルにしてください");
+      $('#file_photo1').addClass("errored");
+    } else {
+      $('#fileError_size').text("");
+      $('#fileError_type').text("");
+      $('#file_photo1').removeClass("errored");
+    }
+  });
 
   $('#file_photo2').on('change',function(e){
     var reader = new FileReader();
@@ -54,7 +48,7 @@ $('#file_photo1').on('change',function(e){
   });
 
 
-  $('.hamburgeranime').click(function(){
+  $(document).on('click','.hamburgeranime',function(){
     $('.hamburgeranime').stop().toggleClass('active');
     $('.gnavi-contents').stop().slideToggle();
   });
@@ -64,7 +58,7 @@ $('#file_photo1').on('change',function(e){
       $('.gnavi-contents').hide();
     }else{
       $('.gnavi-contents').show();
-      $('.gnavi-contents').css('height','auto');
+      // $('.gnavi-contents').css('height','auto');
       $('.hamburgeranime').stop().removeClass('active');
     }
   });

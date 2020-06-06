@@ -47840,7 +47840,6 @@ $(window).resize(function () {
 /***/ (function(module, exports) {
 
 $('#file_photo1').on('change', function (e) {
-  console.log("test");
   var reader = new FileReader();
 
   reader.onload = function (e) {
@@ -47853,12 +47852,7 @@ $('#file_photo1').on('change', function (e) {
     console.log("Onroead");
   };
 
-  console.log("test2");
   reader.readAsDataURL(e.target.files[0]);
-  console.log(e.target.files[0]);
-  console.log(e.target.files[0].size);
-  console.log(e.target.files[0].type);
-  console.log("test3");
   $("#fileError_required").text('');
   var photo1size = e.target.files[0].size;
   var photo1type = e.target.files[0].type;
@@ -47905,7 +47899,7 @@ $('#file_photo3').on('change', function (e) {
 
   reader.readAsDataURL(e.target.files[0]);
 });
-$('.hamburgeranime').click(function () {
+$(document).on('click', '.hamburgeranime', function () {
   $('.hamburgeranime').stop().toggleClass('active');
   $('.gnavi-contents').stop().slideToggle();
 });
@@ -47915,8 +47909,8 @@ $(window).resize(function () {
   if (bodyWidth < 768) {
     $('.gnavi-contents').hide();
   } else {
-    $('.gnavi-contents').show();
-    $('.gnavi-contents').css('height', 'auto');
+    $('.gnavi-contents').show(); // $('.gnavi-contents').css('height','auto');
+
     $('.hamburgeranime').stop().removeClass('active');
   }
 });

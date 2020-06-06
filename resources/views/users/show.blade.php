@@ -8,10 +8,9 @@
     <div class='userInfo card'>
       <div class='userInfo_name card-header mt-0'>{{ $user->name }}</div>
 
-      @if($user->reportFromUser->isEmpty() === true || $user->id === Auth::id() )
-        @foreach($user->fromUserId as $likefromuser)
-          @foreach($user->toUserId as $liketouser)
-            @if($likefromuser->to_user_id == Auth::id() && $liketouser->to_user_id == $user->id)
+      @if($user->reportFromUser->isEmpty() === true || $user->id === Auth::id())
+
+        {{dd($user->toUserId->where('to_user_id',$user->id))}}
               <div>
                 <h3 class="text-center h3">
                   
@@ -23,8 +22,6 @@
                   <i class="far fa-smile"></i>
                 </h3>
               </div>
-              @break
-            @elseif($likefromuser->to_user_id == Auth::id())
               <div>
                 <h3 class="text-center h3">
                   {{$user->name}}さんから<br>好かれています。
@@ -35,10 +32,6 @@
                   <i class="far fa-smile"></i>
                 </h3>
               </div>
-              @break
-            @endif
-          @endforeach
-        @endforeach
 
       
       
@@ -312,6 +305,13 @@
                     </button>
                   </div>
                 </div>
+                <div class="d-flex justify-content-around">
+                  <p class="col-4 text-center">
+                    <button type="button" class="btn btn-dark">ブロック<span class="block-status">する</span></button>
+                  </p>
+                </div>
+
+                
                 <div class="modal-footer justify-content-center">
                   <button class="btn btn-outline-dark reportbtn">通報について<i class="fas fa-chevron-left p-2"></i></button>
                 </div>
@@ -320,19 +320,22 @@
                     <span class="text-danger error_report_level"></span>
                     <label class="form-check-label d-block p-2">
                       <input name="report" value="2" type="radio" class="report">
-                      不適切な内容を含んでいる
+                      不適切な内容を含んでいる<br>
+                      (通報後、ブロック)
                     </label>
                     <label class="form-check-label d-block p-2">
                       <input name="report" value="3" type="radio" class="report">
-                      倫理的に問題がある可能性がある
+                      倫理的に問題がある可能性がある<br>
+                      (通報後、ブロック)
                     </label>
                     <label class="form-check-label d-block p-2">
                       <input name="report" value="4" type="radio" class="report">
-                      攻撃的または公序良俗に反している他のアカウントに被害が及ぶ可能性がある
+                      攻撃的または公序良俗に反している他のアカウントに被害が及ぶ可能性がある<br>
+                      (通報後、ブロック)
                     </label>
                     <label class="form-check-label d-block p-2">
                       <input name="report" value="1" type="radio" class="report">
-                      その他
+                      ブロックする
                     </label>
                   </div>
                 <div class="modal-body report_area  pl-0 pr-0">
@@ -430,7 +433,8 @@
 			alert('Ajaxリクエスト失敗');
 			console.log(data.responseJSON);
 		});
-	});
+  });
+  
 
 	// 通報処理
 	$(document).on('click', '#submit_report', function() {
@@ -453,7 +457,7 @@
         $('.error_report_detail').text('通報理由の詳細を200字以内で入力してください。');
       }
     }
-    if(levelCheck(reportLevel) === true && detailCheck( reportDetail ) === true){
+    if( levelCheck(reportLevel) === true && detailCheck( reportDetail ) === true ){
       $.ajax({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
