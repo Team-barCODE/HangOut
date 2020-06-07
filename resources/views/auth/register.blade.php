@@ -11,10 +11,10 @@
       @csrf
 
       <h2 class="title text-center" style="color:#fd5068">新規登録</h2>
-      <label for="file_photo1" class="rounded-circle userProfileImg file_photo1">
+      <label for="register_photo" class="rounded-circle userProfileImg register_photo ">
         <div class="userProfileImg_description">画像をアップロード</div>
         <i class="fas fa-camera fa-3x"></i>
-        <input type="file" class="" id="file_photo1" name="img_name1">
+        <input type="file" class="" id="register_photo" name="img_name1">
       </label>
       <div class="text-center">
 		<span id="file_name" class="jsError"></span>
@@ -180,4 +180,5 @@
 
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="{{ asset('js/auth/register.js') }}"></script>
 @endsection

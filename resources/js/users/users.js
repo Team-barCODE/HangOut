@@ -53,21 +53,6 @@ $('#file_photo1').on('change',function(e){
     reader.readAsDataURL(e.target.files[0]);
   });
 
-
-  $('.hamburgeranime').click(function(){
-    $('.hamburgeranime').stop().toggleClass('active');
-    $('.gnavi-contents').stop().slideToggle();
-  });
-  $(window).resize(function(){
-    var bodyWidth = $('body').width();
-    if(bodyWidth < 768){
-      $('.gnavi-contents').hide();
-    }else{
-      $('.gnavi-contents').show();
-      $('.gnavi-contents').css('height','auto');
-      $('.hamburgeranime').stop().removeClass('active');
-    }
-  });
   $('.userProfileImg_mini').on('click',function(){
     var bg = $(this).css('background-image');
     bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
