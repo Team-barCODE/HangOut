@@ -47,7 +47,6 @@
     reader.readAsDataURL(e.target.files[0]);
   });
 
-
   $('.userProfileImg_mini').on('click',function(){
     var bg = $(this).css('background-image');
     bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
