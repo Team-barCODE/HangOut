@@ -46825,145 +46825,8 @@ __webpack_require__(/*! ./jTinder */ "./resources/js/jTinder.js");
 
 __webpack_require__(/*! ./chat */ "./resources/js/chat.js");
 
-__webpack_require__(/*! ./nav */ "./resources/js/nav.js");
-
-__webpack_require__(/*! ./auth/register.js */ "./resources/js/auth/register.js"); // require('./auth/login.js');
-
-/***/ }),
-
-/***/ "./resources/js/auth/register.js":
-/*!***************************************!*\
-  !*** ./resources/js/auth/register.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-$(function () {
-  var _$$datepicker;
-
-  //バリデーション
-  //必須項目チェック
-  $(".required").blur(function () {
-    if ($(this).val() == "") {
-      $(this).siblings('span.error_required').text("※入力必須項目です");
-      $(this).addClass("errored");
-    } else {
-      $(this).siblings('span.error_required').text("");
-      $(this).removeClass("errored");
-    }
-  }); // ファイルチェック
-  // $('#file_photo1').change(function() {
-  // 	let file = $(this).prop('files')[0];
-  // 	let fileSize = getFiseSize(file.size);
-  // 	$('#file_status').html('ファイル名:' + file.name + ' / サイズ:' + fileSize + ' / 種類:' + file.type);
-  // 	if(fileSize > 8388608){ //8MB
-  //         $("#fileError_size").text("※8M以下のファイルにしてください");
-  //      	return false;
-  //     }else{
-  //         $("#fileError_size").text("");
-  //     }
-  //     if (!file.type.match(/.(jpg|jpeg|gif|ping)$/i)){
-  //         $("#fileError_type").text("※jpg,jpeg,gif,ping形式のファイルにしてください");
-  //      	return false;
-  //     }else{
-  //         $("#fileError_type").text("");
-  //     }
-  // });
-  //名前入力チェック
-
-  $("#name").blur(function () {
-    if (!$(this).val().match(/^.{1,40}$/)) {
-      $(this).siblings('span.error_name').text("※40文字以下にしてください");
-      $(this).addClass("errored");
-    } else {
-      $(this).siblings('span.error_name').text("");
-      $(this).removeClass("errored");
-    }
-  }); //メールアドレス入力チェック
-
-  $("#mail").blur(function () {
-    if (!$(this).val().match(/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/)) {
-      $(this).siblings('span.error_mail').text("※メール形式で入力してください");
-      $(this).addClass("errored");
-    } else {
-      $(this).siblings('span.error_mail').text("");
-      $(this).removeClass("errored");
-    }
-  }); //パスワードチェック
-
-  $("#password").blur(function () {
-    if (!$(this).val().match(/^.{6,20}$/)) {
-      $(this).siblings('span.error_password').text("※6文字以上20文字以下にしてください");
-      $(this).addClass("errored");
-    } else if (!$(this).val().match(/^[a-zA-Z0-9!-/:-@¥[-`{-~]*$/)) {
-      $(this).siblings('span.error_password').text("※半角英数記号のみ入力してください");
-      $(this).addClass("errored");
-    } else {
-      $(this).siblings('span.error_password').text("");
-      $(this).removeClass("errored");
-    }
-  }); //パスワード確認チェック
-
-  $("#password_confirmation").blur(function () {
-    if (!$(this).val().match(/^.{6,20}$/)) {
-      $(this).siblings('span.error_password_confirmation').text("※6文字以上20文字以下にしてください");
-      $(this).addClass("errored");
-    } else if (!$(this).val().match(/^[a-zA-Z0-9!-/:-@¥[-`{-~]*$/)) {
-      $(this).siblings('span.error_password_confirmation').text("※半角英数記号のみ入力してください");
-      $(this).addClass("errored");
-    } else {
-      $(this).siblings('span.error_password_confirmation').text("");
-      $(this).removeClass("errored");
-    }
-  }); // 日付チェック
-  // $("#datepicker").on('change', function(){
-  //     if(!$(this).val().match(/^\d{1,4}(\/|-)\d{1,2}\1\d{1,2}$/)){
-  //         $(this).siblings('span.error_datepicker').text("※日付形式にしてください");
-  //         $(this).addClass("errored");
-  //     } else {
-  //         $(this).siblings('span.error_datepicker').text("");
-  //         $(this).removeClass("errored");
-  //     }
-  // });
-  //エリアチェック（漢字のみ
-
-  $("#prefecture").change(function () {
-    if (!$(this).val().match(/^[亜-黑]+$/)) {
-      $(this).siblings('span.error_prefecture').text("※正しい形式で入力してください");
-      $(this).addClass("errored");
-    } else {
-      $(this).siblings('span.error_prefecture').text("");
-      $(this).removeClass("errored");
-    }
-  }); //送信時の必須項目入力チェック
-
-  $("#submit_register").on('click', function () {
-    if ($("#file_photo1").val() == "") {
-      $("#fileError_required").text('※入力必須項目です');
-    }
-
-    $(".required").each(function () {
-      if ($(this).val() == "") {
-        $(this).siblings('span.error_required').text("※入力必須項目です");
-        $(this).addClass("errored");
-      }
-    });
-
-    if ($(".errored").length) {
-      return false;
-    }
-  });
-  $("#datepicker").datepicker((_$$datepicker = {
-    showMonthAfterYear: true,
-    yearSuffix: '年',
-    monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
-    dayNamesMin: ['日', '月', '火', '水', '木', '金', '土'],
-    dateFormat: 'yy-mm-dd',
-    showAnim: 'fadeIn'
-  }, _defineProperty(_$$datepicker, "showMonthAfterYear", true), _defineProperty(_$$datepicker, "changeYear", true), _defineProperty(_$$datepicker, "changeMonth", true), _defineProperty(_$$datepicker, "yearRange", "-100:-20"), _defineProperty(_$$datepicker, "maxDate", '-240m'), _defineProperty(_$$datepicker, "hideIfNoPrevNext", true), _defineProperty(_$$datepicker, "defaultDate", "2000-01-01"), _$$datepicker));
-});
+__webpack_require__(/*! ./nav */ "./resources/js/nav.js"); // require('./auth/register.js');
+// require('./auth/login.js');
 
 /***/ }),
 
@@ -47839,6 +47702,8 @@ $(window).resize(function () {
     $('.gnavi-contents').hide();
   } else {
     $('.gnavi-contents').show();
+    $('.gnavi-contents').css('height', 'auto');
+    $('.hamburgeranime').stop().removeClass('active');
   }
 });
 
@@ -47916,6 +47781,25 @@ $('#file_photo3').on('change', function (e) {
   };
 
   reader.readAsDataURL(e.target.files[0]);
+});
+$('.userProfileImg_mini').on('click', function () {
+  var bg = $(this).css('background-image');
+  bg = bg.replace('url(', '').replace(')', '').replace(/\"/gi, "");
+  $('.thumbnail').css('background-image', 'url(' + bg + ')');
+});
+$('.report_area').hide();
+$('.reportbtn').on('click', function () {
+  $('.btn .fas').stop().toggleClass('active');
+  $('.report_area').stop().slideToggle();
+});
+$('input[name="report"]').on('change', function () {
+  var report_val = $(this).val();
+
+  if (report_val >= 1 && report_val <= 4) {
+    $('.report_submit').removeClass('disabled');
+  } else {
+    $('.report_submit').addClass('disabled');
+  }
 });
 
 /***/ }),
