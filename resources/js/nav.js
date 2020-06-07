@@ -8,5 +8,7 @@ $('.hamburgeranime').click(function(){
       $('.gnavi-contents').hide();
     }else{
       $('.gnavi-contents').show();
+      $('.gnavi-contents').css('height','auto');
+      $('.hamburgeranime').stop().removeClass('active');
     }
 });

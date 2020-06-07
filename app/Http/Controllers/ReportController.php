@@ -56,6 +56,10 @@ class ReportController extends Controller
 
         switch($report_level)
         {
+            case 0:
+                $level = Status::REPORT_ZERO;
+                break;
+
             case 1:
                 $level = Status::REPORT_ONE;
                 break;

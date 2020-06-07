@@ -8,7 +8,7 @@
             </li>
         @endif
 
-        <li class="col-2 mb-2 mt-2 text-center">
+        <li class="col-2 mb-2 mt-2 p-0 text-center">
             <a class="" href="/users">
                 <img class="home_icon" src="/storage/images/sample_logo.png">
             </a>
