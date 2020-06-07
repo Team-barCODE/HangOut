@@ -1,3 +1,4 @@
+'use strict';
 (function(){
     //標準エラーメッセージの変更
     $.extend($.validator.messages, {
