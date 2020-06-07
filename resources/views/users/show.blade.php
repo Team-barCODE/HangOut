@@ -4,40 +4,44 @@
 
 <div class='usershowPage'>
   <div class='container pt-4'>
-  @foreach($user->fromUserId as $likefromuser)
-    @foreach($user->toUserId as $liketouser)
-      @if($likefromuser->to_user_id == Auth::id() && $liketouser->to_user_id == $user->id)
-        <div>
-          <h3 class="text-center h3">
-            
-            {{$user->name}}さんと<br>両思いです。
-          </h3>
-          <h3 class="text-center h3">
-            <i class="fas fa-heart"></i>
-            <i class="fas fa-exchange-alt"></i>
-            <i class="far fa-smile"></i>
-          </h3>
-        </div>
-        @break
-      @elseif($likefromuser->to_user_id == Auth::id())
-        <div>
-          <h3 class="text-center h3">
-            {{$user->name}}さんから<br>好かれています。
-          </h3>
-          <h3 class="text-center h3">
-            <i class="fas fa-heart"></i>
-            <i class="fas fa-exchange-alt"></i>
-            <i class="far fa-smile"></i>
-          </h3>
-        </div>
-        @break
-      @endif
-    @endforeach
-  @endforeach
 
     <div class='userInfo card'>
       <div class='userInfo_name card-header mt-0'>{{ $user->name }}</div>
-      @if($user->reportToUser->isEmpty() === true)
+
+      @if($user->reportFromUser->isEmpty() === true || $user->id === Auth::id() )
+        @foreach($user->fromUserId as $likefromuser)
+          @foreach($user->toUserId as $liketouser)
+            @if($likefromuser->to_user_id == Auth::id() && $liketouser->to_user_id == $user->id)
+              <div>
+                <h3 class="text-center h3">
+                  
+                  {{$user->name}}さんと<br>両思いです。
+                </h3>
+                <h3 class="text-center h3">
+                  <i class="fas fa-heart"></i>
+                  <i class="fas fa-exchange-alt"></i>
+                  <i class="far fa-smile"></i>
+                </h3>
+              </div>
+              @break
+            @elseif($likefromuser->to_user_id == Auth::id())
+              <div>
+                <h3 class="text-center h3">
+                  {{$user->name}}さんから<br>好かれています。
+                </h3>
+                <h3 class="text-center h3">
+                  <i class="fas fa-heart"></i>
+                  <i class="fas fa-exchange-alt"></i>
+                  <i class="far fa-smile"></i>
+                </h3>
+              </div>
+              @break
+            @endif
+          @endforeach
+        @endforeach
+
+      
+      
         <div class='thumbnail' style="background-image:url('/storage/images/{{$user ->img_name1}}')">
         </div>
         @if($user->img_name2 !== '' || $user->img_name3 !== '')
@@ -350,6 +354,7 @@
             </div>
           </div>
         @endif
+
       @elseif($user->reportFromUser->isEmpty() === false)
         <p class="pl-3 pr-3 mt-3">通報されたので見ることは出来ません。</p>
       @endif
