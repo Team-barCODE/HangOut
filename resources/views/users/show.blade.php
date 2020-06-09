@@ -7,21 +7,8 @@
 
     <div class='userInfo card'>
       <div class='userInfo_name card-header mt-0'>{{ $user->name }}</div>
-      @php
-        $blockcheck = $user->reportToUser->where( 'to_user_id', $user->id )->where( 'from_user_id', Auth::id() )->isNotEmpty();
-      @endphp
-      @if($blockcheck === true)
-        @php
-        $blockdetail = $user->reportToUser->where( 'to_user_id', $user->id )->where( 'from_user_id', Auth::id() )->first()->report_detail;
-        $blocklevel = $user->reportToUser->where( 'to_user_id', $user->id )->where( 'from_user_id', Auth::id() )->first()->report_level;
-        @endphp
-      @endif
 
-      @if( $user->reportFromUser->isEmpty() === true || $user->id === Auth::id() )
-        @php
-          $likeTo = $user->toUserId->where( 'from_user_id', Auth::id() )->isNotEmpty();
-          $likeFrom = $user->FromUserId->where( 'from_user_id', $user->id )->isNotEmpty();
-        @endphp
+      @if( $blockFromCheck === null ||  $blockFromCheck === 0 )
         @if( $likeTo === true && $likeFrom === true )
           <div>
             <h3 class="text-center h3">
@@ -312,7 +299,8 @@
                     </button>
                   </div>
                 </div>
-                @if($blockcheck === true && $blocklevel !== 0)
+                
+                @if($blockToCheck > 0)
                   <div class="d-flex justify-content-around">
                     <p class="col-8 col-md-4 text-center">
                       <button type="button" id="block_off" data-report="{{$user->id}}" class="btn btn-dark">ブロック<span class="block-status">解除</span></button>
@@ -366,8 +354,8 @@
           </div>
         @endif
 
-      @elseif($user->reportFromUser->isEmpty() === false)
-        <p class="pl-3 pr-3 mt-3">通報されたので見ることは出来ません。</p>
+      @elseif($blockFromCheck > 0)
+        <p class="pl-3 pr-3 mt-3">ブロックされたので見ることは出来ません。</p>
       @endif
       
     </div>
@@ -504,44 +492,41 @@
     }
   });
   
-  @if($blockcheck === true)
+  @if($blockToCheck > 0)
   
-  $(document).on('click', '#block_off', function(){
-		const reportToUser = $(this);
-		const reportToId = reportToUser.attr('data-report');
-    const reportLevel = 0;
-    const reportDetail = "{{$blockdetail}}";
-    $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },//Headersを書き忘れるとエラーになる
-        url: '/api/report',//ご自身のweb.phpのURLに合わせる
-        type: 'POST',//リクエストタイプ
-        data: {
-          'to_user_id': reportToId,
-          'from_user_id': {{ Auth::user()->id }},
-          'report_level': 0,
-          'report_detail': reportDetail,
-        },//Laravelに渡すデータ
-      })
-      // Ajaxリクエスト成功時の処理
-      .done(function(data) {
-        // Laravel内で処理された結果がdataに入って返ってくる
-        console.log("成功");
-        alert("ブロックを解除しました。");
-        location.reload();
-        // location.href = '{{ route('users.index') }}';
-      })
-      // Ajaxリクエスト失敗時の処理
-      .fail(function(data) {
-        alert('Ajaxリクエスト失敗');
-      });
-  });
+    $(document).on('click', '#block_off', function(){
+      const reportToUser = $(this);
+      const reportToId = reportToUser.attr('data-report');
+      const reportLevel = 0;
+      const reportDetail = "{{$blockToDetail}}";
+      $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },//Headersを書き忘れるとエラーになる
+          url: '/api/report',//ご自身のweb.phpのURLに合わせる
+          type: 'POST',//リクエストタイプ
+          data: {
+            'to_user_id': reportToId,
+            'from_user_id': {{ Auth::user()->id }},
+            'report_level': 0,
+            'report_detail': reportDetail,
+          },//Laravelに渡すデータ
+        })
+        // Ajaxリクエスト成功時の処理
+        .done(function(data) {
+          // Laravel内で処理された結果がdataに入って返ってくる
+          console.log("成功");
+          alert("ブロックを解除しました。");
+          location.reload();
+          // location.href = '{{ route('users.index') }}';
+        })
+        // Ajaxリクエスト失敗時の処理
+        .fail(function(data) {
+          alert('Ajaxリクエスト失敗');
+        });
+    });
 
   @endif
-
-
-
   </script>
   @endif
 

@@ -20,6 +20,7 @@ use App\Services\FileNameSetServices;
 use Carbon\Carbon;
 use App\Services\UserServices;
 use App\Repositories\UserRepository;
+use App\Services\ShowServices;
 
 class UserController extends Controller
 {
@@ -67,40 +68,33 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::findorFail($id);
-        if(Auth::user()->sex !== $user->sex || Auth::id() === $user->id)
+        
+        if(ShowServices::genderCheck($id) === true)
         {
+            $user = User::findorFail($id);
+
+
+            $blockToCheck = ShowServices::blockToCheck($id);
+            $blockFromCheck = ShowServices::blockFromCheck($id);
+            $blockToDetail = ShowServices::blockToDetail($id);
+            $likeTo = ShowServices::likeTo($id);
+            $likeFrom = ShowServices::likeFrom($id);
             $age = Carbon::createFromDate($user->birth_date);
             $personalities = Personality::orderBy('id', 'asc')->get();
             $hobbies = Hobby::orderBy('id', 'desc')->get();
             $alljobs = Job::orderBy('id', 'asc')->get();
-            $authUser = Auth::user();
-            $from_user_id = $authUser->id;
+
             $data = [
                 "user" => $user,
+                "blockToCheck" => $blockToCheck,
+                "blockToDetail" => $blockToDetail,
+                "blockFromCheck" => $blockFromCheck,
+                "likeTo" => $likeTo,
+                "likeFrom" => $likeFrom,
                 "age" => $age,
                 "personalities" => $personalities,
                 "hobbies" => $hobbies,
                 "alljobs" => $alljobs,
-                "from_user_id" => $from_user_id,
-            ];
-            return view('users.show', $data);
-        }
-        elseif(Auth::user()->sex === 2 && $user->sex === 2)
-        {
-            $age = Carbon::createFromDate($user->birth_date);
-            $personalities = Personality::orderBy('id', 'asc')->get();
-            $hobbies = Hobby::orderBy('id', 'desc')->get();
-            $alljobs = Job::orderBy('id', 'asc')->get();
-            $authUser = Auth::user();
-            $from_user_id = $authUser->id;
-            $data = [
-                "user" => $user,
-                "age" => $age,
-                "personalities" => $personalities,
-                "hobbies" => $hobbies,
-                "alljobs" => $alljobs,
-                "from_user_id" => $from_user_id,
             ];
             return view('users.show', $data);
         }
