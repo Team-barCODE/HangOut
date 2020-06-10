@@ -109,9 +109,9 @@ class UserServices
         ];
 
         return $data;
-      }
+    }
 
-      public static function search($authUser, $request)
+    public static function search($authUser, $request)
 	{
 		$query = User::query();
         switch ($authUser->sex){
@@ -319,6 +319,8 @@ class UserServices
 
         }
 
+        
+
         $users = UserRepository::search($query);
         // $users = $query->toSql();
         // var_dump($users);
@@ -360,7 +362,52 @@ class UserServices
             "after_income" => $after_income,
             "keyword" => $keyword,
         ];
-
         return $data;
-  	}
+    }
+
+    // 詳細ページの性別判定分岐
+    // UserControllerのshowに渡してtrueならデータ渡す
+    public static function genderCheck($id)
+	{
+        $user = User::findorFail($id);
+        $authUser = Auth::user();
+        // マイページならtrue
+        if($user->id === $authUser->id)
+        {
+            return true;
+        }
+        // 性別がuserとログインユーザの性別が違う場合
+        elseif($user->sex !== $authUser->sex)
+        {
+            // 性別がuserとログインユーザが両方ともLGBTではない場合はtrue
+            if($user->sex !== Status::LGBT && $authUser->sex !== Status::LGBT)
+            {
+                return true;
+            }
+        }
+        // 性別がuserとログインユーザが両方ともLGBTである場合はtrue
+        elseif($user->sex === $authUser->sex && $authUser->sex === Status::LGBT) 
+        {
+            return true;
+        }
+        // それ以外は全部false
+        return false;
+    }
+
+    public static function likeTo($id)
+    {
+        $user = User::findorFail($id);
+        // 自分がライクしているか
+        $likeTo = $user->toUserId->where( 'from_user_id', Auth::id() )->isNotEmpty();
+        return $likeTo;
+    }
+    public static function likeFrom($id)
+    {
+        $user = User::findorFail($id);
+        // 相手からライクされているか
+        $likeFrom = $user->FromUserId->where( 'from_user_id', $user->id )->isNotEmpty();
+        return $likeFrom;
+    }
+
+
 }

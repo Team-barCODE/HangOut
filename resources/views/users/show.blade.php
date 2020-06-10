@@ -8,7 +8,7 @@
     <div class='userInfo card'>
       <div class='userInfo_name card-header mt-0'>{{ $user->name }}</div>
 
-      @if( $blockFromCheck === null ||  $blockFromCheck === 0 )
+      @if( $blockFromCheck === 0 )
         @if( $likeTo === true && $likeFrom === true )
           <div>
             <h3 class="text-center h3">

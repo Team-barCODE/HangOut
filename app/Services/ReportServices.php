@@ -7,41 +7,11 @@ use App\Models\Report;
 use Auth;
 use App\Constants\Status;
 
-class ShowServices
+class ReportServices
 {
 
-	public static function genderCheck($id)
-	{
-    $user = User::findorFail($id);
-    $authUser = Auth::user();
-    if($user->id === $authUser->id)
-    {
-      return true;
-    }
-    else
-    {
-      switch($user->sex !== $authUser->sex)
-      {
-        case true:
-          if($user->sex !== 2 && $authUser->sex !== 2)
-          {
-            return true;
-          }
-          break;
-        case false:
-          if($user->sex === 2 && $authUser->sex === 2)
-          {
-            return true;
-          }
-          break;
-        default:
-          return false;
-          break;
-      }
-    }
-  }
-
-  public static function blockToCheck($id)
+  // ブロックしているかを返す(0 ならブロックされていない)
+  public static function blockToCheck($id ) :int
   {
     $user = User::findorFail($id);
     // 通報をしたことがあるか(現在の話ではない)
@@ -55,7 +25,9 @@ class ShowServices
       $blocklevel = $user->reportToUser->where( 'to_user_id', $user->id )->where( 'from_user_id', Auth::id() )->first()->report_level;
       return $blocklevel;
     }
+    return 0;
   }
+
   public static function blockToDetail($id)
   {
     $user = User::findorFail($id);
@@ -70,14 +42,11 @@ class ShowServices
       // (解除なのか通報なのかボタンフラグを分ける)
       $blockdetail = $user->reportToUser->where( 'to_user_id', $user->id )->where( 'from_user_id', Auth::id() )->first()->report_detail;
       return $blockdetail;
-
     }
   }
 
-
-
-
-  public static function blockfromcheck($id)
+  // ブロックされているかを返す(0 ならブロックされていない)
+  public static function blockfromcheck($id) :int
   {
     $user = User::findorFail($id);
 
@@ -92,25 +61,13 @@ class ShowServices
       $blockfromlevel = $user->reportFromUser->where( 'from_user_id', $user->id )->where( 'to_user_id', Auth::id() )->first()->report_level;
       return $blockfromlevel;
     }
+    return 0;
+
   }
 
 
 
 
 
-  public static function likeTo($id)
-  {
-    $user = User::findorFail($id);
-    // 自分がライクしているか
-    $likeTo = $user->toUserId->where( 'from_user_id', Auth::id() )->isNotEmpty();
-    return $likeTo;
-  }
-  public static function likeFrom($id)
-  {
-    $user = User::findorFail($id);
-    // 相手からライクされているか
-    $likeFrom = $user->FromUserId->where( 'from_user_id', $user->id )->isNotEmpty();
-    return $likeFrom;
-  }
 
 }

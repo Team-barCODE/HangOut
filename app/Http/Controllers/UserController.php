@@ -20,22 +20,24 @@ use App\Services\FileNameSetServices;
 use Carbon\Carbon;
 use App\Services\UserServices;
 use App\Repositories\UserRepository;
-use App\Services\ShowServices;
+use App\Services\ReportServices;
 
 class UserController extends Controller
 {
     const PAGE_COUNT = 4;
     protected $repository;
-    protected $service;
+    protected $userService;
+    protected $reportService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserServices $service,UserRepository $repository)
+    public function __construct(UserServices $userService,ReportServices $reportService,UserRepository $repository)
     {
         $this->middleware('auth');
-        $this->service = $service;
+        $this->userService = $userService;
+        $this->reportService = $reportService;
         $this->repository = $repository;
     }
 
@@ -47,7 +49,7 @@ class UserController extends Controller
     public function index(int $status = 0)
     {
         // dd($this->service->getNum());
-        $data = $this->service->getList($status);
+        $data = $this->userService->getList($status);
 
         return view('users.index', $data);
     }
@@ -61,7 +63,7 @@ class UserController extends Controller
     {
         // dd($request);
         $authUser = Auth::user();
-        $data = $this->service->search($authUser, $request);
+        $data = $this->userService->search($authUser, $request);
 
         return view('users.index', $data);
     }
@@ -69,16 +71,15 @@ class UserController extends Controller
     public function show($id)
     {
         
-        if(ShowServices::genderCheck($id) === true)
+        if($this->userService->genderCheck($id) === true)
         {
             $user = User::findorFail($id);
 
-
-            $blockToCheck = ShowServices::blockToCheck($id);
-            $blockFromCheck = ShowServices::blockFromCheck($id);
-            $blockToDetail = ShowServices::blockToDetail($id);
-            $likeTo = ShowServices::likeTo($id);
-            $likeFrom = ShowServices::likeFrom($id);
+            $blockToCheck = $this->reportService->blockToCheck($id);
+            $blockFromCheck = $this->reportService->blockFromCheck($id);
+            $blockToDetail = $this->reportService->blockToDetail($id);
+            $likeTo = $this->userService->likeTo($id);
+            $likeFrom = $this->userService->likeFrom($id);
             $age = Carbon::createFromDate($user->birth_date);
             $personalities = Personality::orderBy('id', 'asc')->get();
             $hobbies = Hobby::orderBy('id', 'desc')->get();
