@@ -398,15 +398,22 @@ class UserServices
     {
         $user = User::findorFail($id);
         // 自分がライクしているか
-        $likeTo = $user->toUserId->where( 'from_user_id', Auth::id() )->isNotEmpty();
-        return $likeTo;
+        if($user->id !== Auth::id()){
+            $likeTo = $user->toUserId->where( 'from_user_id', Auth::id() )->isNotEmpty();
+            return $likeTo;
+        }
+        return false;
     }
     public static function likeFrom($id)
     {
         $user = User::findorFail($id);
         // 相手からライクされているか
-        $likeFrom = $user->FromUserId->where( 'from_user_id', $user->id )->isNotEmpty();
-        return $likeFrom;
+        if($user->id !== Auth::id()){
+            $likeFrom = $user->FromUserId->where( 'from_user_id', $user->id )->isNotEmpty();
+            return $likeFrom;            
+        }
+        return false;
+
     }
 
 
