@@ -398,7 +398,7 @@ class UserServices
     {
         $user = User::findorFail($id);
         // likeかdislikeをした実績があるかをチェック
-        $toStatusExistCheck = $user->toUserId->where( 'from_user_id', Auth::id() )->isNotEmpty();
+        $toStatusExistCheck = $user->toUserId->where( 'from_user_id', Auth::id() )->where('to_user_id',$user->id)->isNotEmpty();
         // 自分がライクしているか
         if($toStatusExistCheck === true && $user->id !== Auth::id() ){
             $likeTo = $user->toUserId->where( 'from_user_id', Auth::id() )->where('to_user_id',$user->id)->first()->status;
@@ -412,7 +412,7 @@ class UserServices
     {
         $user = User::findorFail($id);
         // likeかdislikeをした実績があるかをチェック
-        $fromStatusExistCheck = $user->FromUserId->where( 'from_user_id', $user->id )->isNotEmpty();
+        $fromStatusExistCheck = $user->FromUserId->where( 'from_user_id', $user->id )->where('to_user_id',Auth::id())->isNotEmpty();
         // 相手からライクされているか
         if($fromStatusExistCheck === true && $user->id !== Auth::id()){
             $likeFrom = $user->FromUserId->where( 'from_user_id', $user->id )->where('to_user_id',Auth::id())->first()->status;
