@@ -397,20 +397,28 @@ class UserServices
     public static function likeTo($id)
     {
         $user = User::findorFail($id);
+        // likeかdislikeをした実績があるかをチェック
+        $toStatusExistCheck = $user->toUserId->where( 'from_user_id', Auth::id() )->isNotEmpty();
         // 自分がライクしているか
-        if($user->id !== Auth::id()){
-            $likeTo = $user->toUserId->where( 'from_user_id', Auth::id() )->isNotEmpty();
-            return $likeTo;
+        if($toStatusExistCheck === true && $user->id !== Auth::id() ){
+            $likeTo = $user->toUserId->where( 'from_user_id', Auth::id() )->where('to_user_id',$user->id)->first()->status;
+            if($likeTo === Status::LIKE){
+                return true;
+            }
         }
         return false;
     }
     public static function likeFrom($id)
     {
         $user = User::findorFail($id);
+        // likeかdislikeをした実績があるかをチェック
+        $fromStatusExistCheck = $user->FromUserId->where( 'from_user_id', $user->id )->isNotEmpty();
         // 相手からライクされているか
-        if($user->id !== Auth::id()){
-            $likeFrom = $user->FromUserId->where( 'from_user_id', $user->id )->isNotEmpty();
-            return $likeFrom;            
+        if($fromStatusExistCheck === true && $user->id !== Auth::id()){
+            $likeFrom = $user->FromUserId->where( 'from_user_id', $user->id )->where('to_user_id',Auth::id())->first()->status;
+            if($likeFrom === Status::LIKE){
+                return true;
+            }
         }
         return false;
 
