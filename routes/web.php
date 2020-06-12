@@ -64,7 +64,7 @@ Route::post('login', 'Admin\Auth\LoginController@login')->name('admin.login');
 Route::get('register', 'Admin\Auth\RegisterController@showRegisterForm')->name('admin.register');
 Route::post('register', 'Admin\Auth\RegisterController@register')->name('admin.register');
 
-Route::get('password/rest', 'Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::get('password/reset', 'Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 
 
 });
@@ -72,4 +72,7 @@ Route::get('password/rest', 'Admin\Auth\ForgotPasswordController@showLinkRequest
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function(){
     Route::post('logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
     Route::get('home', 'Admin\HomeController@index')->name('admin.home');
+    Route::get('report', 'Admin\HomeController@report')->name('admin.report');
+    Route::get('report/{id}', 'Admin\HomeController@reportDetail')->name('admin.reportDetail');
+    Route::get('contact', 'Admin\HomeController@contact')->name('admin.contact');
 });

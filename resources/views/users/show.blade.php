@@ -8,38 +8,31 @@
     <div class='userInfo card'>
       <div class='userInfo_name card-header mt-0'>{{ $user->name }}</div>
 
-      @if($user->reportFromUser->isEmpty() === true || $user->id === Auth::id() )
-        @foreach($user->fromUserId as $likefromuser)
-          @foreach($user->toUserId as $liketouser)
-            @if($likefromuser->to_user_id == Auth::id() && $liketouser->to_user_id == $user->id)
-              <div>
-                <h3 class="text-center h3">
-                  
-                  {{$user->name}}さんと<br>両思いです。
-                </h3>
-                <h3 class="text-center h3">
-                  <i class="fas fa-heart"></i>
-                  <i class="fas fa-exchange-alt"></i>
-                  <i class="far fa-smile"></i>
-                </h3>
-              </div>
-              @break
-            @elseif($likefromuser->to_user_id == Auth::id())
-              <div>
-                <h3 class="text-center h3">
-                  {{$user->name}}さんから<br>好かれています。
-                </h3>
-                <h3 class="text-center h3">
-                  <i class="fas fa-heart"></i>
-                  <i class="fas fa-exchange-alt"></i>
-                  <i class="far fa-smile"></i>
-                </h3>
-              </div>
-              @break
-            @endif
-          @endforeach
-        @endforeach
-
+      @if( $blockFromCheck === 0 )
+        @if( $likeTo === true && $likeFrom === true )
+          <div>
+            <h3 class="text-center h3">
+              {{$user->name}}さんと<br>お互い<i class="fas fa-heart"></i>しています。
+            </h3>
+            <h3 class="text-center h3">
+              <i class="far fa-smile"></i>
+              <i class="fas fa-heart"></i>
+              <i class="fas fa-exchange-alt"></i>
+              <i class="fas fa-heart"></i>
+              <i class="far fa-smile"></i>
+            </h3>
+          </div>
+        @elseif( $likeFrom === true && $user->id !== Auth::id())
+          <div>
+            <h3 class="text-center h3">
+              {{$user->name}}さんから<br><i class="fas fa-heart"></i>されています。
+            </h3>
+            <h3 class="text-center h3">
+              <i class="far fa-smile"></i>
+              <i class="fas fa-heart"></i>
+            </h3>
+          </div>
+        @endif
       
       
         <div class='thumbnail' style="background-image:url('/storage/images/{{$user ->img_name1}}')">
@@ -273,36 +266,30 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  @foreach($user->fromUserId as $likefromuser)
-                  @foreach($user->toUserId as $liketouser)
-                    @if($likefromuser->to_user_id == Auth::id() && $liketouser->from_user_id == $user->id)
-                      <div>
-                        <h3 class="text-center h3">
-                          両思い
-                          {{$user->name}}さんから<br>好かれています。
-                        </h3>
-                        <h3 class="text-center h3">
-                          <i class="fas fa-heart"></i>
-                          <i class="fas fa-exchange-alt"></i>
-                          <i class="far fa-smile"></i>
-                        </h3>
-                      </div>
-                      @break
-                    @elseif($likefromuser->to_user_id == Auth::id())
-                      <div>
-                        <h3 class="text-center h3">
-                          {{$user->name}}さんから<br>好かれています。
-                        </h3>
-                        <h3 class="text-center h3">
-                          <i class="fas fa-heart"></i>
-                          <i class="fas fa-exchange-alt"></i>
-                          <i class="far fa-smile"></i>
-                        </h3>
-                      </div>
-                      @break
-                    @endif
-                  @endforeach
-                  @endforeach
+                  @if( $likeTo === true && $likeFrom === true )
+                    <div>
+                      <h3 class="text-center h3">
+                        {{$user->name}}さんと<br>お互い<i class="fas fa-heart"></i>しています。
+                      </h3>
+                      <h3 class="text-center h3">
+                        <i class="far fa-smile"></i>
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-exchange-alt"></i>
+                        <i class="fas fa-heart"></i>
+                        <i class="far fa-smile"></i>
+                      </h3>
+                    </div>
+                  @elseif( $likeFrom === true && $user->id !== Auth::id())
+                    <div>
+                      <h3 class="text-center h3">
+                        {{$user->name}}さんから<br><i class="fas fa-heart"></i>されています。
+                      </h3>
+                      <h3 class="text-center h3">
+                        <i class="far fa-smile"></i>
+                        <i class="fas fa-heart"></i>
+                      </h3>
+                    </div>
+                  @endif
                   <div class="row justify-content-around">
                     <button type="button" class="bg-secondary circle_ui text-white text-nowrap rounded-pill disLike" data-reaction="{{$user->id}}">
                       <i class="fas fa-heart-broken align-middle"></i>
@@ -312,51 +299,63 @@
                     </button>
                   </div>
                 </div>
-                <div class="modal-footer justify-content-center">
-                  <button class="btn btn-outline-dark reportbtn">通報について<i class="fas fa-chevron-left p-2"></i></button>
-                </div>
-                <div class="modal-body report_area">
-                  <div class="form-controll">
-                    <span class="text-danger error_report_level"></span>
-                    <label class="form-check-label d-block p-2">
-                      <input name="report" value="2" type="radio" class="report">
-                      不適切な内容を含んでいる
-                    </label>
-                    <label class="form-check-label d-block p-2">
-                      <input name="report" value="3" type="radio" class="report">
-                      倫理的に問題がある可能性がある
-                    </label>
-                    <label class="form-check-label d-block p-2">
-                      <input name="report" value="4" type="radio" class="report">
-                      攻撃的または公序良俗に反している他のアカウントに被害が及ぶ可能性がある
-                    </label>
-                    <label class="form-check-label d-block p-2">
-                      <input name="report" value="1" type="radio" class="report">
-                      その他
-                    </label>
+                
+                @if($blockToCheck > 0)
+                  <div class="d-flex justify-content-around">
+                    <p class="col-8 col-md-4 text-center">
+                      <button type="button" id="block_off" data-report="{{$user->id}}" class="btn btn-dark">ブロック<span class="block-status">解除</span></button>
+                    </p>
                   </div>
-                <div class="modal-body report_area  pl-0 pr-0">
-                  <div class="form-group">
-                    <label for="report_detail">具体的な通報内容</label>
-                    <textarea id="report_detail" class="form-control"></textarea>
-                    <span class="text-danger error_report_detail"></span>
+                @else
+                  <div class="modal-footer justify-content-center">
+                    <button class="btn btn-outline-dark reportbtn">通報について<i class="fas fa-chevron-left p-2"></i></button>
                   </div>
-                  <div class="modal-footer border-0">
-                    <button type="button" id="submit_report" class="btn btn-outline-danger report_submit disabled" data-gender="{{$user->sex}}" data-report="{{$user->id}}">
-                      通報する
-                    </button>
+                  <div class="modal-body report_area">
+                    <div class="form-controll">
+                      <span class="text-danger error_report_level"></span>
+                      <label class="form-check-label d-block p-2">
+                        <input name="report" value="2" type="radio" class="report">
+                        不適切な内容を含んでいる<br>
+                        (通報後、ブロック)
+                      </label>
+                      <label class="form-check-label d-block p-2">
+                        <input name="report" value="3" type="radio" class="report">
+                        倫理的に問題がある可能性がある<br>
+                        (通報後、ブロック)
+                      </label>
+                      <label class="form-check-label d-block p-2">
+                        <input name="report" value="4" type="radio" class="report">
+                        攻撃的または公序良俗に反している他のアカウントに被害が及ぶ可能性がある<br>
+                        (通報後、ブロック)
+                      </label>
+                      <label class="form-check-label d-block p-2">
+                        <input name="report" value="1" type="radio" class="report">
+                        ブロックする
+                      </label>
+                    </div>
+                    <div class="modal-body report_area  pl-0 pr-0">
+                      <div class="form-group">
+                        <label for="report_detail">具体的な通報内容</label>
+                        <textarea id="report_detail" class="form-control"></textarea>
+                        <span class="text-danger error_report_detail"></span>
+                      </div>
+                      <div class="modal-footer border-0">
+                        <button type="button" id="submit_report" class="btn btn-outline-danger report_submit disabled" data-gender="{{$user->sex}}" data-report="{{$user->id}}">
+                          通報する
+                        </button>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+                    </div>
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
-                </div>
-              </div>
+                @endif
             </div>
           </div>
         @endif
 
-      @elseif($user->reportFromUser->isEmpty() === false)
-        <p class="pl-3 pr-3 mt-3">通報されたので見ることは出来ません。</p>
+      @elseif($blockFromCheck > 0)
+        <p class="pl-3 pr-3 mt-3">ブロックされたので見ることは出来ません。</p>
       @endif
       
     </div>
@@ -430,9 +429,18 @@
 			alert('Ajaxリクエスト失敗');
 			console.log(data.responseJSON);
 		});
-	});
+  });
+  
 
-	// 通報処理
+
+  // 通報処理
+  $('input:radio[name="report"]').on('change',function(){
+    if($(this).val() == 1){
+      $('#report_detail').val('ブロックする');
+    }else{
+      $('#report_detail').val('');
+    }
+  });
 	$(document).on('click', '#submit_report', function() {
 		const reportToUser = $(this);
 		const reportToId = reportToUser.attr('data-report');
@@ -453,7 +461,7 @@
         $('.error_report_detail').text('通報理由の詳細を200字以内で入力してください。');
       }
     }
-    if(levelCheck(reportLevel) === true && detailCheck( reportDetail ) === true){
+    if( levelCheck(reportLevel) === true && detailCheck( reportDetail ) === true ){
       $.ajax({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -482,7 +490,43 @@
     }else{
       alert("入力内容に不備があります。\n正しく入力してください。");
     }
-	});
+  });
+  
+  @if($blockToCheck > 0)
+  
+    $(document).on('click', '#block_off', function(){
+      const reportToUser = $(this);
+      const reportToId = reportToUser.attr('data-report');
+      const reportLevel = 0;
+      const reportDetail = "{{$blockToDetail}}";
+      $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },//Headersを書き忘れるとエラーになる
+          url: '/api/report',//ご自身のweb.phpのURLに合わせる
+          type: 'POST',//リクエストタイプ
+          data: {
+            'to_user_id': reportToId,
+            'from_user_id': {{ Auth::user()->id }},
+            'report_level': 0,
+            'report_detail': reportDetail,
+          },//Laravelに渡すデータ
+        })
+        // Ajaxリクエスト成功時の処理
+        .done(function(data) {
+          // Laravel内で処理された結果がdataに入って返ってくる
+          console.log("成功");
+          alert("ブロックを解除しました。");
+          location.reload();
+          // location.href = '{{ route('users.index') }}';
+        })
+        // Ajaxリクエスト失敗時の処理
+        .fail(function(data) {
+          alert('Ajaxリクエスト失敗');
+        });
+    });
+
+  @endif
   </script>
   @endif
 

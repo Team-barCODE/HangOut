@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(HobbyUserTableSeeder::class);
         $this->call(JobUserTableSeeder::class);
         $this->call(PersonalityUserTableSeeder::class);
+        $this->call(ReportsTableSeeder::class);
     }
 }

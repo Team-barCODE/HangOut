@@ -231,43 +231,51 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+        // [
+        //     'text' => 'change_password',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-lock',
+        // ],
         [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
+                [
+                    'text' => 'level_one',
+                    'url'  => 'admin/contact',
+                ],
+                [
+                    'text' => 'level_two',
+                    'url'  => 'admin/report',
+                ],
                 // [
-                //     'text' => 'level_one',
+                //     'text' => 'level_three',
                 //     'url'  => '#',
                 // ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        // [
-                        //     'text' => 'level_two',
-                        //     'url'  => '#',
-                        // ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                // [
-                                //     'text' => 'level_three',
-                                //     'url'  => '#',
-                                // ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => 'admin/contact',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
+                // [
+                //     'text'    => 'level_one',
+                //     'url'     => '#',
+                //     'submenu' => [
+                //         // [
+                //         //     'text' => 'level_two',
+                //         //     'url'  => '#',
+                //         // ],
+                //         [
+                //             'text'    => 'level_two',
+                //             'url'     => '#',
+                //             'submenu' => [
+                //                 // [
+                //                 //     'text' => 'level_three',
+                //                 //     'url'  => '#',
+                //                 // ],
+                //                 [
+                //                     'text' => 'level_three',
+                //                     'url'  => 'admin/contact',
+                //                 ],
+                //             ],
+                //         ],
+                //     ],
+                // ],
                 // [
                 //     'text' => 'level_one',
                 //     'url'  => '#',

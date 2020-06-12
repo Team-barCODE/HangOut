@@ -13,6 +13,7 @@ class Status
   const LIKE = 1;
   const DISLIKE = 2;
 
+  const REPORT_ZERO = 0;
   const REPORT_ONE = 1;
   const REPORT_TWO = 2;
   const REPORT_THREE = 3;

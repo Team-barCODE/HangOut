@@ -8,7 +8,7 @@
             </li>
         @endif
 
-        <li class="col-2 mb-2 mt-2 text-center">
+        <li class="col-2 mb-2 mt-2 p-0 text-center">
             <a class="" href="/users">
                 <img class="home_icon" src="/storage/images/sample_logo.png">
             </a>
@@ -44,7 +44,7 @@
                 <a class="btn btn-sm bg-white d-block font-weight-bold" href="{{ route('matching') }}">チャット</a>
             </li>
             <li class="list_none mt-2 mb-2 col-md-2">
-                <a class="btn btn-sm bg-white d-block font-weight-bold" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">ログアウト</a>
+                <a class="btn btn-sm bg-white d-block font-weight-bold" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">ログアウト</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
